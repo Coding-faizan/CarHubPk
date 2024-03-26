@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Input } from "react-native-elements";
-import LocationDropdown from "../AdFormInputs/LocationDropdown";
-import CameraIcon from "../AdFormInputs/CameraIcon";
+
 import BrandDropdown from "../AdFormInputs/BrandDropdown";
 import ModelDropdown from "../AdFormInputs/ModelDropdown";
 import { Colors } from "../../constants/colors";
