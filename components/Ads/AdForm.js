@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import { Input } from "react-native-elements";
+import { Input, Button } from "react-native-elements";
 
 import BrandDropdown from "../AdFormInputs/BrandDropdown";
 import ModelDropdown from "../AdFormInputs/ModelDropdown";
@@ -59,6 +59,16 @@ const AdForm = () => {
 
   const handlePriceChange = (price) => {
     setEnteredPrice(price);
+  };
+
+  const handleSubmit = () => {
+    console.log("Title:", enteredTitle);
+    console.log("Selected Location:", selectedLocation);
+    console.log("Selected Brand:", selectedBrand);
+    console.log("Selected Model:", selectedModel);
+    console.log("Milage:", enteredMilage);
+    console.log("Description:", enteredDescription);
+    console.log("Price:", enteredPrice);
   };
 
   return (
@@ -129,6 +139,12 @@ const AdForm = () => {
           leftIcon={<FontAwesome name="dollar" size={24} color="black" />}
         />
       </View>
+
+      <Button
+        title="Submit"
+        onPress={handleSubmit}
+        buttonStyle={styles.submitButton}
+      />
     </ScrollView>
   );
 };
@@ -177,5 +193,9 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingHorizontal: 16,
     paddingVertical: 12,
+  },
+  submitButton: {
+    marginTop: 20, // Adjust as needed
+    backgroundColor: "blue", // Change the color as needed
   },
 });
