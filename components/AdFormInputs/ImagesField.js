@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { launchCameraAsync, launchImageLibraryAsync } from "expo-image-picker";
 import { StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
-import CameraIcon from "./CameraIcon";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function imagesField() {

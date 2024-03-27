@@ -1,26 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
-
-import { Colors } from "../../constants/colors";
 import { Entypo } from "@expo/vector-icons";
+import { Colors } from "../../constants/colors";
 
 const LocationDropdown = ({ onLocationChange }) => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
+  const [locations, setLocations] = useState([]);
 
-  const cities = [
-    { label: "Karachi", value: "Karachi" },
-    { label: "Lahore", value: "Lahore" },
-    { label: "Islamabad", value: "Islamabad" },
-    { label: "Rawalpindi", value: "Rawalpindi" },
-    { label: "Faisalabad", value: "Faisalabad" },
-    { label: "Multan", value: "Multan" },
-    { label: "Hyderabad", value: "Hyderabad" },
-    { label: "Peshawar", value: "Peshawar" },
-    { label: "Quetta", value: "Quetta" },
-    { label: "Sialkot", value: "Sialkot" },
-  ];
+  useEffect(() => {
+    fetchLocations();
+  }, []);
+
+  const fetchLocations = () => {
+    fetch('https://motorpak.000webhostapp.com/carfilters_api/fetch_locations_api.php')
+      .then(response => response.json())
+      .then(data => {
+        const formattedData = data.map(item => ({
+          label: item.locationName,
+          value: item.locationName
+        }));
+        setLocations(formattedData);
+      })
+      .catch(error => console.error("Error fetching locations:", error));
+  };
 
   const renderLabel = () => {
     if (value || isFocus) {
@@ -38,11 +42,7 @@ const LocationDropdown = ({ onLocationChange }) => {
       {renderLabel()}
       <Dropdown
         style={[styles.dropdown, isFocus && { borderColor: Colors.primary }]}
-        placeholderStyle={styles.placeholderStyle}
-        selectedTextStyle={styles.selectedTextStyle}
-        inputSearchStyle={styles.inputSearchStyle}
-        iconStyle={styles.iconStyle}
-        data={cities}
+        data={locations}
         search
         maxHeight={300}
         labelField="label"
@@ -97,19 +97,5 @@ const styles = StyleSheet.create({
     zIndex: 999,
     paddingHorizontal: 8,
     fontSize: 14,
-  },
-  placeholderStyle: {
-    fontSize: 16,
-  },
-  selectedTextStyle: {
-    fontSize: 16,
-  },
-  iconStyle: {
-    width: 20,
-    height: 20,
-  },
-  inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
   },
 });

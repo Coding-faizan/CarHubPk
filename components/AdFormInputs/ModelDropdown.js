@@ -4,32 +4,38 @@ import { Dropdown } from "react-native-element-dropdown";
 import { Colors } from "../../constants/colors";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-const ModelDropdown = ({ selectedBrand, onModelChange }) => {
+const ModelDropdown = ({ selectedBrand }) => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
   const [carModels, setCarModels] = useState([]);
 
-  // Simulated car models data based on the selected brand
   useEffect(() => {
-    // You can fetch the car models data from an API based on the selected brand
-    // For simplicity, I'll use a static list of car models here
-    let models = [];
-    if (selectedBrand === "Toyota") {
-      models = [
-        { label: "Corolla", value: "Corolla" },
-        { label: "Camry", value: "Camry" },
-        { label: "Rav4", value: "Rav4" },
-      ];
-    } else if (selectedBrand === "Honda") {
-      models = [
-        { label: "Civic", value: "Civic" },
-        { label: "Accord", value: "Accord" },
-        { label: "CR-V", value: "CR-V" },
-      ];
-    } // Add more conditions for other brands as needed
-
-    setCarModels(models);
+    if (selectedBrand) {
+      console.log("Brand ID that comes from BrandDropdown is --", selectedBrand);
+      fetchModels(selectedBrand);
+    }
   }, [selectedBrand]);
+
+  const fetchModels = (brandId) => {
+    fetch('https://motorpak.000webhostapp.com/carfilters_api/fetch_models_api.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ m_id: brandId }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        //console.log("Fetched model data:", data);
+        
+        const modelData = data.map(item => ({
+          label: item.model_name,
+          value: item.model_name
+        }));
+        setCarModels(modelData);
+      })
+      .catch(error => console.error("Error fetching car models:", error));
+  };
 
   const renderLabel = () => {
     if (value || isFocus) {
@@ -60,7 +66,6 @@ const ModelDropdown = ({ selectedBrand, onModelChange }) => {
         onChange={(item) => {
           setValue(item.value);
           setIsFocus(false);
-          onModelChange(item.value); // Call the onModelChange function with the selected value
         }}
         renderLeftIcon={() => (
           <FontAwesome5 style={styles.icon} name="car" size={20} />

@@ -1,26 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
-import AntDesign from "@expo/vector-icons/AntDesign";
+
 import { Colors } from "../../constants/colors";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const BrandDropdown = ({ onBrandChange }) => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
+  const [carBrands, setCarBrands] = useState([]);
 
-  const carBrands = [
-    { label: "Toyota", value: "Toyota" },
-    { label: "Honda", value: "Honda" },
-    { label: "Ford", value: "Ford" },
-    { label: "Chevrolet", value: "Chevrolet" },
-    { label: "Nissan", value: "Nissan" },
-    { label: "BMW", value: "BMW" },
-    { label: "Mercedes-Benz", value: "Mercedes-Benz" },
-    { label: "Audi", value: "Audi" },
-    { label: "Hyundai", value: "Hyundai" },
-    { label: "Kia", value: "Kia" },
-  ];
+  useEffect(() => {
+    // Fetch car brands from the API
+    fetch(
+      "https://motorpak.000webhostapp.com/carfilters_api/fetch_makers_api.php"
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const formattedData = data.map((item) => ({
+          label: item.maker_name,
+          value: item.id,
+        }));
+        setCarBrands(formattedData);
+      })
+      .catch((error) => console.error("Error fetching car brands:", error));
+  }, []);
 
   const renderLabel = () => {
     if (value || isFocus) {
@@ -31,6 +35,12 @@ const BrandDropdown = ({ onBrandChange }) => {
       );
     }
     return null;
+  };
+
+  const onChangeBrand = (item) => {
+    setValue(item.value);
+    setIsFocus(false);
+    onBrandChange(item.value); // Call the onBrandChange function with the selected value
   };
 
   return (
@@ -49,9 +59,11 @@ const BrandDropdown = ({ onBrandChange }) => {
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
         onChange={(item) => {
-          setValue(item.value);
-          setIsFocus(false);
-          onBrandChange(item.value); // Call the onBrandChange function with the selected value
+          try {
+            onChangeBrand(item);
+          } catch (error) {
+            console.error("Error handling dropdown search:", error);
+          }
         }}
         renderLeftIcon={() => (
           <FontAwesome5 style={styles.icon} name="car" size={20} />

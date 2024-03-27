@@ -4,9 +4,9 @@ import { Input } from "react-native-elements";
 
 import BrandDropdown from "../AdFormInputs/BrandDropdown";
 import ModelDropdown from "../AdFormInputs/ModelDropdown";
-import { Colors } from "../../constants/colors";
 import { FontAwesome } from "@expo/vector-icons";
 import ImagesField from "../AdFormInputs/ImagesField";
+import LocationDropdown from "../AdFormInputs/LocationDropdown";
 
 const AdForm = () => {
   const [selectedLocation, setSelectedLocation] = useState(null);
@@ -49,6 +49,7 @@ const AdForm = () => {
         selectedBrand={selectedBrand}
         onModelChange={handleModelChange}
       />
+      <LocationDropdown />
       <View style={styles.container}>
         <Input
           containerStyle={styles.containerStyle}
