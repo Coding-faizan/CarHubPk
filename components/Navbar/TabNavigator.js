@@ -62,7 +62,7 @@ const screenOptions = {
   tabBarShowLabel: false,
   headerShown: false,
   tabBarStyle: {
-    position: "absolute", // Change position to absolute
+    position: "fixed", // Change position to absolute
     bottom: 0,
     right: 0,
     left: 0,

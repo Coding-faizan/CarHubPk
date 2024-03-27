@@ -4,15 +4,26 @@ import { Input } from "react-native-elements";
 
 import BrandDropdown from "../AdFormInputs/BrandDropdown";
 import ModelDropdown from "../AdFormInputs/ModelDropdown";
+import LocationDropdown from "../AdFormInputs/LocationDropdown";
 import { FontAwesome } from "@expo/vector-icons";
 import ImagesField from "../AdFormInputs/ImagesField";
-import LocationDropdown from "../AdFormInputs/LocationDropdown";
 
 const AdForm = () => {
+  const [imagesUrl, setImagesUrl] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [selectedBrand, setSelectedBrand] = useState(null);
   const [selectedModel, setSelectedModel] = useState(null);
-  const [kmDriven, setKmDriven] = useState("");
+  const [enteredTitle, setEnteredTitle] = useState("");
+  const [enteredRegistrationIn, setEnteredRegistrationIn] = useState("");
+  const [enteredMilage, setEnteredMilage] = useState("");
+  const [enteredTransmission, setEnteredTransmission] = useState("");
+  const [enteredDescription, setEnteredDescription] = useState("");
+  const [enteredPrice, setEnteredPrice] = useState("");
+
+  const handleImagesUrlChange = (newImagesUrl) => {
+    setImagesUrl(newImagesUrl);
+    console.log(newImagesUrl);
+  };
 
   const handleLocationChange = (location) => {
     setSelectedLocation(location);
@@ -20,28 +31,46 @@ const AdForm = () => {
 
   const handleBrandChange = (brand) => {
     setSelectedBrand(brand);
-    console.log(brand);
   };
 
-  const handleModelChange = (brand) => {
-    setSelectedModel(brand);
-    console.log(brand);
+  const handleModelChange = (model) => {
+    setSelectedModel(model);
   };
 
-  const handleKmDrivenChange = (km) => {
-    setKmDriven(km);
+  const handleTitleChange = (title) => {
+    setEnteredTitle(title);
+  };
+
+  const handleRegistrationInChange = (registrationIn) => {
+    setEnteredRegistrationIn(registrationIn);
+  };
+
+  const handleMilageChange = (milage) => {
+    setEnteredMilage(milage);
+  };
+
+  const handleTransmissionChange = (transmission) => {
+    setEnteredTransmission(transmission);
+  };
+
+  const handleDescriptionChange = (description) => {
+    setEnteredDescription(description);
+  };
+
+  const handlePriceChange = (price) => {
+    setEnteredPrice(price);
   };
 
   return (
     <ScrollView style={styles.form}>
-      <ImagesField />
+      <ImagesField onChangeImages={handleImagesUrlChange} />
       <View style={styles.container}>
         <Input
           containerStyle={styles.containerStyle}
           inputStyle={styles.inputStyle}
           placeholder="Title"
-          value={kmDriven}
-          onChangeText={handleKmDrivenChange}
+          value={enteredTitle}
+          onChangeText={handleTitleChange}
         />
       </View>
       <BrandDropdown onBrandChange={handleBrandChange} />
@@ -49,15 +78,55 @@ const AdForm = () => {
         selectedBrand={selectedBrand}
         onModelChange={handleModelChange}
       />
-      <LocationDropdown />
+      <LocationDropdown onLocationChange={handleLocationChange} />
+      <View style={styles.Rcontainer}>
+        <Input
+          label="Registration In"
+          containerStyle={styles.containerStyle}
+          inputStyle={styles.inputStyle}
+          placeholder="e.g Punjab 2000"
+          value={enteredRegistrationIn}
+          onChangeText={handleRegistrationInChange}
+        />
+      </View>
       <View style={styles.container}>
         <Input
           containerStyle={styles.containerStyle}
           inputStyle={styles.inputStyle}
+          placeholder="Milieage"
+          value={enteredMilage}
+          onChangeText={handleMilageChange}
+          leftIcon={<FontAwesome name="tachometer" size={24} color="black" />}
+          keyboardType="numeric"
+        />
+      </View>
+      <View style={styles.container}>
+        <Input
+          containerStyle={styles.containerStyle}
+          inputStyle={styles.inputStyle}
+          placeholder="Transmission"
+          value={enteredTransmission}
+          onChangeText={handleTransmissionChange}
+          leftIcon={<FontAwesome name="gear" size={24} color="black" />}
+        />
+      </View>
+      <View style={styles.container}>
+        <Input
+          containerStyle={styles.containerStyle}
+          inputStyle={styles.inputStyle}
+          placeholder="Description"
+          value={enteredDescription}
+          onChangeText={handleDescriptionChange}
+        />
+      </View>
+      <View style={styles.last}>
+        <Input
+          containerStyle={styles.containerStyle}
+          inputStyle={styles.inputStyle}
           placeholder="Price"
-          value={kmDriven}
-          onChangeText={handleKmDrivenChange}
-          leftIcon={<FontAwesome name="dollar" size={20} color="black" />}
+          value={enteredPrice}
+          onChangeText={handlePriceChange}
+          leftIcon={<FontAwesome name="dollar" size={24} color="black" />}
         />
       </View>
     </ScrollView>
@@ -72,6 +141,14 @@ const styles = StyleSheet.create({
   },
   container: {
     marginTop: 6,
+    borderRadius: 10,
+    backgroundColor: "white",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+  Rcontainer: {
+    marginTop: 6,
+    marginBottom: 4,
     borderRadius: 10,
     backgroundColor: "white",
     paddingHorizontal: 16,
@@ -92,5 +169,13 @@ const styles = StyleSheet.create({
   },
   inputStyle: {
     fontSize: 16, // Optional: Adjust the font size
+  },
+  last: {
+    marginTop: 6,
+    marginBottom: 50,
+    borderRadius: 10,
+    backgroundColor: "white",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
 });

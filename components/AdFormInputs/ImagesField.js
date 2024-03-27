@@ -1,22 +1,23 @@
-import { View, Text, Image, ScrollView } from "react-native";
 import React, { useState } from "react";
-import { launchCameraAsync, launchImageLibraryAsync } from "expo-image-picker";
-import { StyleSheet } from "react-native";
+import { View, Text, Image, ScrollView, StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
+import { launchCameraAsync, launchImageLibraryAsync } from "expo-image-picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-export default function imagesField() {
+export default function ImagesField({ onChangeImages }) {
   const [selectedImages, setSelectedImages] = useState([]);
 
-  const takeImageHanlder = async () => {
+  const takeImageHandler = async () => {
     const image = await launchCameraAsync({
       allowsEditing: true,
       quality: 0.5,
     });
 
-    console.log(image);
-
-    setSelectedImages((prevImages) => [...prevImages, image.assets[0].uri]);
+    if (!image.cancelled) {
+      setSelectedImages((prevImages) => [...prevImages, image.assets[0].uri]);
+      console.log(selectedImages);
+      onChangeImages([...selectedImages, image.assets[0].uri]);
+    }
   };
 
   const imageFromGalleryHandler = async () => {
@@ -25,9 +26,11 @@ export default function imagesField() {
       quality: 0.5,
     });
 
-    console.log(image);
+    if (!image.cancelled) {
+      setSelectedImages((prevImages) => [...prevImages, image.assets[0].uri]);
 
-    setSelectedImages((prevImages) => [...prevImages, image.assets[0].uri]);
+      onChangeImages([...selectedImages, image.assets[0].uri]);
+    }
   };
 
   let imagePreview;
@@ -59,9 +62,8 @@ export default function imagesField() {
   return (
     <View style={styles.container}>
       {imagePreview}
-
       <View style={styles.btnContainer}>
-        <Button title="Open camera" onPress={takeImageHanlder} />
+        <Button title="Open camera" onPress={takeImageHandler} />
         <Button title="Open Gallery" onPress={imageFromGalleryHandler} />
       </View>
     </View>
@@ -97,5 +99,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     margin: 6,
+  },
+  label: {
+    marginTop: 10,
   },
 });
