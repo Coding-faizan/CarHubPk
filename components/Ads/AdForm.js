@@ -7,6 +7,7 @@ import ModelDropdown from "../AdFormInputs/ModelDropdown";
 import LocationDropdown from "../AdFormInputs/LocationDropdown";
 import { FontAwesome } from "@expo/vector-icons";
 import ImagesField from "../AdFormInputs/ImagesField";
+import { Colors } from "../../constants/colors";
 
 const AdForm = () => {
   const [imagesUrl, setImagesUrl] = useState([]);
@@ -22,7 +23,6 @@ const AdForm = () => {
 
   const handleImagesUrlChange = (newImagesUrl) => {
     setImagesUrl(newImagesUrl);
-    console.log(newImagesUrl);
   };
 
   const handleLocationChange = (location) => {
@@ -62,6 +62,7 @@ const AdForm = () => {
   };
 
   const handleSubmit = () => {
+    console.log(imagesUrl);
     console.log("Title:", enteredTitle);
     console.log("Selected Location:", selectedLocation);
     console.log("Selected Brand:", selectedBrand);
@@ -137,11 +138,12 @@ const AdForm = () => {
           value={enteredPrice}
           onChangeText={handlePriceChange}
           leftIcon={<FontAwesome name="dollar" size={24} color="black" />}
+          keyboardType="numeric"
         />
       </View>
 
       <Button
-        title="Submit"
+        title="Post Ad"
         onPress={handleSubmit}
         buttonStyle={styles.submitButton}
       />
@@ -188,14 +190,15 @@ const styles = StyleSheet.create({
   },
   last: {
     marginTop: 6,
-    marginBottom: 50,
+    marginBottom: 6,
     borderRadius: 10,
     backgroundColor: "white",
     paddingHorizontal: 16,
     paddingVertical: 12,
   },
   submitButton: {
-    marginTop: 20, // Adjust as needed
-    backgroundColor: "blue", // Change the color as needed
+    marginTop: 5, // Adjust as needed
+    marginBottom: 60,
+    backgroundColor: Colors.secondary, // Change the color as needed
   },
 });
