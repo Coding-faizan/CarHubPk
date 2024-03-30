@@ -210,7 +210,7 @@ const handleSubmit = () => {
                                 price: enteredPrice,
                                 mileage: enteredMilage,
                                 fuelType: '', // Add fuel type if available
-                                transmission: '', // Add transmission type if available
+                                transmission: enteredTransmission, // Add transmission type if available
                                 carCondition: 'Used', // Assuming car condition is always 'Used'
                                 description: enteredDescription,
                                 sellerID: 1001, // Hardcoding sellerID to 1001
