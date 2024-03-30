@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Input, Button } from "react-native-elements";
-
 import BrandDropdown from "../AdFormInputs/BrandDropdown";
 import ModelDropdown from "../AdFormInputs/ModelDropdown";
 import LocationDropdown from "../AdFormInputs/LocationDropdown";
 import { FontAwesome } from "@expo/vector-icons";
 import ImagesField from "../AdFormInputs/ImagesField";
 import { Colors } from "../../constants/colors";
+//import axios from 'axios';
+import { Alert } from 'react-native';
+import { Buffer } from 'buffer';
+
 
 const AdForm = () => {
   const [imagesUrl, setImagesUrl] = useState([]);
@@ -61,16 +64,155 @@ const AdForm = () => {
     setEnteredPrice(price);
   };
 
+const cloudName = 'dcp21awsm';
+const apiKey = '397776926763822';
+const apiSecret = 'bdtY4Wxb80BowEgVAoKaqqJe4MI';
+const uploadPreset = 'car_images';
+
+const uploadImageToCloudinary = async (imageUri) => {
+    try {
+        const formData = new FormData();
+        formData.append('file', { uri: imageUri, name: 'image.jpg', type: 'image/jpeg' });
+        formData.append('upload_preset', uploadPreset);
+
+        const base64Credentials = Buffer.from(`${apiKey}:${apiSecret}`).toString('base64');
+
+        const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization': 'Basic ' + base64Credentials
+            },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            if (data && data.secure_url) {
+                //console.log('Image uploaded successfully:', data.secure_url);
+                return data.secure_url;
+            } else {
+                console.error('Failed to retrieve image URL from response:', data);
+                Alert.alert('Error', 'Failed to retrieve image URL from response. Please try again.');
+                return null;
+            }
+        } else {
+            console.error('Failed to upload image:', response.statusText);
+            Alert.alert('Error', 'Failed to upload image. Please try again.');
+            return null;
+        }
+    } catch (error) {
+        console.error('Error uploading image:', error);
+        Alert.alert('Error', 'An error occurred while uploading image. Please try again.');
+        return null;
+    }
+};
+
+
+const handleUploadImages = async (carID, imagesUrl, callback) => {
+    // Check if carID is fetched successfully
+    if (!carID) {
+        console.error("Error: Car ID is not fetched successfully");
+        return;
+    }
+
+    // Check if imagesUrl is defined and not empty
+    if (!imagesUrl || imagesUrl.length === 0) {
+        console.error("Error: imagesUrl is not properly defined or is empty");
+        return;
+    }
+
+    try {
+        const uploadedImageUrls = [];
+
+        // Iterate through each image URL
+        for (let i = 0; i < imagesUrl.length; i++) {
+            const imageUrl = imagesUrl[i];
+            // Split the image URL by '/' to get the filename
+            const imageName = imageUrl.split('/').pop();
+            
+            // Construct the new filename with carID + imageName
+            const newFilename = `${carID}_${imageName}`;
+
+            // Upload image to Cloudinary and get the URL
+            const uploadedImageUrl = await uploadImageToCloudinary(imageUrl);
+            
+            // If upload successful, add URL to the array
+            if (uploadedImageUrl) {
+                uploadedImageUrls.push(uploadedImageUrl);
+            }
+        }
+
+        // Execute the callback with the array of uploaded image URLs
+        callback(uploadedImageUrls);
+
+    } catch (error) {
+        console.error('Error uploading image:', error);
+        Alert.alert('Error', 'An error occurred while uploading image. Please try again.');
+    }
+};
+
+
+
   const handleSubmit = () => {
-    console.log(imagesUrl);
-    console.log("Title:", enteredTitle);
-    console.log("Selected Location:", selectedLocation);
-    console.log("Selected Brand:", selectedBrand);
-    console.log("Selected Model:", selectedModel);
-    console.log("Milage:", enteredMilage);
-    console.log("Description:", enteredDescription);
-    console.log("Price:", enteredPrice);
-  };
+    let brandName = null;
+    let carID = null;
+
+    // Fetch brand name
+    fetch('https://motorpak.000webhostapp.com/carfilters_api/fetch_makers_with_id_api.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: selectedBrand }), // Assuming 'selectedBrand' contains the brand ID
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Assuming the API returns the name in the 'maker_name' field
+        if (Array.isArray(data) && data.length > 0 && data[0].maker_name) {
+            brandName = data[0].maker_name;
+    
+            // Fetch car ID
+            fetch('https://motorpak.000webhostapp.com/car_api/fetch_car_id_api.php')
+            .then(response => response.json())
+            .then(data => {
+                // Assuming the API returns the car ID in the 'LastCarID' field
+                if (data && data.LastCarID) {
+                    // Log the car ID plus 1
+                    carID = parseInt(data.LastCarID) + 1;
+                    
+                    console.log('Car ID :', carID);
+                    
+                    // Call function to handle image upload to Cloudinary
+                    
+                    handleUploadImages(carID, imagesUrl, (uploadedUrls) => {
+                     // This code block is executed after the upload operation completes
+                     if (!uploadedUrls || !enteredTitle || !selectedLocation || !brandName || !selectedModel || !enteredMilage || !enteredDescription || !enteredPrice) {
+                       Alert.alert("Please fill all fields.");
+                      } else {
+                          console.log('Uploaded image URLs:', uploadedUrls);
+                          console.log("Title:", enteredTitle);
+                          console.log("Selected Location:", selectedLocation);
+                          console.log("Selected Brand:", brandName);
+                          console.log("Selected Model:", selectedModel);
+                          console.log("Milage:", enteredMilage);
+                          console.log("Description:", enteredDescription);
+                          console.log("Price:", enteredPrice);
+                      }
+});
+                } else {
+                    console.error("Error: Invalid API response format for car ID");
+                }
+            })
+            .catch(error => console.error("Error fetching car ID:", error));
+        } else {
+            console.error("Error: Invalid API response format for brand name");
+        }
+    })
+    .catch(error => console.error("Error fetching brand name:", error));
+};
+
 
   return (
     <ScrollView style={styles.form}>
