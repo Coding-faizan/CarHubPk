@@ -155,7 +155,7 @@ const handleUploadImages = async (carID, imagesUrl, callback) => {
 
 
 
-  const handleSubmit = () => {
+const handleSubmit = () => {
     let brandName = null;
     let carID = null;
 
@@ -172,7 +172,7 @@ const handleUploadImages = async (carID, imagesUrl, callback) => {
         // Assuming the API returns the name in the 'maker_name' field
         if (Array.isArray(data) && data.length > 0 && data[0].maker_name) {
             brandName = data[0].maker_name;
-    
+
             // Fetch car ID
             fetch('https://motorpak.000webhostapp.com/car_api/fetch_car_id_api.php')
             .then(response => response.json())
@@ -181,26 +181,81 @@ const handleUploadImages = async (carID, imagesUrl, callback) => {
                 if (data && data.LastCarID) {
                     // Log the car ID plus 1
                     carID = parseInt(data.LastCarID) + 1;
-                    
+
                     console.log('Car ID :', carID);
-                    
+
                     // Call function to handle image upload to Cloudinary
-                    
+
                     handleUploadImages(carID, imagesUrl, (uploadedUrls) => {
-                     // This code block is executed after the upload operation completes
-                     if (!uploadedUrls || !enteredTitle || !selectedLocation || !brandName || !selectedModel || !enteredMilage || !enteredDescription || !enteredPrice) {
-                       Alert.alert("Please fill all fields.");
-                      } else {
-                          console.log('Uploaded image URLs:', uploadedUrls);
-                          console.log("Title:", enteredTitle);
-                          console.log("Selected Location:", selectedLocation);
-                          console.log("Selected Brand:", brandName);
-                          console.log("Selected Model:", selectedModel);
-                          console.log("Milage:", enteredMilage);
-                          console.log("Description:", enteredDescription);
-                          console.log("Price:", enteredPrice);
-                      }
-});
+                        // This code block is executed after the upload operation completes
+                        if (!uploadedUrls || !enteredTitle || !selectedLocation || !brandName || !selectedModel || !enteredMilage || !enteredDescription || !enteredPrice) {
+                            Alert.alert("Please fill all fields.");
+                        } else {
+                            console.log('Uploaded image URLs:', uploadedUrls);
+                            console.log("Title:", enteredTitle);
+                            console.log("Selected Location:", selectedLocation);
+                            console.log("Selected Brand:", brandName);
+                            console.log("Selected Model:", selectedModel);
+                            console.log("Milage:", enteredMilage);
+                            console.log("Description:", enteredDescription);
+                            console.log("Price:", enteredPrice);
+
+                            const apiEndpoint = 'https://motorpak.000webhostapp.com/car_api/post_car_api.php';
+
+                            const data = {
+                                makerName: brandName,
+                                modelName: selectedModel,
+                                variant: '', // You can add this if you have a variant field
+                                registrationYear: '', // Add registration year if available
+                                price: enteredPrice,
+                                mileage: enteredMilage,
+                                fuelType: '', // Add fuel type if available
+                                transmission: '', // Add transmission type if available
+                                carCondition: 'Used', // Assuming car condition is always 'Used'
+                                description: enteredDescription,
+                                sellerID: 1001, // Hardcoding sellerID to 1001
+                                location: selectedLocation,
+                                carStatus: 'Active', // Assuming car status is always 'Active'
+                                images: uploadedUrls,
+                                title: enteredTitle
+                            };
+
+                            fetch(apiEndpoint, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(data)
+                            })
+                            .then(response => response.json())
+                            .then(responseData => {
+                                console.log('Response from server:', responseData);
+                                // Handle success or failure based on responseData
+
+                                // Example:
+                                if (responseData.success) {
+                                    // Success
+                                   // const navigation = useNavigation();
+                                     Alert.alert('Success', 'Ad posted successfully.', [
+                                            {
+                                                text: 'OK',
+                                                onPress: () => {
+                                                    // Navigate to the home screen
+                                                    //navigation.navigate('../Ads/AdsList.js');
+                                                }
+                                            }
+                                        ]);
+                                } else {
+                                    // Failure
+                                    Alert.alert('Error', 'Failed to post ad. Please try again.');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error posting data:', error.message);
+                                Alert.alert('Error', 'Failed to post data to the server. Please try again later.');
+                            });
+                        }
+                    });
                 } else {
                     console.error("Error: Invalid API response format for car ID");
                 }
@@ -212,6 +267,7 @@ const handleUploadImages = async (carID, imagesUrl, callback) => {
     })
     .catch(error => console.error("Error fetching brand name:", error));
 };
+
 
 
   return (
