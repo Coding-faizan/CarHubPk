@@ -279,14 +279,13 @@ const AdForm = () => {
                         // Example:
                         if (responseData.success) {
                           // Success
-                          // const navigation = useNavigation();
+                          resetForm();
                           Alert.alert("Success", "Ad posted successfully.", [
                             {
                               text: "OK",
-                              onPress: () => {
-                                // Navigate to the home screen
-                                //navigation.navigate('../Ads/AdsList.js');
-                              },
+                              //onPress: () => {
+                                navigation.navigate("Home");
+                              //},
                             },
                           ]);
                         } else {
