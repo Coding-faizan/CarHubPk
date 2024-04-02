@@ -13,6 +13,7 @@ import { Buffer } from 'buffer';
 import { useNavigation } from '@react-navigation/native';
 
 const AdForm = () => {
+  const navigation = useNavigation();
 
 
   const [imagesUrl, setImagesUrl] = useState([]);
@@ -26,6 +27,22 @@ const AdForm = () => {
   const [enteredDescription, setEnteredDescription] = useState("");
   const [enteredPrice, setEnteredPrice] = useState("");
 
+
+
+    const resetForm = () => {
+    setImagesUrl([]);
+    setSelectedLocation(null);
+    setSelectedBrand(null);
+    setSelectedModel(null);
+    setEnteredTitle("");
+    setEnteredRegistrationIn("");
+    setEnteredMilage("");
+    setEnteredTransmission("");
+    setEnteredDescription("");
+    setEnteredPrice("");
+   
+
+  };
   const handleImagesUrlChange = (newImagesUrl) => {
     setImagesUrl(newImagesUrl);
   };
@@ -159,7 +176,6 @@ const handleUploadImages = async (carID, imagesUrl, callback) => {
 
 
 const handleSubmit = () => {
-  const navigation = useNavigation();
     let brandName = null;
     let carID = null;
 
@@ -243,6 +259,9 @@ const handleSubmit = () => {
                                             {
                                                 text: 'OK',
                                                 onPress: () => {
+                                                resetForm();
+
+                                                
                                           navigation.navigate('Home');
                                                     
                                                 }
