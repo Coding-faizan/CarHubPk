@@ -10,9 +10,11 @@ import { Colors } from "../../constants/colors";
 //import axios from 'axios';
 import { Alert } from 'react-native';
 import { Buffer } from 'buffer';
-
+import { useNavigation } from '@react-navigation/native';
 
 const AdForm = () => {
+
+
   const [imagesUrl, setImagesUrl] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [selectedBrand, setSelectedBrand] = useState(null);
@@ -157,6 +159,7 @@ const handleUploadImages = async (carID, imagesUrl, callback) => {
 
 
 const handleSubmit = () => {
+  const navigation = useNavigation();
     let brandName = null;
     let carID = null;
 
@@ -170,31 +173,31 @@ const handleSubmit = () => {
     })
     .then(response => response.json())
     .then(data => {
-        // Assuming the API returns the name in the 'maker_name' field
-        if (Array.isArray(data) && data.length > 0 && data[0].maker_name) {
-            brandName = data[0].maker_name;
-
-            // Fetch car ID
-            fetch('https://motorpak.000webhostapp.com/car_api/fetch_car_id_api.php')
-            .then(response => response.json())
-            .then(data => {
-                // Assuming the API returns the car ID in the 'LastCarID' field
-                if (data && data.LastCarID) {
-                    // Log the car ID plus 1
-                    carID = parseInt(data.LastCarID) + 1;
-
-                    console.log('Car ID :', carID);
-
-                    // Call function to handle image upload to Cloudinary
-
-                    handleUploadImages(carID, imagesUrl, (uploadedUrls) => {
-                        // This code block is executed after the upload operation completes
-                        if (!uploadedUrls || !enteredTitle || !selectedLocation || !brandName || !selectedModel || !enteredMilage || !enteredDescription || !enteredPrice) {
-                            Alert.alert("Please fill all fields.");
-                        } else {
-                            console.log('Uploaded image URLs:', uploadedUrls);
-                            console.log("Title:", enteredTitle);
-                            console.log("Selected Location:", selectedLocation);
+      // Assuming the API returns the name in the 'maker_name' field
+      if (Array.isArray(data) && data.length > 0 && data[0].maker_name) {
+        brandName = data[0].maker_name;
+        
+        // Fetch car ID
+        fetch('https://motorpak.000webhostapp.com/car_api/fetch_car_id_api.php')
+        .then(response => response.json())
+        .then(data => {
+          // Assuming the API returns the car ID in the 'LastCarID' field
+          if (data && data.LastCarID) {
+            // Log the car ID plus 1
+            carID = parseInt(data.LastCarID) + 1;
+            
+            console.log('Car ID :', carID);
+            
+            // Call function to handle image upload to Cloudinary
+            
+            handleUploadImages(carID, imagesUrl, (uploadedUrls) => {
+              // This code block is executed after the upload operation completes
+              if (!uploadedUrls || !enteredTitle || !selectedLocation || !brandName || !selectedModel || !enteredMilage || !enteredDescription || !enteredPrice) {
+                Alert.alert("Please fill all fields.");
+              } else {
+                console.log('Uploaded image URLs:', uploadedUrls);
+                console.log("Title:", enteredTitle);
+                console.log("Selected Location:", selectedLocation);
                             console.log("Selected Brand:", brandName);
                             console.log("Selected Model:", selectedModel);
                             console.log("Milage:", enteredMilage);
@@ -236,13 +239,12 @@ const handleSubmit = () => {
                                 // Example:
                                 if (responseData.success) {
                                     // Success
-                                   // const navigation = useNavigation();
                                      Alert.alert('Success', 'Ad posted successfully.', [
                                             {
                                                 text: 'OK',
                                                 onPress: () => {
-                                                    // Navigate to the home screen
-                                                    //navigation.navigate('../Ads/AdsList.js');
+                                          navigation.navigate('Home');
+                                                    
                                                 }
                                             }
                                         ]);
@@ -342,14 +344,14 @@ const handleSubmit = () => {
       </View>
 
       <Button
-        title="Post Ad"
-        onPress={handleSubmit}
-        buttonStyle={styles.submitButton}
-      />
-    </ScrollView>
-  );
-};
-
+              title="Post Ad"
+              onPress={handleSubmit}
+              buttonStyle={styles.submitButton}
+            
+            />
+          </ScrollView>
+        );
+      };
 export default AdForm;
 
 const styles = StyleSheet.create({
