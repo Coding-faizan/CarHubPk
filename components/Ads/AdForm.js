@@ -29,20 +29,6 @@ const AdForm = () => {
 
 
 
-    const resetForm = () => {
-    setImagesUrl([]);
-    setSelectedLocation(null);
-    setSelectedBrand(null);
-    setSelectedModel(null);
-    setEnteredTitle("");
-    setEnteredRegistrationIn("");
-    setEnteredMilage("");
-    setEnteredTransmission("");
-    setEnteredDescription("");
-    setEnteredPrice("");
-   
-
-  };
   const handleImagesUrlChange = (newImagesUrl) => {
     setImagesUrl(newImagesUrl);
   };
@@ -255,7 +241,6 @@ const handleSubmit = () => {
                                 // Example:
                                 if (responseData.success) {
                                     // Success
-                                    resetForm();
                                      Alert.alert('Success', 'Ad posted successfully.', [
                                             {
                                                 text: 'OK',
