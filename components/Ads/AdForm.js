@@ -279,13 +279,12 @@ const AdForm = () => {
                         // Example:
                         if (responseData.success) {
                           // Success
-                          resetForm();
                           Alert.alert("Success", "Ad posted successfully.", [
                             {
                               text: "OK",
-                              //onPress: () => {
+                              onPress: () => {
                                 navigation.navigate("Home");
-                              //},
+                              },
                             },
                           ]);
                         } else {
