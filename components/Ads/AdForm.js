@@ -12,6 +12,8 @@ import { Alert } from "react-native";
 import { Buffer } from "buffer";
 
 const AdForm = () => {
+  const navigation = useNavigation();
+
   const [imagesUrl, setImagesUrl] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [selectedBrand, setSelectedBrand] = useState(null);
@@ -25,6 +27,18 @@ const AdForm = () => {
 
   const [isPosting, setIsPosting] = useState(false);
 
+  const resetForm = () => {
+    setImagesUrl([]);
+    setSelectedLocation(null);
+    setSelectedBrand(null);
+    setSelectedModel(null);
+    setEnteredTitle("");
+    setEnteredRegistrationIn("");
+    setEnteredMilage("");
+    setEnteredTransmission("");
+    setEnteredDescription("");
+    setEnteredPrice("");
+  };
   const handleImagesUrlChange = (newImagesUrl) => {
     setImagesUrl(newImagesUrl);
   };
@@ -265,32 +279,18 @@ const AdForm = () => {
                         // Example:
                         if (responseData.success) {
                           // Success
-                          setIsPosting(true);
-                          Alert.alert(
-                            "Success",
-                            "Ad posted successfully.Post another ad after 5 mins."
-                          );
-
-                          // Reset form values to null after submission
-                          setImagesUrl([]);
-                          setSelectedLocation(null);
-                          setSelectedBrand(null);
-                          setSelectedModel(null);
-                          setEnteredTitle("");
-                          setEnteredRegistrationIn("");
-                          setEnteredMilage("");
-                          setEnteredTransmission("");
-                          setEnteredDescription("");
-                          setEnteredPrice("");
-
-                          // Add a cooldown of 5 minutes (300000 milliseconds) before allowing another post
-                          setTimeout(() => {
-                            setIsPosting(false);
-                            // You can enable posting again after cooldown
-                          }, 300000); // 5 minutes
+                          // const navigation = useNavigation();
+                          Alert.alert("Success", "Ad posted successfully.", [
+                            {
+                              text: "OK",
+                              onPress: () => {
+                                // Navigate to the home screen
+                                //navigation.navigate('../Ads/AdsList.js');
+                              },
+                            },
+                          ]);
                         } else {
                           // Failure
-                          setIsPosting(false);
                           Alert.alert(
                             "Error",
                             "Failed to post ad. Please try again."
@@ -392,7 +392,6 @@ const AdForm = () => {
         title="Post Ad"
         onPress={handleSubmit}
         buttonStyle={styles.submitButton}
-        disabled={isPosting}
       />
     </ScrollView>
   );

@@ -11,7 +11,7 @@
   "dependencies": {
     "@expo/vector-icons": "^14.0.0",
     "@react-navigation/bottom-tabs": "^6.5.19",
-    "@react-navigation/native": "^6.1.16",
+    "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.25",
     "@react-navigation/stack": "^6.3.29",
     "axios": "^1.6.8",
@@ -21,7 +21,7 @@
     "expo-status-bar": "~1.11.1",
     "link": "^2.1.0",
     "react": "18.2.0",
-    "react-native": "^0.73.5",
+    "react-native": "^0.73.6",
     "react-native-element-dropdown": "^2.10.2",
     "react-native-elements": "^3.4.3",
     "react-native-image-picker": "^7.1.2",
