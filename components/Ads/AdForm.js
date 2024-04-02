@@ -91,6 +91,7 @@ const uploadImageToCloudinary = async (imageUri) => {
             const data = await response.json();
             if (data && data.secure_url) {
                 //console.log('Image uploaded successfully:', data.secure_url);
+                
                 return data.secure_url;
             } else {
                 console.error('Failed to retrieve image URL from response:', data);
@@ -206,7 +207,7 @@ const handleSubmit = () => {
                                 makerName: brandName,
                                 modelName: selectedModel,
                                 variant: '', // You can add this if you have a variant field
-                                registrationYear: '', // Add registration year if available
+                                registrationYear:enteredRegistrationIn, // Add registration year if available
                                 price: enteredPrice,
                                 mileage: enteredMilage,
                                 fuelType: '', // Add fuel type if available
