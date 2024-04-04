@@ -13,7 +13,7 @@ export default function ImagesField({ onChangeImages }) {
       quality: 0.5,
     });
 
-    if (!image.cancelled) {
+    if (!image.canceled) {
       setSelectedImages((prevImages) => [...prevImages, image.assets[0].uri]);
       console.log(selectedImages);
       onChangeImages([...selectedImages, image.assets[0].uri]);
@@ -26,7 +26,7 @@ export default function ImagesField({ onChangeImages }) {
       quality: 0.5,
     });
 
-    if (!image.cancelled) {
+    if (!image.canceled) {
       setSelectedImages((prevImages) => [...prevImages, image.assets[0].uri]);
 
       onChangeImages([...selectedImages, image.assets[0].uri]);

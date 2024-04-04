@@ -10,7 +10,7 @@ import { Colors } from "../../constants/colors";
 //import axios from 'axios';
 import { Alert } from "react-native";
 import { Buffer } from "buffer";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 
 const AdForm = () => {
   const navigation = useNavigation();
@@ -280,15 +280,24 @@ const AdForm = () => {
                         // Example:
                         if (responseData.success) {
                           // Success
-                          resetForm();
-                          Alert.alert("Success", "Ad posted successfully.", [
-                            {
-                              text: "OK",
-                              onPress: () => {
-                                navigation.navigate("Home");
+                          Alert.alert(
+                            "Success",
+                            "Ad posted successfully! Post another ad after 5 mins.",
+                            [
+                              {
+                                text: "OK",
+                                onPress: () => {
+                                  navigation.navigate("Home");
+                                },
                               },
-                            },
-                          ]);
+                            ]
+                          );
+                          setIsPosting(true);
+                          resetForm();
+                          setTimeout(() => {
+                            // Reset isPosting to false after cooldown
+                            setIsPosting(false);
+                          }, 300000); // 5 minutes
                         } else {
                           // Failure
                           Alert.alert(
@@ -392,6 +401,7 @@ const AdForm = () => {
         title="Post Ad"
         onPress={handleSubmit}
         buttonStyle={styles.submitButton}
+        disabled={isPosting}
       />
     </ScrollView>
   );
