@@ -235,15 +235,6 @@ const AdForm = () => {
                   ) {
                     Alert.alert("Please fill all fields.");
                   } else {
-                    console.log("Uploaded image URLs:", uploadedUrls);
-                    console.log("Title:", enteredTitle);
-                    console.log("Selected Location:", selectedLocation);
-                    console.log("Selected Brand:", brandName);
-                    console.log("Selected Model:", selectedModel);
-                    console.log("Milage:", enteredMilage);
-                    console.log("Description:", enteredDescription);
-                    console.log("Price:", enteredPrice);
-
                     const apiEndpoint =
                       "https://motorpak.000webhostapp.com/car_api/post_car_api.php";
 
@@ -455,6 +446,6 @@ const styles = StyleSheet.create({
   submitButton: {
     marginTop: 5, // Adjust as needed
     marginBottom: 60,
-    backgroundColor: Colors.secondary, // Change the color as needed
+    backgroundColor: Colors.primary800, // Change the color as needed
   },
 });

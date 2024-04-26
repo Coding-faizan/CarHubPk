@@ -8,9 +8,9 @@ const AdsIcon = ({ focused }) => (
     <MaterialCommunityIcons
       name="advertisements"
       size={24}
-      color={focused ? Colors.primary : "#111"}
+      color={focused ? Colors.primary500 : "#111"}
     />
-    <Text style={{ fontSize: 12, color: Colors.primary }}>Ads</Text>
+    <Text style={{ fontSize: 12, color: Colors.primary500 }}>Ads</Text>
   </View>
 );
 

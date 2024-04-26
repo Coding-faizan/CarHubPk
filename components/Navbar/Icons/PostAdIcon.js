@@ -11,8 +11,8 @@ const PostAdIcon = ({ focused }) => (
       top: Platform.OS === "ios" ? -10 : -20,
       width: Platform.OS === "ios" ? 50 : 60,
       height: Platform.OS === "ios" ? 50 : 60,
-      borderRadius: Platform.OS === "ios" ? 25 : 30,
-      backgroundColor: Colors.primary,
+      borderRadius: Platform.OS === "ios" ? 25 : 50,
+      backgroundColor: Colors.primary500,
     }}
   >
     <AntDesign name="pluscircle" size={24} color={"#111"} />

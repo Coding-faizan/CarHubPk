@@ -5,8 +5,12 @@ import { Colors } from "../../../constants/colors";
 
 const HomeIcon = ({ focused }) => (
   <View style={{ alignItems: "center", justifyContent: "center" }}>
-    <Entypo name="home" size={24} color={focused ? Colors.primary : "#111"} />
-    <Text style={{ fontSize: 12, color: Colors.primary }}>Home</Text>
+    <Entypo
+      name="home"
+      size={24}
+      color={focused ? Colors.primary500 : "#111"}
+    />
+    <Text style={{ fontSize: 12, color: Colors.primary500 }}>Home</Text>
   </View>
 );
 

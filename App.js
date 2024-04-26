@@ -5,6 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TabNavigator from "./components/Navbar/TabNavigator";
 import { KeyboardAvoidingView, Platform } from "react-native";
+import fetchAds from "./util/http";
 
 const Stack = createNativeStackNavigator();
 

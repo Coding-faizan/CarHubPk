@@ -8,9 +8,9 @@ const ProfileIcon = ({ focused }) => (
     <FontAwesome
       name="user-circle-o"
       size={24}
-      color={focused ? Colors.primary : "#111"}
+      color={focused ? Colors.primary500 : "#111"}
     />
-    <Text style={{ fontSize: 12, color: Colors.primary }}>Profile</Text>
+    <Text style={{ fontSize: 12, color: Colors.primary500 }}>Profile</Text>
   </View>
 );
 

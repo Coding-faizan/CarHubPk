@@ -8,9 +8,9 @@ const MoreIcon = ({ focused }) => (
     <SimpleLineIcons
       name="menu"
       size={24}
-      color={focused ? Colors.primary : "#111"}
+      color={focused ? Colors.primary500 : "#111"}
     />
-    <Text style={{ fontSize: 12, color: Colors.primary }}>More</Text>
+    <Text style={{ fontSize: 12, color: Colors.primary500 }}>More</Text>
   </View>
 );
 
