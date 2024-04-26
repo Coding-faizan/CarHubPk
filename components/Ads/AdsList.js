@@ -1,5 +1,6 @@
 import { View } from "react-native";
 import AdItem from "./AdItem";
+import ProductCard from "./ProductCard";
 import { StyleSheet, FlatList } from "react-native";
 import { Text } from "react-native";
 
@@ -16,7 +17,9 @@ function AdsList({ Ads }) {
       style={styles.list}
       data={Ads}
       keyExtractor={(item) => item.carId}
-      renderItem={({ item }) => <AdItem ad={item} />}
+      renderItem={({ item }) => <ProductCard ad={item} />}
+      numColumns={2}
+      contentContainerStyle={styles.contentContainer}
     />
   );
 }
@@ -27,6 +30,10 @@ const styles = StyleSheet.create({
   list: {
     margin: 15,
   },
+  contentContainer: {
+    padding: 10,
+  },
+
   fallBackContainer: {
     flex: 1,
     justifyContent: "center",
