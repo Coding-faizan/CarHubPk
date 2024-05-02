@@ -5,8 +5,8 @@ const BACKEND_URL = "https://motorpak.000webhostapp.com/car_api/";
 export default async function fetchAds() {
   try {
     const response = await axios.get(BACKEND_URL + "fetch_cars_api.php");
-    const Ads = [];
 
+    const Ads = [];
     response.data.forEach((adData) => {
       const {
         CarID,
@@ -28,7 +28,7 @@ export default async function fetchAds() {
         ImageUrls,
       } = adData;
 
-      const imageUrls = ImageUrls.map((item) => item.ImageUrl.split(","));
+      const imageUrls = ImageUrls.flatMap((item) => item.ImageUrl.split(","));
 
       const adObj = {
         carId: CarID,
@@ -36,7 +36,7 @@ export default async function fetchAds() {
         modelName: ModelName,
         variant: Variant,
         registrationYear: RegistrationYear,
-        price: Price,
+        price: parseInt(Price).toLocaleString(),
         mileage: Mileage,
         fuelType: FuelType,
         transmission: Transmission,
@@ -58,4 +58,9 @@ export default async function fetchAds() {
     console.error("Error fetching ads:", error);
     throw error;
   }
+}
+
+export async function fetchAdWithId(index) {
+  const Ads = await fetchAds();
+  return Ads.find((ad) => ad.carId === index);
 }

@@ -3,8 +3,17 @@ import AdItem from "./AdItem";
 import ProductCard from "./ProductCard";
 import { StyleSheet, FlatList } from "react-native";
 import { Text } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 function AdsList({ Ads }) {
+  const navigation = useNavigation();
+
+  function selectPlaceHandler(id) {
+    navigation.navigate("AdDetails", {
+      carId: id,
+    });
+  }
+
   if (!Ads || Ads.length === 0) {
     return (
       <View style={styles.fallBackContainer}>
@@ -17,7 +26,9 @@ function AdsList({ Ads }) {
       style={styles.list}
       data={Ads}
       keyExtractor={(item) => item.carId}
-      renderItem={({ item }) => <ProductCard ad={item} />}
+      renderItem={({ item }) => (
+        <ProductCard ad={item} onSelect={selectPlaceHandler} />
+      )}
       numColumns={2}
       contentContainerStyle={styles.contentContainer}
     />

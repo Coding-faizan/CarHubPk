@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import { Input, Button } from "react-native-elements";
 import BrandDropdown from "../AdFormInputs/BrandDropdown";
 import ModelDropdown from "../AdFormInputs/ModelDropdown";
@@ -320,80 +325,82 @@ const AdForm = () => {
 
   return (
     <ScrollView style={styles.form}>
-      <ImagesField onChangeImages={handleImagesUrlChange} />
-      <View style={styles.container}>
-        <Input
-          containerStyle={styles.containerStyle}
-          inputStyle={styles.inputStyle}
-          placeholder="Title"
-          value={enteredTitle}
-          onChangeText={handleTitleChange}
+      <KeyboardAvoidingView>
+        <ImagesField onChangeImages={handleImagesUrlChange} />
+        <View style={styles.container}>
+          <Input
+            containerStyle={styles.containerStyle}
+            inputStyle={styles.inputStyle}
+            placeholder="Title"
+            value={enteredTitle}
+            onChangeText={handleTitleChange}
+          />
+        </View>
+        <BrandDropdown onBrandChange={handleBrandChange} />
+        <ModelDropdown
+          selectedBrand={selectedBrand}
+          onModelChange={handleModelChange}
         />
-      </View>
-      <BrandDropdown onBrandChange={handleBrandChange} />
-      <ModelDropdown
-        selectedBrand={selectedBrand}
-        onModelChange={handleModelChange}
-      />
-      <LocationDropdown onLocationChange={handleLocationChange} />
-      <View style={styles.Rcontainer}>
-        <Input
-          label="Registration In"
-          containerStyle={styles.containerStyle}
-          inputStyle={styles.inputStyle}
-          placeholder="e.g Punjab 2000"
-          value={enteredRegistrationIn}
-          onChangeText={handleRegistrationInChange}
-        />
-      </View>
-      <View style={styles.container}>
-        <Input
-          containerStyle={styles.containerStyle}
-          inputStyle={styles.inputStyle}
-          placeholder="Milieage"
-          value={enteredMilage}
-          onChangeText={handleMilageChange}
-          leftIcon={<FontAwesome name="tachometer" size={24} color="black" />}
-          keyboardType="numeric"
-        />
-      </View>
-      <View style={styles.container}>
-        <Input
-          containerStyle={styles.containerStyle}
-          inputStyle={styles.inputStyle}
-          placeholder="Transmission"
-          value={enteredTransmission}
-          onChangeText={handleTransmissionChange}
-          leftIcon={<FontAwesome name="gear" size={24} color="black" />}
-        />
-      </View>
-      <View style={styles.container}>
-        <Input
-          containerStyle={styles.containerStyle}
-          inputStyle={styles.inputStyle}
-          placeholder="Description"
-          value={enteredDescription}
-          onChangeText={handleDescriptionChange}
-        />
-      </View>
-      <View style={styles.last}>
-        <Input
-          containerStyle={styles.containerStyle}
-          inputStyle={styles.inputStyle}
-          placeholder="Price"
-          value={enteredPrice}
-          onChangeText={handlePriceChange}
-          leftIcon={<FontAwesome name="dollar" size={24} color="black" />}
-          keyboardType="numeric"
-        />
-      </View>
+        <LocationDropdown onLocationChange={handleLocationChange} />
+        <View style={styles.Rcontainer}>
+          <Input
+            label="Registration In"
+            containerStyle={styles.containerStyle}
+            inputStyle={styles.inputStyle}
+            placeholder="e.g Punjab 2000"
+            value={enteredRegistrationIn}
+            onChangeText={handleRegistrationInChange}
+          />
+        </View>
+        <View style={styles.container}>
+          <Input
+            containerStyle={styles.containerStyle}
+            inputStyle={styles.inputStyle}
+            placeholder="Milieage"
+            value={enteredMilage}
+            onChangeText={handleMilageChange}
+            leftIcon={<FontAwesome name="tachometer" size={24} color="black" />}
+            keyboardType="numeric"
+          />
+        </View>
+        <View style={styles.container}>
+          <Input
+            containerStyle={styles.containerStyle}
+            inputStyle={styles.inputStyle}
+            placeholder="Transmission"
+            value={enteredTransmission}
+            onChangeText={handleTransmissionChange}
+            leftIcon={<FontAwesome name="gear" size={24} color="black" />}
+          />
+        </View>
+        <View style={styles.container}>
+          <Input
+            containerStyle={styles.containerStyle}
+            inputStyle={styles.inputStyle}
+            placeholder="Description"
+            value={enteredDescription}
+            onChangeText={handleDescriptionChange}
+          />
+        </View>
+        <View style={styles.last}>
+          <Input
+            containerStyle={styles.containerStyle}
+            inputStyle={styles.inputStyle}
+            placeholder="Price"
+            value={enteredPrice}
+            onChangeText={handlePriceChange}
+            leftIcon={<FontAwesome name="dollar" size={24} color="black" />}
+            keyboardType="numeric"
+          />
+        </View>
 
-      <Button
-        title="Post Ad"
-        onPress={handleSubmit}
-        buttonStyle={styles.submitButton}
-        disabled={isPosting}
-      />
+        <Button
+          title="Post Ad"
+          onPress={handleSubmit}
+          buttonStyle={styles.submitButton}
+          disabled={isPosting}
+        />
+      </KeyboardAvoidingView>
     </ScrollView>
   );
 };

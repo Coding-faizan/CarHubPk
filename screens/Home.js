@@ -3,9 +3,11 @@ import AdsList from "../components/Ads/AdsList";
 import fetchAds from "../util/http";
 import { View, Text, StyleSheet } from "react-native";
 import { Colors } from "../constants/colors";
+import { useIsFocused } from "@react-navigation/native";
 
 function HomePage() {
   const [fetchedAds, setFetchedAds] = useState([]);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     async function getAds() {
@@ -13,10 +15,20 @@ function HomePage() {
       setFetchedAds(ads);
     }
 
-    getAds();
-  }, []);
+    if (isFocused) {
+      getAds();
+    }
 
-  console.log(fetchedAds);
+    getAds();
+  }, [isFocused]);
+
+  if (!fetchedAds.length > 0) {
+    return (
+      <View style={styles.fallback}>
+        <Text style={{ fontSize: 20 }}>Loading Ads...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -38,5 +50,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderRadius: 70,
     backgroundColor: Colors.primary200,
+  },
+  fallback: {
+    flex: 1,
+    fontSize: 20,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

@@ -1,15 +1,17 @@
 import { View, Image, Text, StyleSheet, Pressable } from "react-native"; // Replace with your chosen library components
 
-const ProductCard = ({ ad }) => {
+const ProductCard = ({ ad, onSelect }) => {
   return (
     <Pressable
       style={({ pressed }) => [styles.item, pressed && styles.pressed]}
+      onPress={onSelect.bind(this, ad.carId)}
     >
       <View style={styles.card}>
-        <Image source={{ uri: ad.imageUrls[1][0] }} style={styles.image} />
+        <Image source={{ uri: ad.imageUrls[1] }} style={styles.image} />
         <View style={styles.content}>
           <Text style={styles.title}>{ad.title}</Text>
-          <Text style={styles.price}>{ad.price}</Text>
+          <Text style={styles.price}>{"Rs. " + ad.price}</Text>
+          <Text style={styles.registrationYear}>{ad.registrationYear}</Text>
         </View>
       </View>
     </Pressable>
@@ -47,6 +49,10 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 14, // Price font size
     color: "#333", // Price text color
+  },
+  registrationYear: {
+    fontSize: 14,
+    display: "flex",
   },
 });
 

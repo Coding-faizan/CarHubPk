@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { SafeAreaView } from "react-native"; // Import SafeAreaView
+import { Pressable, SafeAreaView } from "react-native"; // Import SafeAreaView
 
 // Importing screen components
 import { Home, Ads, PostAd, More, Profile } from "../../screens";
@@ -11,10 +11,17 @@ import AdsIcon from "./Icons/AdsIcon";
 import PostAdIcon from "./Icons/PostAdIcon";
 import MoreIcon from "./Icons/MoreIcon";
 import ProfileIcon from "./Icons/ProfileIcon";
+import { useNavigation } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigator() {
+  const navigation = useNavigation();
+
+  function sellNowhandler() {
+    navigation.navigate("PostAd");
+  }
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <Tab.Navigator screenOptions={screenOptions}>
