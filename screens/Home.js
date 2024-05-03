@@ -31,9 +31,11 @@ function HomePage() {
   }
 
   return (
-    <View style={styles.container}>
+    <View>
       <Text style={styles.header}>Recent Ads</Text>
-      <AdsList Ads={fetchedAds} />
+      <View style={styles.container}>
+        <AdsList style={styles.list} Ads={fetchedAds} />
+      </View>
     </View>
   );
 }
@@ -41,14 +43,12 @@ function HomePage() {
 export default HomePage;
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 28,
-  },
+  container: {},
   header: {
+    paddingTop: 40,
     fontSize: 24,
     fontWeight: "bold",
     textAlign: "center",
-    borderRadius: 70,
     backgroundColor: Colors.primary200,
   },
   fallback: {

@@ -344,10 +344,11 @@ const AdForm = () => {
         <LocationDropdown onLocationChange={handleLocationChange} />
         <View style={styles.Rcontainer}>
           <Input
-            label="Registration In"
+            label="Model Year"
             containerStyle={styles.containerStyle}
             inputStyle={styles.inputStyle}
-            placeholder="e.g Punjab 2000"
+            placeholder="e.g 2000"
+            keyboardType="numeric"
             value={enteredRegistrationIn}
             onChangeText={handleRegistrationInChange}
           />

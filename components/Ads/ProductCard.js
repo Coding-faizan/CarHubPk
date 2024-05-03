@@ -1,6 +1,7 @@
 import { View, Image, Text, StyleSheet, Pressable } from "react-native"; // Replace with your chosen library components
 
 const ProductCard = ({ ad, onSelect }) => {
+  let displayPrice = parseInt(ad.price).toLocaleString();
   return (
     <Pressable
       style={({ pressed }) => [styles.item, pressed && styles.pressed]}
@@ -10,7 +11,7 @@ const ProductCard = ({ ad, onSelect }) => {
         <Image source={{ uri: ad.imageUrls[1] }} style={styles.image} />
         <View style={styles.content}>
           <Text style={styles.title}>{ad.title}</Text>
-          <Text style={styles.price}>{"Rs. " + ad.price}</Text>
+          <Text style={styles.price}>{"Rs. " + displayPrice}</Text>
           <Text style={styles.registrationYear}>{ad.registrationYear}</Text>
         </View>
       </View>

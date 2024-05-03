@@ -36,7 +36,7 @@ export default async function fetchAds() {
         modelName: ModelName,
         variant: Variant,
         registrationYear: RegistrationYear,
-        price: parseInt(Price).toLocaleString(),
+        price: Price,
         mileage: Mileage,
         fuelType: FuelType,
         transmission: Transmission,
