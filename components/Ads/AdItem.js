@@ -1,55 +1,60 @@
-import { Pressable, View, Text, StyleSheet, Image } from "react-native";
+import { View, Image, Text, StyleSheet, Pressable } from "react-native"; // Replace with your chosen library components
 
-import { Colors } from "../../constants/colors";
-
-export default function AdItem({ ad, onSelect }) {
+const ProductCard = ({ ad, onSelect }) => {
+  let displayPrice = parseInt(ad.price).toLocaleString();
   return (
     <Pressable
       style={({ pressed }) => [styles.item, pressed && styles.pressed]}
-      onPress={onSelect}
+      onPress={onSelect.bind(this, ad.carId)}
     >
-      <Image style={styles.image} source={{ uri: ad.imageUrls[1][0] }} />
-      <View style={styles.info}>
-        <Text style={styles.title}>{ad.title}</Text>
-        <Text style={styles.address}>{ad.price}</Text>
-        <Text style={styles.address}>{ad.registrationYear}</Text>
+      <View style={styles.card}>
+        <Image source={{ uri: ad.imageUrls[1] }} style={styles.image} />
+        <View style={styles.content}>
+          <Text style={styles.title}>{ad.title}</Text>
+          <Text style={styles.price}>{"Rs. " + displayPrice}</Text>
+          <Text style={styles.registrationYear}>{ad.registrationYear}</Text>
+        </View>
       </View>
     </Pressable>
   );
-}
+};
+
 const styles = StyleSheet.create({
-  item: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    borderRadius: 6,
-    marginVertical: 12,
-    backgroundColor: Colors.primary50,
-    elevation: 2,
-    shadowColor: "black",
-    shadowOpacity: 0.15,
-    shadowOffset: { width: 1, height: 1 },
-    shadowRadius: 2,
+  card: {
+    backgroundColor: "#fff", // White background
+    borderRadius: 8,
+    shadowColor: "#ccc", // Shadow color
+    shadowOffset: { width: 0, height: 2 }, // Shadow offset
+    shadowOpacity: 0.2, // Shadow opacity
+    shadowRadius: 2, // Shadow blur radius
+    // Margin for spacing between cards
+    margin: 5,
+    borderWidth: 1,
   },
   pressed: {
     opacity: 0.9,
   },
   image: {
-    flex: 1,
-    borderBottomLeftRadius: 4,
-    borderTopLeftRadius: 4,
-    height: 100,
+    width: 150, // Adjust width as needed
+    height: 150, // Adjust height as needed
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
   },
-  info: {
-    flex: 2,
-    padding: 12,
+  content: {
+    padding: 10, // Padding for content within the card
   },
   title: {
-    fontWeight: "bold",
-    fontSize: 18,
-    color: Colors.gray700,
+    fontSize: 16, // Title font size
+    fontWeight: "bold", // Bold title
   },
-  address: {
-    fontSize: 12,
-    color: Colors.gray700,
+  price: {
+    fontSize: 14, // Price font size
+    color: "#333", // Price text color
+  },
+  registrationYear: {
+    fontSize: 14,
+    display: "flex",
   },
 });
+
+export default ProductCard;

@@ -80,9 +80,6 @@ export default function AdDetails({ route }) {
       <SliderBox
         images={imagesToShow}
         sliderBoxHeight={250}
-        onCurrentImagePressed={(index) =>
-          console.warn(`image ${index} pressed`)
-        }
         dotColor={Colors.primary100}
         inactiveDotColor="#111"
         dotStyle={{

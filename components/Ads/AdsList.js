@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import AdItem from "./AdItem";
-import ProductCard from "./ProductCard";
+import ProductCard from "./AdItem";
 import { StyleSheet, FlatList } from "react-native";
 import { Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
