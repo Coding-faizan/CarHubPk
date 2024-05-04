@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Ionicons } from "@expo/vector-icons"; 
 import {
   StyleSheet,
   TextInput,
@@ -83,6 +84,11 @@ export default function Login() {
   return (
     
       <View style={styles.container}>
+      <View style={styles.closeIcon}>
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <Ionicons name="close" size={30} color="black" />
+        </TouchableOpacity>
+      </View>
         <View style={styles.signUpContainer}>
           <Text style={styles.signUpText}>Log In</Text>
         </View>
@@ -101,6 +107,7 @@ export default function Login() {
           <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
             <Text style={styles.loginText}>Log In</Text>
           </TouchableOpacity>
+           <Text onPress={() => navigation.navigate("Signup")}>Don't Have an account? Sign Up!</Text>
         </View>
         {loading && (
           <View style={styles.loadingContainer}>
@@ -163,5 +170,11 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255, 255, 255, 0.7)", // Semi-transparent white background
     alignItems: "center",
     justifyContent: "center",
+  },
+  closeIcon: {
+    position: "absolute",
+    top: 40,
+    right: 10,
+    zIndex: 999,
   },
 });
