@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Ionicons } from "@expo/vector-icons"; 
+import { Ionicons } from "@expo/vector-icons";
 import {
   StyleSheet,
   TextInput,
@@ -35,7 +35,9 @@ export default function Login() {
 
   const handleLogin = async () => {
     if (loginForm.uname === "" || loginForm.password === "") {
-      Alert.alert("Invalid Input", "All fields are required!", [{ text: "Okay" }]);
+      Alert.alert("Invalid Input", "All fields are required!", [
+        { text: "Okay" },
+      ]);
       return;
     }
 
@@ -58,7 +60,7 @@ export default function Login() {
       );
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
 
       const data = await response.json();
@@ -82,56 +84,53 @@ export default function Login() {
   };
 
   return (
-    
-      <View style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.closeIcon}>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Tabs")}>
           <Ionicons name="close" size={30} color="black" />
         </TouchableOpacity>
       </View>
-        <View style={styles.signUpContainer}>
-          <Text style={styles.signUpText}>Log In</Text>
-        </View>
-        <View style={styles.formContainer}>
-          <TextInput
-            placeholder="Username or Mobile No"
-            style={styles.input}
-            onChangeText={(value) => changeHandler("uname", value)}
-          />
-          <TextInput
-            placeholder="Password"
-            style={styles.input}
-            secureTextEntry
-            onChangeText={(value) => changeHandler("password", value)}
-          />
-          <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-            <Text style={styles.loginText}>Log In</Text>
-          </TouchableOpacity>
-           <Text onPress={() => navigation.navigate("Signup")}>Don't Have an account? Sign Up!</Text>
-        </View>
-        {loading && (
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color="#007AFF" />
-          </View>
-        )}
+      <View style={styles.signUpContainer}>
+        <Text style={styles.signUpText}>Log In</Text>
       </View>
-   
+      <View style={styles.formContainer}>
+        <TextInput
+          placeholder="Username or Mobile No"
+          style={styles.input}
+          onChangeText={(value) => changeHandler("uname", value)}
+        />
+        <TextInput
+          placeholder="Password"
+          style={styles.input}
+          secureTextEntry
+          onChangeText={(value) => changeHandler("password", value)}
+        />
+        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+          <Text style={styles.loginText}>Log In</Text>
+        </TouchableOpacity>
+        <Text onPress={() => navigation.navigate("Signup")}>
+          Don't Have an account? Sign Up!
+        </Text>
+      </View>
+      {loading && (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#007AFF" />
+        </View>
+      )}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
- 
   container: {
     flex: 1,
     backgroundColor: "#fff",
     padding: 20,
-    justifyContent:"center",
-    
+    justifyContent: "center",
   },
   signUpContainer: {
     alignItems: "center",
     marginBottom: 20,
-   
   },
   signUpText: {
     color: "#007AFF",

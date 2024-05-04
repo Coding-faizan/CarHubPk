@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { StyleSheet, TextInput, View, Text, TouchableOpacity, Alert, ActivityIndicator } from "react-native";
+import {
+  StyleSheet,
+  TextInput,
+  View,
+  Text,
+  TouchableOpacity,
+  Alert,
+  ActivityIndicator,
+} from "react-native";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/auth";
 import { Ionicons } from "@expo/vector-icons"; // Import Ionicons from @expo/vector-icons
@@ -30,7 +38,9 @@ export default function Signup({ navigation }) {
       signupForm.password === "" ||
       signupForm.location === ""
     ) {
-      Alert.alert("Invalid Input", "All fields are required!", [{ text: "Okay" }]);
+      Alert.alert("Invalid Input", "All fields are required!", [
+        { text: "Okay" },
+      ]);
       return;
     }
 
@@ -38,19 +48,22 @@ export default function Signup({ navigation }) {
     setIsLoading(true);
 
     try {
-      const response = await fetch("https://motorpak.000webhostapp.com/users_api/create_user_api.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: signupForm.uname,
-          email: signupForm.email,
-          phoneNumber: signupForm.phoneNumber,
-          password: signupForm.password,
-          location: signupForm.location,
-        }),
-      });
+      const response = await fetch(
+        "https://motorpak.000webhostapp.com/users_api/create_user_api.php",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: signupForm.uname,
+            email: signupForm.email,
+            phoneNumber: signupForm.phoneNumber,
+            password: signupForm.password,
+            location: signupForm.location,
+          }),
+        }
+      );
 
       const responseData = await response.json();
 
@@ -79,7 +92,7 @@ export default function Signup({ navigation }) {
         </View>
       )}
       <View style={styles.closeIcon}>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Tabs")}>
           <Ionicons name="close" size={30} color="black" />
         </TouchableOpacity>
       </View>
@@ -123,7 +136,9 @@ export default function Signup({ navigation }) {
         <TouchableOpacity style={styles.loginButton} onPress={handleSignup}>
           <Text style={styles.loginText}>Sign Up</Text>
         </TouchableOpacity>
-        <Text onPress={() => navigation.navigate("Login")}>Already Have an account? Log In!</Text>
+        <Text onPress={() => navigation.navigate("Login")}>
+          Already Have an account? Log In!
+        </Text>
       </View>
     </View>
   );
