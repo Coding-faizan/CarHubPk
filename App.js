@@ -9,7 +9,7 @@ import store from "./store/index";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
 import { StyleSheet } from "react-native";
-import { Home } from "./screens";
+import {HomePage} from "./screens/Home";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,10 +24,12 @@ const App = () => {
               headerShown: false,
             }}
           >
+            
             <Stack.Screen name="Signup" component={Signup} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Tabs" component={TabNavigator} />
             <Stack.Screen name="AdDetails" component={AdDetails} />
+          
           </Stack.Navigator>
           <StatusBar style="auto" />
         </NavigationContainer>
