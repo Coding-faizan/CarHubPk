@@ -5,7 +5,7 @@ const ProductCard = ({ ad, onSelect }) => {
   return (
     <Pressable
       style={({ pressed }) => [styles.item, pressed && styles.pressed]}
-      onPress={onSelect.bind(this, ad.carId)}
+      onPress={onSelect.bind(this, ad.carId, ad.sellerId)}
     >
       <View style={styles.card}>
         <Image source={{ uri: ad.imageUrls[1] }} style={styles.image} />

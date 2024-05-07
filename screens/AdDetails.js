@@ -10,8 +10,9 @@ import {
 } from "react-native";
 
 import { Colors } from "../constants/colors";
-import { fetchAdWithId } from "../util/http";
+import { fetchAdWithId, fetchUserById } from "../util/http";
 import { SliderBox } from "react-native-image-slider-box";
+import LoadingCar from "../UI/LoadingCar";
 
 import { EvilIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -30,8 +31,12 @@ export default function AdDetails({ route }) {
   };
 
   const openWhatsApp = () => {
-    const phoneNumber = "+923085540609";
-    const url = `whatsapp://send?phone=${phoneNumber}`;
+    const message = `Hi there, I saw your ad '${fetchedAd.title}'. I want to talk about some more details.`;
+
+    // Construct the WhatsApp URL with the phone number and message
+    const url = `whatsapp://send?phone=${
+      userDetails.PhoneNumber
+    }&text=${encodeURIComponent(message)}`;
 
     Linking.openURL(url)
       .then((data) => {
@@ -43,7 +48,7 @@ export default function AdDetails({ route }) {
   };
 
   const dialPhoneNumber = () => {
-    const url = `tel:${"03085540609"}`;
+    const url = `tel:${userDetails.PhoneNumber}`;
 
     Linking.openURL(url)
       .then((data) => {
@@ -55,7 +60,12 @@ export default function AdDetails({ route }) {
   };
 
   const selectedAdId = route.params.carId;
+  const selectedUserId = route.params.userId;
+
+  console.log(selectedUserId);
+
   const [fetchedAd, setFetchedAd] = useState();
+  const [userDetails, setUserDetails] = useState();
 
   useEffect(() => {
     async function loadAdDetail() {
@@ -66,10 +76,19 @@ export default function AdDetails({ route }) {
     loadAdDetail();
   }, [selectedAdId]);
 
-  if (!fetchedAd) {
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userData = await fetchUserById(selectedUserId);
+      setUserDetails(userData);
+    };
+
+    fetchUserData();
+  }, [selectedUserId]); // Corrected variable name
+
+  if (!fetchedAd || !userDetails) {
     return (
       <View style={styles.fallback}>
-        <Text style={{ fontSize: 18 }}>Loading Details...</Text>
+        <LoadingCar />
       </View>
     );
   }
@@ -92,18 +111,30 @@ export default function AdDetails({ route }) {
           margin: 0,
         }}
       />
-      <View style={styles.headerContainer}>
-        <Text style={{ fontWeight: 700, fontSize: 20 }}>{fetchedAd.title}</Text>
-        <Text style={{ fontWeight: 700, fontSize: 24 }}>
-          {formatPrice(fetchedAd.price)}
-        </Text>
-        <View style={styles.locationContainer}>
-          <EvilIcons name="location" size={20} color="black" />
-          <Text style={{ fontWeight: 400, fontSize: 20 }}>
-            {fetchedAd.location}
+
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <Text style={{ fontWeight: 700, fontSize: 20 }}>
+            {fetchedAd.title}
           </Text>
+          <Text style={{ fontWeight: 700, fontSize: 24 }}>
+            {formatPrice(fetchedAd.price)}
+          </Text>
+          <View style={styles.locationContainer}>
+            <EvilIcons name="location" size={20} color="black" />
+            <Text style={{ fontWeight: 400, fontSize: 20 }}>
+              {fetchedAd.location}
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.sellerInfo}>
+          <Text style={{ fontSize: 18 }}>Seller</Text>
+          <FontAwesome name="user-circle-o" size={40} color="black" />
+          <Text style={{ fontSize: 20 }}>{userDetails.Name}</Text>
         </View>
       </View>
+
       <View style={styles.iconsContainer}>
         <View style={styles.iconContainer}>
           <Ionicons name="speedometer-outline" size={24} color="black" />
@@ -170,9 +201,21 @@ export default function AdDetails({ route }) {
 const styles = StyleSheet.create({
   fallback: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
   },
+
+  container: {
+    padding: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
+  sellerInfo: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
   image: {
     height: "35%",
     minHeight: 300,
@@ -181,9 +224,6 @@ const styles = StyleSheet.create({
   locationContainer: {
     flexDirection: "row",
     alignItems: "center",
-  },
-  headerContainer: {
-    padding: 20,
   },
 
   textStyle: {

@@ -8,9 +8,10 @@ import { useNavigation } from "@react-navigation/native";
 function AdsList({ Ads }) {
   const navigation = useNavigation();
 
-  function selectPlaceHandler(id) {
+  function selectPlaceHandler(id, sellerId) {
     navigation.navigate("AdDetails", {
       carId: id,
+      userId: sellerId,
     });
   }
 

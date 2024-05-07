@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   StyleSheet,
   TextInput,
@@ -8,12 +8,14 @@ import {
   Alert,
   ActivityIndicator,
 } from "react-native";
-import { useDispatch } from "react-redux";
 import { setUser } from "../store/auth";
+import { AuthContext } from "../store/auth-context";
+
 import { Ionicons } from "@expo/vector-icons"; // Import Ionicons from @expo/vector-icons
 
 export default function Signup({ navigation }) {
-  const dispatch = useDispatch();
+  const authCtx = useContext(AuthContext);
+
   const [signupForm, setSignupForm] = useState({
     uname: "",
     email: "",
@@ -96,6 +98,7 @@ export default function Signup({ navigation }) {
           <Ionicons name="close" size={30} color="black" />
         </TouchableOpacity>
       </View>
+
       <View style={styles.formContainer}>
         <View style={styles.signUpContainer}>
           <Text style={styles.signUpText}>Sign Up</Text>
@@ -137,7 +140,8 @@ export default function Signup({ navigation }) {
           <Text style={styles.loginText}>Sign Up</Text>
         </TouchableOpacity>
         <Text onPress={() => navigation.navigate("Login")}>
-          Already Have an account? Log In!
+          Already Have an account?
+          <Text style={{ color: "#003b88", fontWeight: 600 }}> Log In!</Text>
         </Text>
       </View>
     </View>

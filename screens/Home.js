@@ -1,13 +1,20 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AdsList from "../components/Ads/AdsList";
 import fetchAds from "../util/http";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
 import { Colors } from "../constants/colors";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
-import { Button } from "react-native-elements";
 import { FontAwesome } from "@expo/vector-icons";
+import { AuthContext } from "../store/auth-context";
 
 function HomePage() {
+  const authCtx = useContext(AuthContext);
   const [fetchedAds, setFetchedAds] = useState([]);
   const isFocused = useIsFocused();
   const navigation = useNavigation();
@@ -21,14 +28,14 @@ function HomePage() {
     if (isFocused) {
       getAds();
     }
-
-    getAds();
   }, [isFocused]);
 
-  if (!fetchedAds.length > 0) {
+  if (fetchedAds.length === 0) {
+    // Check the length of fetchedAds
     return (
       <View style={styles.fallback}>
-        <Text style={{ fontSize: 20 }}>Loading Ads...</Text>
+        <ActivityIndicator size="large" color="#007AFF" />
+        <Text style={{ fontSize: 20 }}>Loading Ads</Text>
       </View>
     );
   }
@@ -37,10 +44,6 @@ function HomePage() {
     <View style={styles.container}>
       <Pressable onPress={() => navigation.navigate("Search")}>
         <View style={styles.header}>
-          <Button
-            title={"Sign Up"}
-            onPress={() => navigation.navigate("Signup")}
-          />
           <View style={styles.searchContainer}>
             <FontAwesome name="search" size={24} color="black" />
             <Text>Search Car</Text>
@@ -62,9 +65,10 @@ export default HomePage;
 const styles = StyleSheet.create({
   fallback: {
     flex: 1,
-    fontSize: 20,
-    justifyContent: "center",
+    ...StyleSheet.absoluteFillObject, // Cover the entire screen
+    backgroundColor: "rgba(255, 255, 255, 0.7)", // Semi-transparent white background
     alignItems: "center",
+    justifyContent: "center",
   },
 
   header: {

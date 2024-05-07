@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Pressable, SafeAreaView } from "react-native"; // Import SafeAreaView
 
@@ -12,10 +12,12 @@ import PostAdIcon from "./Icons/PostAdIcon";
 import MoreIcon from "./Icons/MoreIcon";
 import ProfileIcon from "./Icons/ProfileIcon";
 import { useNavigation } from "@react-navigation/native";
+import { AuthContext } from "../../store/auth-context";
 
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigator() {
+  const authCtx = useContext(AuthContext);
   const navigation = useNavigation();
 
   function sellNowhandler() {
@@ -39,6 +41,7 @@ export default function TabNavigator() {
             tabBarIcon: ({ focused }) => <AdsIcon focused={focused} />,
           }}
         />
+
         <Tab.Screen
           name="PostAd"
           component={PostAd}
@@ -46,6 +49,7 @@ export default function TabNavigator() {
             tabBarIcon: ({ focused }) => <PostAdIcon focused={focused} />,
           }}
         />
+
         <Tab.Screen
           name="More"
           component={More}

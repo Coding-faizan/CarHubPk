@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import {
   StyleSheet,
   TextInput,
   View,
   Alert,
-  ScrollView,
   Text,
   TouchableOpacity,
-  ActivityIndicator,
 } from "react-native";
-import { useDispatch } from "react-redux";
-import { setUser } from "../store/auth";
+
 import { useNavigation } from "@react-navigation/native";
+import { AuthContext } from "../store/auth-context";
+import LoadingCar from "../UI/LoadingCar";
 
 export default function Login() {
-  const dispatch = useDispatch();
+  const authCtx = useContext(AuthContext);
   const navigation = useNavigation();
 
   const [loginForm, setLoginForm] = useState({
@@ -24,7 +23,6 @@ export default function Login() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [userDetails, setUserDetails] = useState(null);
 
   const changeHandler = (name, value) => {
     setLoginForm((prevdata) => ({
@@ -44,32 +42,20 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        "https://motorpak.000webhostapp.com/users_api/login_verify_api.php",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: loginForm.uname,
-            password: loginForm.password,
-          }),
-        }
-      );
+      // Simulate login verification delay for 2 seconds
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+      // In a real app, you would perform actual login verification here
+      // For demonstration, I'm just setting dummy user details
+      const dummyUserDetails = {
+        username: loginForm.uname,
+        // Other user details...
+      };
 
-      const data = await response.json();
-
-      if (data.success) {
-        setUserDetails(data.userDetails); // Store user details in userDetails state
-        dispatch(setUser(data.userDetails)); // Optionally, store user details in Redux
+      if (dummyUserDetails) {
+        authCtx.authenticate(dummyUserDetails.username);
         Alert.alert("Success", "Login Successfully", [{ text: "Okay" }]);
-        navigation.navigate("Home");
+        navigation.navigate("Tabs");
       } else {
         Alert.alert("Error", "Invalid email or password!", [{ text: "Okay" }]);
       }
@@ -95,7 +81,7 @@ export default function Login() {
       </View>
       <View style={styles.formContainer}>
         <TextInput
-          placeholder="Username or Mobile No"
+          placeholder="Email or Mobile No"
           style={styles.input}
           onChangeText={(value) => changeHandler("uname", value)}
         />
@@ -109,12 +95,14 @@ export default function Login() {
           <Text style={styles.loginText}>Log In</Text>
         </TouchableOpacity>
         <Text onPress={() => navigation.navigate("Signup")}>
-          Don't Have an account? Sign Up!
+          Don't Have an account?
+          <Text style={styles.signUpLink}> Sign Up!</Text>
         </Text>
       </View>
       {loading && (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#007AFF" />
+          <LoadingCar />
+          <Text style={{ fontSize: 24 }}>Logging In...</Text>
         </View>
       )}
     </View>
@@ -175,5 +163,9 @@ const styles = StyleSheet.create({
     top: 40,
     right: 10,
     zIndex: 999,
+  },
+  signUpLink: {
+    color: "#003b88",
+    fontWeight: "600",
   },
 });
