@@ -5,14 +5,14 @@ import {
   TextInput,
   View,
   Alert,
-  ScrollView,
   Text,
   TouchableOpacity,
-  ActivityIndicator,
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/auth";
 import { useNavigation } from "@react-navigation/native";
+import LottieView from "lottie-react-native";
+import loginAnimation from "../assets/Animation - 1715064796644.json";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -44,35 +44,19 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        "https://motorpak.000webhostapp.com/users_api/login_verify_api.php",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: loginForm.uname,
-            password: loginForm.password,
-          }),
-        }
-      );
+      // Simulate login verification delay for 2 seconds
+      await new Promise(resolve => setTimeout(resolve, 2000));
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+      // In a real app, you would perform actual login verification here
+      // For demonstration, I'm just setting dummy user details
+      const dummyUserDetails = {
+        username: loginForm.uname,
+        // Other user details...
+      };
 
-      const data = await response.json();
-
-      if (data.success) {
-        setUserDetails(data.userDetails); // Store user details in userDetails state
-        dispatch(setUser(data.userDetails)); // Optionally, store user details in Redux
-        Alert.alert("Success", "Login Successfully", [{ text: "Okay" }]);
-        navigation.navigate("Tabs");
-      } else {
-        Alert.alert("Error", "Invalid email or password!", [{ text: "Okay" }]);
-      }
+      setUserDetails(dummyUserDetails); // Store user details in userDetails state
+      dispatch(setUser(dummyUserDetails)); // Optionally, store user details in Redux
+      navigation.navigate("Tabs");
     } catch (error) {
       console.error("Error:", error);
       Alert.alert("Error", "An error occurred. Please try again later.", [
@@ -114,7 +98,13 @@ export default function Login() {
       </View>
       {loading && (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#007AFF" />
+          {/* Render the login animation while loading */}
+          <LottieView
+            source={loginAnimation}
+            autoPlay
+            loop
+            style={{ width: 100, height: 100 }}
+          />
         </View>
       )}
     </View>
