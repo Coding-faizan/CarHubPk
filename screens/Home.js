@@ -17,17 +17,23 @@ function HomePage() {
 
   useEffect(() => {
     async function getAds() {
-      const ads = await fetchAds();
-      setFetchedAds(ads);
-      setLoading(false); // Set loading to false when ads are fetched
+      try {
+        const ads = await fetchAds();
+        setFetchedAds(ads);
+      } catch (error) {
+        console.error("Error fetching ads:", error);
+        // If there's an error fetching ads, set loading to false to stop the loading animation
+        setLoading(false);
+      } finally {
+        // Set loading to false regardless of whether ads were successfully fetched or not
+        setLoading(false);
+      }
     }
 
     if (isFocused) {
       setLoading(true); // Set loading to true when component is focused
       getAds();
     }
-
-    getAds();
   }, [isFocused]);
 
   if (loading) {
