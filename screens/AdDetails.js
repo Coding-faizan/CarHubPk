@@ -277,13 +277,13 @@ const styles = StyleSheet.create({
   },
 
   btnouter: {
-    backgroundColor: "navy",
+    backgroundColor: "#0000CC",
     height: 50,
     padding:8,
     width:150,
     borderColor:"white",
     border:1,
-    borderRadius:2,
+    borderRadius:8,
     alignItems:"center",
     justifyContent:"center"
   },
@@ -297,13 +297,13 @@ const styles = StyleSheet.create({
     height: 200, // Adjust height as needed
   },
   wappouter:{
-    backgroundColor:"green",
+    backgroundColor:"#33CC33",
     height: 50,
     padding:8,
     width:150,
     borderColor:"white",
     border:1,
-    borderRadius:2,
+    borderRadius:8,
     // flex:1,
     alignItems:"center",
     justifyContent:"center"
