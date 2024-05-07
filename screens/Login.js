@@ -10,12 +10,10 @@ import {
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
-import LottieView from "lottie-react-native";
-import loginAnimation from "../assets/Animation - 1715064796644.json";
+import { AuthContext } from "../store/auth-context";
 
 export default function Login() {
   const authCtx = useContext(AuthContext);
-
   const navigation = useNavigation();
 
   const [loginForm, setLoginForm] = useState({
@@ -44,7 +42,7 @@ export default function Login() {
 
     try {
       // Simulate login verification delay for 2 seconds
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // In a real app, you would perform actual login verification here
       // For demonstration, I'm just setting dummy user details
@@ -53,21 +51,13 @@ export default function Login() {
         // Other user details...
       };
 
-<<<<<<< HEAD
-      setUserDetails(dummyUserDetails); // Store user details in userDetails state
-      dispatch(setUser(dummyUserDetails)); // Optionally, store user details in Redux
-      navigation.navigate("Tabs");
-=======
-      const data = await response.json();
-
-      if (data.success) {
-        authCtx.authenticate(data.userDetails.UserID);
+      if (dummyUserDetails) {
+        authCtx.authenticate(dummyUserDetails.username);
         Alert.alert("Success", "Login Successfully", [{ text: "Okay" }]);
         navigation.navigate("Tabs");
       } else {
         Alert.alert("Error", "Invalid email or password!", [{ text: "Okay" }]);
       }
->>>>>>> parent of 493c955 (Add session in Adpost)
     } catch (error) {
       console.error("Error:", error);
       Alert.alert("Error", "An error occurred. Please try again later.", [
@@ -105,18 +95,20 @@ export default function Login() {
         </TouchableOpacity>
         <Text onPress={() => navigation.navigate("Signup")}>
           Don't Have an account?
-          <Text style={{ color: "#003b88", fontWeight: 600 }}> Log In!</Text>
+          <Text style={styles.signUpLink}> Sign Up!</Text>
         </Text>
       </View>
       {loading && (
         <View style={styles.loadingContainer}>
           {/* Render the login animation while loading */}
-          <LottieView
+          {/* Replace 'loginAnimation' with your actual animation source */}
+          {/* <LottieView
             source={loginAnimation}
             autoPlay
             loop
             style={{ width: 100, height: 100 }}
-          />
+          /> */}
+          <Text>Loading...</Text>
         </View>
       )}
     </View>
@@ -177,5 +169,9 @@ const styles = StyleSheet.create({
     top: 40,
     right: 10,
     zIndex: 999,
+  },
+  signUpLink: {
+    color: "#003b88",
+    fontWeight: "600",
   },
 });
