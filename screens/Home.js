@@ -36,7 +36,6 @@ function HomePage() {
         <View>
           <ActivityIndicator size="large" color="#007AFF" />
         </View>
-
         <Text style={{ fontSize: 20 }}>Loading Ads</Text>
       </View>
     );
