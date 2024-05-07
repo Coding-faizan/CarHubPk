@@ -29,7 +29,7 @@ function AdsList({ Ads }) {
       renderItem={({ item }) => (
         <ProductCard ad={item} onSelect={selectPlaceHandler} />
       )}
-      numColumns={2}
+      // numColumns={1}
       contentContainerStyle={styles.contentContainer}
     />
   );
@@ -39,7 +39,7 @@ export default AdsList;
 
 const styles = StyleSheet.create({
   list: {
-    margin: 15,
+    margin: 5,
   },
   contentContainer: {
     padding: 10,

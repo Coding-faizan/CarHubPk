@@ -6,6 +6,7 @@ import {
   Text,
   StyleSheet,
   Pressable,
+  TextInput,
 } from "react-native";
 
 import { Colors } from "../constants/colors";
@@ -79,7 +80,7 @@ export default function AdDetails({ route }) {
     <ScrollView>
       <SliderBox
         images={imagesToShow}
-        sliderBoxHeight={250}
+        sliderBoxHeight={280}
         dotColor={Colors.primary100}
         inactiveDotColor="#111"
         dotStyle={{
@@ -105,58 +106,62 @@ export default function AdDetails({ route }) {
       </View>
       <View style={styles.iconsContainer}>
         <View style={styles.iconContainer}>
-          <Ionicons name="speedometer-outline" size={30} color="black" />
+          <Ionicons name="speedometer-outline" size={24} color="black" />
           <Text style={styles.textStyle}>{"20,000 km"}</Text>
         </View>
         <View style={styles.iconContainer}>
-          <FontAwesome name="calendar" size={30} color="black" />
+          <FontAwesome name="calendar" size={24} color="black" />
           <Text style={styles.textStyle}>{"2020"}</Text>
         </View>
 
         <View style={styles.iconContainer}>
-          <Octicons name="gear" size={30} color="black" />
+          <Octicons name="gear" size={24} color="black" />
           <Text style={styles.textStyle}>{fetchedAd.transmission}</Text>
         </View>
 
         <View style={styles.iconContainer}>
-          <MaterialCommunityIcons name="fuel" size={30} color="black" />
+          <MaterialCommunityIcons name="fuel" size={24} color="black" />
           <Text style={styles.textStyle}>{"Petrol"}</Text>
         </View>
       </View>
       <View style={styles.otherDetails}>
         <View style={styles.innerDetailContainer}>
           <Text style={styles.innerDetailText}>Registered In</Text>
-          <Text style={styles.innerDetailText}>{fetchedAd.location}</Text>
+          <Text style={styles.innerDetailText1}>{fetchedAd.location}</Text>
         </View>
 
         <View style={styles.innerDetailContainer}>
           <Text style={styles.innerDetailText}>Variant</Text>
-          <Text style={styles.innerDetailText}>{"Sedan"}</Text>
+          <Text style={styles.innerDetailText1}>{"Sedan"}</Text>
         </View>
 
         <View style={styles.innerDetailContainer}>
           <Text style={styles.innerDetailText}>Description</Text>
-          <Text style={styles.innerDetailText}>{fetchedAd.description}</Text>
+          <Text style={styles.innerDetailText1}>{fetchedAd.description}</Text>
         </View>
 
         <View style={styles.innerDetailContainer}>
           <Text style={styles.innerDetailText}>Mileage</Text>
-          <Text style={styles.innerDetailText}>
+          <Text style={styles.innerDetailText1}>
             {fetchedAd.mileage + " KM"}
           </Text>
         </View>
       </View>
 
       <View style={styles.contactContainer}>
-        <Pressable onPress={openWhatsApp}>
-          <FontAwesome5 name="whatsapp-square" size={50} color="#25D366" />
+        <Pressable onPress={openWhatsApp} style={styles.wappouter}>
+          {/* <FontAwesome5 name="whatsapp-square" size={50} color="#25D366" /> */}
+          <Text style={styles.wapp}>Whatsapp</Text>
         </Pressable>
 
-        <Button
+        <Pressable onPress={dialPhoneNumber} style={styles.btnouter}>
+          <Text style={styles.btn}>Call Owner</Text>
+        {/* <Button
           title={"Call Owner"}
           onPress={dialPhoneNumber}
           style={styles.dialButton}
-        />
+        /> */}
+        </Pressable>
       </View>
     </ScrollView>
   );
@@ -192,6 +197,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     justifyContent: "space-between",
     flexDirection: "row",
+    borderColor:"#DDDDDD",
   },
 
   iconContainer: {
@@ -209,10 +215,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderBottomWidth: 1.5,
     paddingVertical: 10,
+    borderColor:"#DDDDDD",
   },
 
   innerDetailText: {
     fontSize: 20,
+    color: "black",
+    fontWeight:"500"
+  },
+  innerDetailText1: {
+    fontSize: 18,
     color: "#585050",
   },
 
@@ -221,14 +233,44 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: "center",
     padding: 20,
+    marginTop:20,
   },
 
-  dialButton: {
-    backgroundColor: Colors.primary400,
-    height: 45,
+  btnouter: {
+    backgroundColor: "navy",
+    height: 50,
+    padding:8,
+    width:150,
+    borderColor:"white",
+    border:1,
+    borderRadius:2,
+    alignItems:"center",
+    justifyContent:"center"
+  },
+  btn:{
+    color:"white",
+    fontWeight:"bold",
+    fontSize:20,
   },
   scrollView: {
     width: "100%",
     height: 200, // Adjust height as needed
   },
+  wappouter:{
+    backgroundColor:"green",
+    height: 50,
+    padding:8,
+    width:150,
+    borderColor:"white",
+    border:1,
+    borderRadius:2,
+    // flex:1,
+    alignItems:"center",
+    justifyContent:"center"
+  },
+  wapp:{
+    color:"white",
+    fontWeight:"bold",
+    fontSize:20,
+  }
 });

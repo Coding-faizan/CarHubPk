@@ -50,7 +50,7 @@ function HomePage() {
       <View style={styles.recentContainer}>
         <Text style={styles.recentText}>Recent Ads</Text>
       </View>
-      <View style={styles.container}>
+      <View style={styles.container1}>
         <AdsList style={styles.list} Ads={fetchedAds} />
       </View>
     </View>
@@ -91,11 +91,23 @@ const styles = StyleSheet.create({
   },
 
   recentContainer: {
-    backgroundColor: "#FFFFF0",
+    backgroundColor: "#ECECEC",
+    // textAlign:"center",
     padding: 10,
+    paddingTop:15,
+
   },
 
   recentText: {
     fontSize: 24,
+    fontWeight:"600",
+    textAlign:"left",
+    paddingLeft:20,
+  },
+  container1:{
+    marginTop:0,
+    flexDirection:'column',
+    alignItems:"center",
+
   },
 });

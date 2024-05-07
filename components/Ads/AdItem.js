@@ -30,12 +30,13 @@ const styles = StyleSheet.create({
     // Margin for spacing between cards
     margin: 5,
     borderWidth: 1,
+    width:300
   },
   pressed: {
     opacity: 0.9,
   },
   image: {
-    width: 150, // Adjust width as needed
+    width: "auto", // Adjust width as needed
     height: 150, // Adjust height as needed
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
