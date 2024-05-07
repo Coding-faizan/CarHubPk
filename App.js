@@ -35,7 +35,7 @@ function AuthenticatedStack() {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Tabs" component={TabNavigator} />
       <Stack.Screen name="AdDetails" component={AdDetails} />
       <Stack.Screen name="Favourites" component={Favourites} />
     </Stack.Navigator>

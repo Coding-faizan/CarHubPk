@@ -11,6 +11,7 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../store/auth-context";
+import LoadingCar from "../UI/LoadingCar";
 
 export default function Login() {
   const authCtx = useContext(AuthContext);
@@ -100,15 +101,8 @@ export default function Login() {
       </View>
       {loading && (
         <View style={styles.loadingContainer}>
-          {/* Render the login animation while loading */}
-          {/* Replace 'loginAnimation' with your actual animation source */}
-          {/* <LottieView
-            source={loginAnimation}
-            autoPlay
-            loop
-            style={{ width: 100, height: 100 }}
-          /> */}
-          <Text>Loading...</Text>
+          <LoadingCar />
+          <Text>Logging In...</Text>
         </View>
       )}
     </View>
