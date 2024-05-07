@@ -23,16 +23,27 @@ function HomePage() {
 
   useEffect(() => {
     async function getAds() {
+<<<<<<< HEAD
+      try {
+        const ads = await fetchAds();
+        setFetchedAds(ads);
+      } catch (error) {
+        console.error("Error fetching ads:", error);
+        // If there's an error fetching ads, set loading to false to stop the loading animation
+        setLoading(false);
+      } finally {
+        // Set loading to false regardless of whether ads were successfully fetched or not
+        setLoading(false);
+      }
+=======
       const ads = await fetchAds();
       setFetchedAds(ads);
-      setLoading(false);
+>>>>>>> parent of 493c955 (Add session in Adpost)
     }
 
     if (isFocused) {
       getAds();
     }
-
-    getAds();
   }, [isFocused]);
 
   if (loading) {
