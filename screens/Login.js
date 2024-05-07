@@ -54,9 +54,22 @@ export default function Login() {
         // Other user details...
       };
 
+<<<<<<< HEAD
       setUserDetails(dummyUserDetails); // Store user details in userDetails state
       dispatch(setUser(dummyUserDetails)); // Optionally, store user details in Redux
       navigation.navigate("Tabs");
+=======
+      const data = await response.json();
+
+      if (data.success) {
+        setUserDetails(data.userDetails); // Store user details in userDetails state
+        dispatch(setUser(data.userDetails)); // Optionally, store user details in Redux
+        Alert.alert("Success", "Login Successfully", [{ text: "Okay" }]);
+        navigation.navigate("Home");
+      } else {
+        Alert.alert("Error", "Invalid email or password!", [{ text: "Okay" }]);
+      }
+>>>>>>> parent of 493c955 (Add session in Adpost)
     } catch (error) {
       console.error("Error:", error);
       Alert.alert("Error", "An error occurred. Please try again later.", [
