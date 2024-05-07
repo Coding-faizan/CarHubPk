@@ -11,6 +11,7 @@ import {
 import { Colors } from "../constants/colors";
 import { fetchAdWithId, fetchUserById } from "../util/http";
 import { SliderBox } from "react-native-image-slider-box";
+import LoadingCar from "../UI/LoadingCar";
 
 import { EvilIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -86,7 +87,7 @@ export default function AdDetails({ route }) {
   if (!fetchedAd || !userDetails) {
     return (
       <View style={styles.fallback}>
-        <Text style={{ fontSize: 18 }}>Loading Details...</Text>
+        <LoadingCar />
       </View>
     );
   }
@@ -195,8 +196,8 @@ export default function AdDetails({ route }) {
 const styles = StyleSheet.create({
   fallback: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
+    justifyContent: "center",
   },
 
   container: {

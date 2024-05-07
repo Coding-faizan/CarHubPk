@@ -33,7 +33,6 @@ const LoadingCar = () => {
           ],
         }}
       />
-      <Text style={{ fontSize: 24 }}>Logging In</Text>
     </View>
   );
 };

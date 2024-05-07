@@ -102,7 +102,7 @@ export default function Login() {
       {loading && (
         <View style={styles.loadingContainer}>
           <LoadingCar />
-          <Text>Logging In...</Text>
+          <Text style={{ fontSize: 24 }}>Logging In...</Text>
         </View>
       )}
     </View>

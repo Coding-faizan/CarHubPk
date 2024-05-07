@@ -30,12 +30,11 @@ function HomePage() {
     }
   }, [isFocused]);
 
-  if (!fetchedAds) {
+  if (fetchedAds.length === 0) {
+    // Check the length of fetchedAds
     return (
       <View style={styles.fallback}>
-        <View>
-          <ActivityIndicator size="large" color="#007AFF" />
-        </View>
+        <ActivityIndicator size="large" color="#007AFF" />
         <Text style={{ fontSize: 20 }}>Loading Ads</Text>
       </View>
     );
