@@ -69,7 +69,7 @@ export default function Login() {
         setUserDetails(data.userDetails); // Store user details in userDetails state
         dispatch(setUser(data.userDetails)); // Optionally, store user details in Redux
         Alert.alert("Success", "Login Successfully", [{ text: "Okay" }]);
-        navigation.navigate("Home");
+        navigation.navigate("Tabs");
       } else {
         Alert.alert("Error", "Invalid email or password!", [{ text: "Okay" }]);
       }
