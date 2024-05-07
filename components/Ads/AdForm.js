@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   KeyboardAvoidingView,
   ScrollView,
@@ -16,6 +16,7 @@ import { Colors } from "../../constants/colors";
 import { Alert } from "react-native";
 import { Buffer } from "buffer";
 import { useNavigation } from "@react-navigation/native";
+import { AuthContext } from "../../store/auth-context";
 
 const AdForm = () => {
   const navigation = useNavigation();
@@ -243,6 +244,8 @@ const AdForm = () => {
                     const apiEndpoint =
                       "https://motorpak.000webhostapp.com/car_api/post_car_api.php";
 
+                    const authCtx = useContext(AuthContext);
+
                     const data = {
                       makerName: brandName,
                       modelName: selectedModel,
@@ -254,7 +257,7 @@ const AdForm = () => {
                       transmission: enteredTransmission, // Add transmission type if available
                       carCondition: "Used", // Assuming car condition is always 'Used'
                       description: enteredDescription,
-                      sellerID: 1001, // Hardcoding sellerID to 1001
+                      sellerID: authCtx.token, // Hardcoding sellerID to 1001
                       location: selectedLocation,
                       carStatus: "Active", // Assuming car status is always 'Active'
                       images: uploadedUrls,

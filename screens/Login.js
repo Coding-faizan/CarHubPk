@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import {
   StyleSheet,
   TextInput,
   View,
   Alert,
-  ScrollView,
   Text,
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import { useDispatch } from "react-redux";
-import { setUser } from "../store/auth";
+
 import { useNavigation } from "@react-navigation/native";
+import { AuthContext } from "../store/auth-context";
+import LoadingCar from "../UI/LoadingCar";
 
 export default function Login() {
-  const dispatch = useDispatch();
+  const authCtx = useContext(AuthContext);
+
   const navigation = useNavigation();
 
   const [loginForm, setLoginForm] = useState({
@@ -24,7 +25,6 @@ export default function Login() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [userDetails, setUserDetails] = useState(null);
 
   const changeHandler = (name, value) => {
     setLoginForm((prevdata) => ({
@@ -66,10 +66,9 @@ export default function Login() {
       const data = await response.json();
 
       if (data.success) {
-        setUserDetails(data.userDetails); // Store user details in userDetails state
-        dispatch(setUser(data.userDetails)); // Optionally, store user details in Redux
+        authCtx.authenticate(data.userDetails.UserID);
         Alert.alert("Success", "Login Successfully", [{ text: "Okay" }]);
-        navigation.navigate("Home");
+        navigation.navigate("Tabs");
       } else {
         Alert.alert("Error", "Invalid email or password!", [{ text: "Okay" }]);
       }
@@ -95,7 +94,7 @@ export default function Login() {
       </View>
       <View style={styles.formContainer}>
         <TextInput
-          placeholder="Username or Mobile No"
+          placeholder="Email or Mobile No"
           style={styles.input}
           onChangeText={(value) => changeHandler("uname", value)}
         />
@@ -109,12 +108,14 @@ export default function Login() {
           <Text style={styles.loginText}>Log In</Text>
         </TouchableOpacity>
         <Text onPress={() => navigation.navigate("Signup")}>
-          Don't Have an account? Sign Up!
+          Don't Have an account?
+          <Text style={{ color: "#003b88", fontWeight: 600 }}> Log In!</Text>
         </Text>
       </View>
       {loading && (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#007AFF" />
+          <ActivityIndicator />
+          <LoadingCar />
         </View>
       )}
     </View>
