@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { Colors } from "../constants/colors";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
-import { Button } from "react-native-elements";
 import { FontAwesome } from "@expo/vector-icons";
 import { AuthContext } from "../store/auth-context";
 
@@ -19,7 +18,6 @@ function HomePage() {
   const [fetchedAds, setFetchedAds] = useState([]);
   const isFocused = useIsFocused();
   const navigation = useNavigation();
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getAds() {
@@ -32,14 +30,13 @@ function HomePage() {
     }
   }, [isFocused]);
 
-  if (loading) {
+  if (!fetchedAds) {
     return (
       <View style={styles.fallback}>
-        {loading && (
-          <View>
-            <ActivityIndicator size="large" color="#007AFF" />
-          </View>
-        )}
+        <View>
+          <ActivityIndicator size="large" color="#007AFF" />
+        </View>
+
         <Text style={{ fontSize: 20 }}>Loading Ads</Text>
       </View>
     );

@@ -64,3 +64,24 @@ export async function fetchAdWithId(index) {
   const Ads = await fetchAds();
   return Ads.find((ad) => ad.carId === index);
 }
+
+const USERS_API_URL =
+  "https://motorpak.000webhostapp.com/users_api/fetch_user_details_api.php";
+
+export async function fetchUserById(userId) {
+  try {
+    const response = await axios.post(USERS_API_URL, {
+      userID: userId,
+    });
+
+    // Check if the response is successful and contains data
+    if (response.status === 200 && response.data) {
+      return response.data;
+    } else {
+      throw new Error("Failed to fetch user details");
+    }
+  } catch (error) {
+    console.error("Error fetching user details:", error.message);
+    throw error;
+  }
+}

@@ -9,7 +9,7 @@ import {
 } from "react-native";
 
 import { Colors } from "../constants/colors";
-import { fetchAdWithId } from "../util/http";
+import { fetchAdWithId, fetchUserById } from "../util/http";
 import { SliderBox } from "react-native-image-slider-box";
 
 import { EvilIcons } from "@expo/vector-icons";
@@ -54,7 +54,12 @@ export default function AdDetails({ route }) {
   };
 
   const selectedAdId = route.params.carId;
+  const selectedUserId = route.params.userId;
+
+  console.log(selectedUserId);
+
   const [fetchedAd, setFetchedAd] = useState();
+  const [userDetails, setUserDetails] = useState();
 
   useEffect(() => {
     async function loadAdDetail() {
@@ -64,6 +69,16 @@ export default function AdDetails({ route }) {
 
     loadAdDetail();
   }, [selectedAdId]);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userData = await fetchUserById(selectedUserId);
+      setUserDetails(userData);
+      console.log(userDetails);
+    };
+
+    fetchUserData();
+  }, [selectedUserId]); // Corrected variable name
 
   if (!fetchedAd) {
     return (
@@ -91,18 +106,26 @@ export default function AdDetails({ route }) {
           margin: 0,
         }}
       />
-      <View style={styles.headerContainer}>
-        <Text style={{ fontWeight: 700, fontSize: 20 }}>{fetchedAd.title}</Text>
-        <Text style={{ fontWeight: 700, fontSize: 24 }}>
-          {formatPrice(fetchedAd.price)}
-        </Text>
-        <View style={styles.locationContainer}>
-          <EvilIcons name="location" size={20} color="black" />
-          <Text style={{ fontWeight: 400, fontSize: 20 }}>
-            {fetchedAd.location}
+
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <Text style={{ fontWeight: 700, fontSize: 20 }}>
+            {fetchedAd.title}
           </Text>
+          <Text style={{ fontWeight: 700, fontSize: 24 }}>
+            {formatPrice(fetchedAd.price)}
+          </Text>
+          <View style={styles.locationContainer}>
+            <EvilIcons name="location" size={20} color="black" />
+            <Text style={{ fontWeight: 400, fontSize: 20 }}>
+              {fetchedAd.location}
+            </Text>
+          </View>
         </View>
+
+        <View style={styles.sellerInfo}></View>
       </View>
+
       <View style={styles.iconsContainer}>
         <View style={styles.iconContainer}>
           <Ionicons name="speedometer-outline" size={30} color="black" />
