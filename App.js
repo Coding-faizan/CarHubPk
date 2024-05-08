@@ -11,6 +11,7 @@ import { PostAd } from "./screens";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
 import Favourites from "./screens/Favourites";
+import About from "./screens/About";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,7 @@ function AuthStack() {
       <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name="Tabs" component={TabNavigator} />
       <Stack.Screen name="AdDetails" component={AdDetails} />
+      <Stack.Screen name="About" component={About} />
     </Stack.Navigator>
   );
 }
@@ -32,13 +34,14 @@ function AuthStack() {
 function AuthenticatedStack() {
   return (
     <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
+    screenOptions={{
+      headerShown: false,
+    }}
     >
       <Stack.Screen name="Tabs" component={TabNavigator} />
       <Stack.Screen name="AdDetails" component={AdDetails} />
       <Stack.Screen name="Favourites" component={Favourites} />
+    <Stack.Screen name="About" component={About} />
     </Stack.Navigator>
   );
 }
