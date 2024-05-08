@@ -12,6 +12,7 @@ import Login from "./screens/Login";
 import Signup from "./screens/Signup";
 import Favourites from "./screens/Favourites";
 import About from "./screens/About";
+import FAQ from "./screens/FAQ";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,7 @@ function AuthStack() {
       <Stack.Screen name="Tabs" component={TabNavigator} />
       <Stack.Screen name="AdDetails" component={AdDetails} />
       <Stack.Screen name="About" component={About} />
+      <Stack.Screen name="FAQ" component={FAQ} />
     </Stack.Navigator>
   );
 }
@@ -42,6 +44,7 @@ function AuthenticatedStack() {
       <Stack.Screen name="AdDetails" component={AdDetails} />
       <Stack.Screen name="Favourites" component={Favourites} />
     <Stack.Screen name="About" component={About} />
+    <Stack.Screen name="FAQ" component={FAQ} />
     </Stack.Navigator>
   );
 }

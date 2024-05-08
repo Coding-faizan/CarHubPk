@@ -14,7 +14,7 @@ export default function More() {
     navigation.navigate("Favourites");
   };
   const navigateToFAQ = () => {
-    navigation.navigate("Favourites");
+    navigation.navigate("FAQ");
   };
   const navigateToAbout = () => {
     navigation.navigate("About");
@@ -27,22 +27,22 @@ export default function More() {
       </View>
       <View style={styles.content}>
       <Pressable onPress={navigateToTax}>
-        <LinearGradient style={styles.item} colors={[Colors.primary100, Colors.primary500, Colors.primary100]}>
+        <LinearGradient style={styles.item} colors={[Colors.primary200, Colors.primary500, Colors.primary200]}>
            <Text style={styles.text}>Calculate Tax</Text>        
         </LinearGradient>
       </Pressable>
       <Pressable onPress={navigateToFavourites}>
-        <LinearGradient style={styles.item} colors={[Colors.primary100, Colors.primary500, Colors.primary100]}>
+        <LinearGradient style={styles.item} colors={[Colors.primary200, Colors.primary500, Colors.primary200]}>
            <Text style={styles.text}>Favourites</Text>        
         </LinearGradient>
       </Pressable>
       <Pressable onPress={navigateToFAQ}>
-        <LinearGradient style={styles.item} colors={[Colors.primary100, Colors.primary500, Colors.primary100]}>
+        <LinearGradient style={styles.item} colors={[Colors.primary200, Colors.primary500, Colors.primary200]}>
            <Text style={styles.text}>F.A.Qs</Text>        
         </LinearGradient>
       </Pressable>
       <Pressable onPress={navigateToAbout}>
-        <LinearGradient style={styles.item} colors={[Colors.primary100, Colors.primary500, Colors.primary100]}>
+        <LinearGradient style={styles.item} colors={[Colors.primary200, Colors.primary500, Colors.primary200]}>
            <Text style={styles.text}>About Us</Text>        
         </LinearGradient>
       </Pressable>
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingTop:15,
     marginTop:40,
-
+    marginBottom:20,
   },
 
   moreText: {
@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
 
   },
   content:{
+    // flex:1,
     alignItems:"center",
     justifyContent:"center",
     margin:10,
@@ -82,12 +83,12 @@ const styles = StyleSheet.create({
   item:{
     padding:20,
     borderWidth:1,
-    borderColor:"black",
+    borderColor:"white",
     margin:10,
     width:300,
     borderRadius:30,
     backgroundColor:Colors.primary400,
-
+    elevation:5,
   },
   text:{
     fontSize:24,
