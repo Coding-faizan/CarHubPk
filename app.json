@@ -31,10 +31,9 @@
         "expo-image-picker",
         {
           "photosPermission": "Give permission to upload!",
-          "cameraPermission": "Give permission to upload!"
+          "cameraPermission" : "Give permission to upload!"
         }
-      ],
-      "expo-asset"
+      ]
     ]
   }
 }
