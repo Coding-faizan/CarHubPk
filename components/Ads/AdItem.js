@@ -1,6 +1,33 @@
-import { View, Image, Text, StyleSheet, Pressable } from "react-native"; // Replace with your chosen library components
+import {
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  Pressable,
+  Alert,
+  ToastAndroid,
+} from "react-native"; // Replace with your chosen library components
+import { AntDesign } from "@expo/vector-icons";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../store/auth-context";
 
 const ProductCard = ({ ad, onSelect }) => {
+  const [isFavourite, setIsFavourite] = useState(false);
+  const authCtx = useContext(AuthContext);
+
+  const favouriteHandler = () => {
+    if (authCtx.isAuthenticated) {
+      if (isFavourite === false) {
+        setIsFavourite(!isFavourite);
+        ToastAndroid.show("Added to Favorites!", ToastAndroid.BOTTOM);
+      } else {
+        setIsFavourite(!isFavourite);
+      }
+    } else {
+      ToastAndroid.show("Please Login First!", ToastAndroid.BOTTOM);
+    }
+  };
+
   let displayPrice = parseInt(ad.price).toLocaleString();
   return (
     <Pressable
@@ -10,9 +37,18 @@ const ProductCard = ({ ad, onSelect }) => {
       <View style={styles.card}>
         <Image source={{ uri: ad.imageUrls[1] }} style={styles.image} />
         <View style={styles.content}>
-          <Text style={styles.title}>{ad.title}</Text>
-          <Text style={styles.price}>{"Rs. " + displayPrice}</Text>
-          <Text style={styles.registrationYear}>{ad.registrationYear}</Text>
+          <View>
+            <Text style={styles.title}>{ad.title}</Text>
+            <Text style={styles.price}>{"Rs. " + displayPrice}</Text>
+            <Text style={styles.registrationYear}>{ad.registrationYear}</Text>
+          </View>
+
+          <Pressable style={styles.favourite} onPress={favouriteHandler}>
+            {!isFavourite && (
+              <AntDesign name="hearto" size={24} color="black" />
+            )}
+            {isFavourite && <AntDesign name="heart" size={24} color="black" />}
+          </Pressable>
         </View>
       </View>
     </Pressable>
@@ -30,7 +66,7 @@ const styles = StyleSheet.create({
     // Margin for spacing between cards
     margin: 5,
     borderWidth: 1,
-    width:300
+    width: 300,
   },
   pressed: {
     opacity: 0.9,
@@ -43,6 +79,8 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 10, // Padding for content within the card
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   title: {
     fontSize: 16, // Title font size
@@ -55,6 +93,11 @@ const styles = StyleSheet.create({
   registrationYear: {
     fontSize: 14,
     display: "flex",
+  },
+
+  favourite: {
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

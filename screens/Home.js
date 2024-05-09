@@ -41,9 +41,19 @@ function HomePage() {
   }
 
   return (
-    <View style={styles.container}>
+    <View>
       <Pressable onPress={() => navigation.navigate("Search")}>
         <View style={styles.header}>
+          {!authCtx.isAuthenticated && (
+            <Pressable
+              style={styles.loginBtn}
+              onPress={() => navigation.navigate("Login")}
+            >
+              <Text style={{ fontSize: 20, fontWeight: 500, color: "white" }}>
+                Login
+              </Text>
+            </Pressable>
+          )}
           <View style={styles.searchContainer}>
             <FontAwesome name="search" size={24} color="black" />
             <Text>Search Car</Text>
@@ -83,6 +93,15 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
   },
+  loginBtn: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: Colors.primary800,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    color: "white",
+  },
 
   searchContainer: {
     backgroundColor: "#FFF",
@@ -98,20 +117,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#ECECEC",
     // textAlign:"center",
     padding: 10,
-    paddingTop:15,
-
+    paddingTop: 15,
   },
 
   recentText: {
     fontSize: 24,
-    fontWeight:"600",
-    textAlign:"left",
-    paddingLeft:20,
+    fontWeight: "600",
+    textAlign: "left",
+    paddingLeft: 20,
   },
-  container1:{
-    marginTop:0,
-    flexDirection:'column',
-    alignItems:"center",
-
+  container1: {
+    marginTop: 0,
+    flexDirection: "column",
+    alignItems: "center",
   },
 });
