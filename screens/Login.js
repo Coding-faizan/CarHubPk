@@ -54,7 +54,6 @@ export default function Login() {
 
       if (dummyUserDetails) {
         authCtx.authenticate(dummyUserDetails.username);
-        Alert.alert("Success", "Login Successfully", [{ text: "Okay" }]);
         navigation.navigate("Tabs");
       } else {
         Alert.alert("Error", "Invalid email or password!", [{ text: "Okay" }]);

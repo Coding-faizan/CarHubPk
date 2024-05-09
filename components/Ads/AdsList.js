@@ -8,7 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 function AdsList({ Ads }) {
   const navigation = useNavigation();
 
-  function selectPlaceHandler(id, sellerId) {
+  function selectAdHandler(id, sellerId) {
     navigation.navigate("AdDetails", {
       carId: id,
       userId: sellerId,
@@ -28,7 +28,7 @@ function AdsList({ Ads }) {
       data={Ads}
       keyExtractor={(item) => item.carId}
       renderItem={({ item }) => (
-        <ProductCard ad={item} onSelect={selectPlaceHandler} />
+        <ProductCard ad={item} onSelect={selectAdHandler} />
       )}
       // numColumns={1}
       contentContainerStyle={styles.contentContainer}

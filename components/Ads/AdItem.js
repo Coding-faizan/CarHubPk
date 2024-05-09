@@ -10,21 +10,29 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../store/auth-context";
+import { useNavigation } from "@react-navigation/native";
 
 const ProductCard = ({ ad, onSelect }) => {
-  const [isFavourite, setIsFavourite] = useState(false);
+  const [favoriteAds, setFavoriteAds] = useState([]);
   const authCtx = useContext(AuthContext);
+  const navigation = useNavigation();
 
   const favouriteHandler = () => {
     if (authCtx.isAuthenticated) {
-      if (isFavourite === false) {
-        setIsFavourite(!isFavourite);
+      if (!favoriteAds.includes(ad.carId)) {
+        setFavoriteAds((prevFavorites) => [...prevFavorites, ad.carId]);
         ToastAndroid.show("Added to Favorites!", ToastAndroid.BOTTOM);
+        navigation.setParams({ favoriteAds: [...favoriteAds, ad.carId] });
       } else {
-        setIsFavourite(!isFavourite);
+        setFavoriteAds((prevFavorites) =>
+          prevFavorites.filter((id) => id !== ad.carId)
+        );
+        navigation.setParams({
+          favoriteAds: favoriteAds.filter((id) => id !== ad.carId),
+        });
       }
     } else {
-      ToastAndroid.show("Please Login First!", ToastAndroid.BOTTOM);
+      navigation.navigate("Login");
     }
   };
 
@@ -44,10 +52,12 @@ const ProductCard = ({ ad, onSelect }) => {
           </View>
 
           <Pressable style={styles.favourite} onPress={favouriteHandler}>
-            {!isFavourite && (
+            {!favoriteAds.includes(ad.carId) && (
               <AntDesign name="hearto" size={24} color="black" />
             )}
-            {isFavourite && <AntDesign name="heart" size={24} color="black" />}
+            {favoriteAds.includes(ad.carId) && (
+              <AntDesign name="heart" size={24} color="black" />
+            )}
           </Pressable>
         </View>
       </View>
