@@ -19,8 +19,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { Button } from "react-native-elements";
 
 export default function AdDetails({ route }) {
   const formatPrice = (price) => {
@@ -129,9 +127,9 @@ export default function AdDetails({ route }) {
         </View>
 
         <View style={styles.sellerInfo}>
-          <Text style={{ fontSize: 18 }}>Seller</Text>
-          <FontAwesome name="user-circle-o" size={40} color="black" />
-          <Text style={{ fontSize: 20 }}>{userDetails.Name}</Text>
+          <Text style={{ fontSize: 14 }}>Seller</Text>
+          <FontAwesome name="user-circle-o" size={25} color="black" />
+          <Text style={{ fontSize: 16 }}>{userDetails.Name}</Text>
         </View>
       </View>
 
@@ -187,7 +185,7 @@ export default function AdDetails({ route }) {
 
         <Pressable onPress={dialPhoneNumber} style={styles.btnouter}>
           <Text style={styles.btn}>Call Owner</Text>
-        {/* <Button
+          {/* <Button
           title={"Call Owner"}
           onPress={dialPhoneNumber}
           style={styles.dialButton}
@@ -237,7 +235,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     justifyContent: "space-between",
     flexDirection: "row",
-    borderColor:"#DDDDDD",
+    borderColor: "#DDDDDD",
   },
 
   iconContainer: {
@@ -255,13 +253,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     borderBottomWidth: 1.5,
     paddingVertical: 10,
-    borderColor:"#DDDDDD",
+    borderColor: "#DDDDDD",
   },
 
   innerDetailText: {
     fontSize: 20,
     color: "black",
-    fontWeight:"500"
+    fontWeight: "500",
   },
   innerDetailText1: {
     fontSize: 18,
@@ -273,44 +271,44 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: "center",
     padding: 20,
-    marginTop:20,
+    marginTop: 20,
   },
 
   btnouter: {
     backgroundColor: "#0000CC",
     height: 50,
-    padding:8,
-    width:150,
-    borderColor:"white",
-    border:1,
-    borderRadius:8,
-    alignItems:"center",
-    justifyContent:"center"
+    padding: 8,
+    width: 150,
+    borderColor: "white",
+    border: 1,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  btn:{
-    color:"white",
-    fontWeight:"bold",
-    fontSize:20,
+  btn: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 20,
   },
   scrollView: {
     width: "100%",
     height: 200, // Adjust height as needed
   },
-  wappouter:{
-    backgroundColor:"#33CC33",
+  wappouter: {
+    backgroundColor: "#33CC33",
     height: 50,
-    padding:8,
-    width:150,
-    borderColor:"white",
-    border:1,
-    borderRadius:8,
+    padding: 8,
+    width: 150,
+    borderColor: "white",
+    border: 1,
+    borderRadius: 8,
     // flex:1,
-    alignItems:"center",
-    justifyContent:"center"
+    alignItems: "center",
+    justifyContent: "center",
   },
-  wapp:{
-    color:"white",
-    fontWeight:"bold",
-    fontSize:20,
-  }
+  wapp: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 20,
+  },
 });

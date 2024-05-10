@@ -37,15 +37,15 @@ function AuthStack() {
 function AuthenticatedStack() {
   return (
     <Stack.Navigator
-    screenOptions={{
-      headerShown: false,
-    }}
+      screenOptions={{
+        headerShown: false,
+      }}
     >
       <Stack.Screen name="Tabs" component={TabNavigator} />
       <Stack.Screen name="AdDetails" component={AdDetails} />
       <Stack.Screen name="Favourites" component={Favourites} />
-    <Stack.Screen name="About" component={About} />
-    <Stack.Screen name="FAQ" component={FAQ} />
+      <Stack.Screen name="About" component={About} />
+      <Stack.Screen name="FAQ" component={FAQ} />
     </Stack.Navigator>
   );
 }

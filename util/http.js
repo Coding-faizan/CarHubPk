@@ -65,6 +65,11 @@ export async function fetchAdWithId(index) {
   return Ads.find((ad) => ad.carId === index);
 }
 
+export async function fetchAdsWithIds(ids) {
+  const Ads = await fetchAds();
+  return Ads.filter((ad) => ids.includes(ad.carId));
+}
+
 const USERS_API_URL =
   "https://motorpak.000webhostapp.com/users_api/fetch_user_details_api.php";
 
