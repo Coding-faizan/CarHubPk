@@ -91,7 +91,7 @@ export default function AdDetails({ route }) {
     );
   }
 
-  const imagesToShow = fetchedAd.imageUrls.slice(1);
+  const imagesToShow = fetchedAd.imageUrls;
 
   return (
     <ScrollView>
@@ -129,7 +129,9 @@ export default function AdDetails({ route }) {
         <View style={styles.sellerInfo}>
           {/* <Text style={{ fontSize: 14 }}>Seller</Text> */}
           <FontAwesome name="user-circle-o" size={30} color="black" />
-          <Text style={{ fontSize: 18, fontWeight:"600" }}>{userDetails.Name}</Text>
+          <Text style={{ fontSize: 18, fontWeight: "600" }}>
+            {userDetails.Name}
+          </Text>
         </View>
       </View>
 
