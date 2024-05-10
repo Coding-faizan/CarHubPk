@@ -7,6 +7,7 @@ import { fetchAdsWithSellerId } from "../util/http";
 import { useIsFocused } from "@react-navigation/native";
 import { useState } from "react";
 import { useEffect } from "react";
+import AdsList from "../components/Ads/AdsList";
 
 export default function MyAds() {
   const authCtx = useContext(AuthContext);
@@ -21,7 +22,7 @@ export default function MyAds() {
 
   useEffect(() => {
     async function getAds() {
-      const ads = await fetchAdsWithSellerId("1001");
+      const ads = await fetchAdsWithSellerId(authCtx.token);
       setFetchedAds(ads);
     }
 
@@ -30,14 +31,14 @@ export default function MyAds() {
     }
   }, [isFocused]);
 
-  if (fetchedAds.length === 0) {
-    // Check the length of fetchedAds
-    return (
-      <View style={styles.fallback}>
-        <Text style={{ fontSize: 24 }}>You have'nt posted any ad yet!</Text>
-      </View>
-    );
-  }
+  // if (fetchedAds.length === 0) {
+  //   // Check the length of fetchedAds
+  //   return (
+  //     <View style={styles.fallback}>
+  //       <Text style={{ fontSize: 24 }}>You have'nt posted any ad yet!</Text>
+  //     </View>
+  //   );
+  // }
 
   if (!fetchedAds) {
     return (
@@ -64,51 +65,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
-  header: {
-    paddingTop: 30,
-    paddingVertical: 10,
-    backgroundColor: Colors.primary200,
-    flexDirection: "row",
-    justifyContent: "space-around",
+  list: {
+    margin: 5,
   },
 
-  headerText: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  loginBtn: {
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: Colors.primary800,
-    paddingVertical: 7,
-    paddingHorizontal: 20,
-    borderRadius: 10,
-    color: "white",
-  },
-
-  searchContainer: {
-    backgroundColor: "#FFF",
-    height: 40,
-    width: 150,
-    flexDirection: "row",
-    borderRadius: 10,
-    justifyContent: "space-around",
-    alignItems: "center",
-  },
-
-  recentContainer: {
-    backgroundColor: "#ECECEC",
-    // textAlign:"center",
-    padding: 10,
-    paddingTop: 15,
-  },
-
-  recentText: {
-    fontSize: 24,
-    fontWeight: "600",
-    textAlign: "left",
-    paddingLeft: 20,
-  },
   container1: {
     marginTop: 0,
     flexDirection: "column",

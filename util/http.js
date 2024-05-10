@@ -94,9 +94,12 @@ export async function fetchUserById(userId) {
 
 export async function fetchAdsWithSellerId(id) {
   try {
-    const response = await axios.post(BACKEND_URL + "fetch_user_cars_api.php", {
-      userID: id,
-    });
+    const response = await axios.post(
+      "https://motorpak.000webhostapp.com/users_api/fetch_user_cars_api.php",
+      {
+        userID: id,
+      }
+    );
 
     // Check if the response is successful and contains data
     if (response.status === 200 && response.data) {
@@ -150,6 +153,28 @@ export async function fetchAdsWithSellerId(id) {
     }
   } catch (error) {
     console.error("Error fetching user cars:", error.message);
+    throw error;
+  }
+}
+
+export async function authenticate(email, password) {
+  try {
+    console.log(email, password);
+    const response = await axios.post(
+      "https://motorpak.000webhostapp.com/users_api/login_verify_api.php",
+      {
+        email: email,
+        password: password,
+      }
+    );
+
+    if (response.status === 200 && response.data.success === true) {
+      return response.data;
+    } else {
+      throw new Error(response.data.message); // Throw an error with the error message from the response
+    }
+  } catch (error) {
+    console.error("Failed To Login User:", error.message);
     throw error;
   }
 }
