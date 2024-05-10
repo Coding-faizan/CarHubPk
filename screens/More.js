@@ -24,6 +24,9 @@ export default function More() {
 
   return (
     <View style={styles.all}>
+      <View style={styles.one}></View>
+      <View style={styles.two}></View>
+      <View style={styles.three}></View>
       {/* <View style={styles.more}>
         <Text style={styles.moreText}>More</Text>
       </View> */}
@@ -31,7 +34,7 @@ export default function More() {
         <Pressable onPress={navigateToTax}>
           <LinearGradient
             style={styles.item}
-            colors={[Colors.primary200, Colors.primary500, Colors.primary200]}
+            colors={[Colors.primary400, Colors.primary700, Colors.primary400]}
           >
             <Text style={styles.text}>Calculate Tax</Text>
           </LinearGradient>
@@ -40,7 +43,7 @@ export default function More() {
           <Pressable onPress={navigateToFavourites}>
             <LinearGradient
               style={styles.item}
-              colors={[Colors.primary200, Colors.primary500, Colors.primary200]}
+              colors={[Colors.primary400, Colors.primary700, Colors.primary400]}
             >
               <Text style={styles.text}>Favourites</Text>
             </LinearGradient>
@@ -49,7 +52,7 @@ export default function More() {
         <Pressable onPress={navigateToFAQ}>
           <LinearGradient
             style={styles.item}
-            colors={[Colors.primary200, Colors.primary500, Colors.primary200]}
+            colors={[Colors.primary400, Colors.primary700, Colors.primary400]}
           >
             <Text style={styles.text}>F.A.Qs</Text>
           </LinearGradient>
@@ -57,7 +60,7 @@ export default function More() {
         <Pressable onPress={navigateToAbout}>
           <LinearGradient
             style={styles.item}
-            colors={[Colors.primary200, Colors.primary500, Colors.primary200]}
+            colors={[Colors.primary400, Colors.primary700, Colors.primary400]}
           >
             <Text style={styles.text}>About Us</Text>
           </LinearGradient>
@@ -69,25 +72,34 @@ export default function More() {
 
 const styles = StyleSheet.create({
   all:{
-    backgroundColor:Colors.primary800,
-    height:"100%"
+    height:"100%",
   },
-  more: {
-    backgroundColor: "#ECECEC",
-    // textAlign:"center",
-    padding: 10,
-    paddingTop: 15,
-    marginTop: 40,
-    marginBottom: 20,
-  },
-
-  moreText: {
-    fontSize: 32,
-    fontWeight: "700",
-    textAlign: "center",
-  },
+//   one:{
+//     backgroundColor:Colors.primary700,
+//     position:"absolute",
+//     top:"10%",
+//     left:0,
+//     right:0,
+//     bottom:"10%",
+//     opacity:0.4,
+//     // borderBottomLeftRadius:1000,
+//     borderBottomRightRadius:1000,
+//     borderTopLeftRadius:1000,
+//  },
+  two:{
+   backgroundColor:Colors.primary500,
+   position:"absolute",
+   top:"10%",
+   left:0,
+   right:0,
+   bottom:"10%",
+   opacity:0.4,
+   borderBottomLeftRadius:1000,
+   borderBottomRightRadius:0,
+   borderTopRightRadius:1000,
+ },
   content: {
-    // flex:1,
+    flex:1,
     alignItems: "center",
     justifyContent: "center",
     margin: 10,
