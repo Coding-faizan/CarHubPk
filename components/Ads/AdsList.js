@@ -31,7 +31,6 @@ function AdsList({ Ads }) {
       renderItem={({ item }) => (
         <ProductCard ad={item} onSelect={selectAdHandler} />
       )}
-      // numColumns={1}
       contentContainerStyle={styles.contentContainer}
     />
   );

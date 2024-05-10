@@ -49,7 +49,7 @@ const ProductCard = ({ ad, onSelect }) => {
       onPress={onSelect.bind(this, ad.carId, ad.sellerId)}
     >
       <View style={styles.card}>
-        <Image source={{ uri: ad.imageUrls[1] }} style={styles.image} />
+        <Image source={{ uri: ad.imageUrls[0] }} style={styles.image} />
         <View style={styles.content}>
           <View>
             <Text style={styles.title}>{ad.title}</Text>
