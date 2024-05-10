@@ -22,6 +22,7 @@ function AdsList({ Ads }) {
       </View>
     );
   }
+
   return (
     <FlatList
       style={styles.list}

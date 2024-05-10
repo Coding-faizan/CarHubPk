@@ -19,8 +19,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { Button } from "react-native-elements";
 
 export default function AdDetails({ route }) {
   const formatPrice = (price) => {

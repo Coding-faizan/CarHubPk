@@ -20,15 +20,21 @@ const ProductCard = ({ ad, onSelect }) => {
   const favouriteHandler = () => {
     if (authCtx.isAuthenticated) {
       if (!favoriteAds.includes(ad.carId)) {
-        setFavoriteAds((prevFavorites) => [...prevFavorites, ad.carId]);
-        ToastAndroid.show("Added to Favorites!", ToastAndroid.BOTTOM);
-        navigation.setParams({ favoriteAds: [...favoriteAds, ad.carId] });
+        setFavoriteAds((prevFavorites) => {
+          const updatedFavorites = [...prevFavorites, ad.carId];
+          console.log(updatedFavorites); // Log the updated array
+          ToastAndroid.show("Added to Favorites!", ToastAndroid.BOTTOM);
+          navigation.setParams({ favoriteAds: updatedFavorites });
+          return updatedFavorites; // Return the updated array
+        });
       } else {
-        setFavoriteAds((prevFavorites) =>
-          prevFavorites.filter((id) => id !== ad.carId)
-        );
-        navigation.setParams({
-          favoriteAds: favoriteAds.filter((id) => id !== ad.carId),
+        setFavoriteAds((prevFavorites) => {
+          const updatedFavorites = prevFavorites.filter(
+            (id) => id !== ad.carId
+          );
+          console.log(updatedFavorites); // Log the updated array
+          navigation.setParams({ favoriteAds: updatedFavorites });
+          return updatedFavorites; // Return the updated array
         });
       }
     } else {
