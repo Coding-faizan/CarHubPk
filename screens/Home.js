@@ -6,13 +6,15 @@ import {
   Text,
   StyleSheet,
   Pressable,
-  ActivityIndicator,
+  ActivityIndicator, 
+  ScrollView
 } from "react-native";
 import { Colors } from "../constants/colors";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 import { AuthContext } from "../store/auth-context";
 import { LinearGradient } from "expo-linear-gradient";
+import { Entypo } from "@expo/vector-icons";
 
 function HomePage() {
   const authCtx = useContext(AuthContext);
@@ -73,9 +75,10 @@ function HomePage() {
           </View>}
         </View>
       </Pressable>
-      <View style={styles.recentContainer}>
-        <Text style={styles.recentText}>Recent Ads</Text>
-      </View>
+      <View style={styles.two}></View>
+      <View style={styles.row}>
+          <Text style={styles.data}>Recent Ads </Text>
+        </View>
       <View style={styles.container1}>
         <AdsList style={styles.list} Ads={fetchedAds} />
       </View>
@@ -111,7 +114,6 @@ const styles = StyleSheet.create({
   item:{
     justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: Colors.primary700,
     paddingVertical: 7,
     paddingHorizontal: 20,
     borderRadius: 10,
@@ -143,23 +145,35 @@ const styles = StyleSheet.create({
     color:"#B0B0B0"
 
   },
-
-  recentContainer: {
-    backgroundColor: "#ECECEC",
-    // textAlign:"center",
-    padding: 10,
-    paddingTop: 15,
+  two:{
+    backgroundColor:Colors.primary200,
+    position:"absolute",
+    top:"11%",
+    left:0,
+    right:0,
+    bottom:"30%",
+    borderBottomLeftRadius:30,
+    borderBottomRightRadius:30,
+    zIndex:-1
   },
-
-  recentText: {
-    fontSize: 24,
-    fontWeight: "600",
+  row: {
+    marginTop: 5,
+    marginLeft:15,
+  },
+  data: {
+    fontSize: 32,
+    fontWeight: "bold",
     textAlign: "left",
-    paddingLeft: 20,
+    paddingLeft: 10,
+    color: 'white', 
+    textShadowColor: 'black', 
+    textShadowOffset: { width: 2, height: 1.2 },
+    textShadowRadius: 4,
   },
   container1: {
     marginTop: 0,
     flexDirection: "column",
     alignItems: "center",
+    height:"81%"
   },
 });

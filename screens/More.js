@@ -24,9 +24,7 @@ export default function More() {
 
   return (
     <View style={styles.all}>
-      <View style={styles.one}></View>
       <View style={styles.two}></View>
-      <View style={styles.three}></View>
       {/* <View style={styles.more}>
         <Text style={styles.moreText}>More</Text>
       </View> */}
@@ -74,18 +72,6 @@ const styles = StyleSheet.create({
   all:{
     height:"100%",
   },
-//   one:{
-//     backgroundColor:Colors.primary700,
-//     position:"absolute",
-//     top:"10%",
-//     left:0,
-//     right:0,
-//     bottom:"10%",
-//     opacity:0.4,
-//     // borderBottomLeftRadius:1000,
-//     borderBottomRightRadius:1000,
-//     borderTopLeftRadius:1000,
-//  },
   two:{
    backgroundColor:Colors.primary500,
    position:"absolute",
