@@ -12,6 +12,7 @@ import { Colors } from "../constants/colors";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 import { AuthContext } from "../store/auth-context";
+import { LinearGradient } from "expo-linear-gradient";
 
 function HomePage() {
   const authCtx = useContext(AuthContext);
@@ -45,19 +46,31 @@ function HomePage() {
       <Pressable onPress={() => navigation.navigate("Search")}>
         <View style={styles.header}>
           {!authCtx.isAuthenticated && (
+            <>
             <Pressable
               style={styles.loginBtn}
               onPress={() => navigation.navigate("Login")}
             >
+               <LinearGradient
+            style={styles.item}
+            colors={[Colors.primary500, Colors.primary700, Colors.primary500]}
+          >
               <Text style={{ fontSize: 20, fontWeight: 500, color: "white" }}>
                 Login
               </Text>
+              </LinearGradient>
             </Pressable>
-          )}
           <View style={styles.searchContainer}>
-            <FontAwesome name="search" size={24} color="black" />
-            <Text>Search Car</Text>
+            <FontAwesome style={styles.icon} name="search" size={24} color="black" />
+            <Text style={styles.txt}>Search Car</Text>
           </View>
+        </>
+          )}
+          {authCtx.isAuthenticated&&
+          <View style={styles.searchContainer1}>
+            <FontAwesome  style={styles.icon} name="search" size={24} color="black" />
+            <Text style={styles.txt}>Search Car</Text>
+          </View>}
         </View>
       </Pressable>
       <View style={styles.recentContainer}>
@@ -82,7 +95,7 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    paddingTop: 30,
+    paddingTop: 40,
     paddingVertical: 10,
     backgroundColor: Colors.primary200,
     flexDirection: "row",
@@ -94,23 +107,41 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   loginBtn: {
+  },
+  item:{
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: Colors.primary800,
+    // backgroundColor: Colors.primary700,
     paddingVertical: 7,
     paddingHorizontal: 20,
     borderRadius: 10,
     color: "white",
+
   },
 
   searchContainer: {
-    backgroundColor: "#FFF",
+    backgroundColor: "white",
     height: 40,
-    width: 150,
+    width: "55%",
     flexDirection: "row",
-    borderRadius: 10,
-    justifyContent: "space-around",
+    borderRadius: 20,
     alignItems: "center",
+  },
+  searchContainer1: {
+    backgroundColor: "white",
+    height: 40,
+    width: "85%",
+    flexDirection: "row",
+    borderRadius: 20,
+    alignItems: "center",
+  },
+  icon:{
+    marginLeft:10
+  },
+  txt:{
+    marginLeft:10,
+    color:"#B0B0B0"
+
   },
 
   recentContainer: {
