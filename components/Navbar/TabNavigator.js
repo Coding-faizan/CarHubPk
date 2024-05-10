@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Pressable, SafeAreaView } from "react-native"; // Import SafeAreaView
 
 // Importing screen components
-import { Home, Ads, PostAd, More, Profile } from "../../screens";
+import { Home, PostAd, More, Profile, MyAds } from "../../screens";
 
 // Importing icon components
 import HomeIcon from "./Icons/HomeIcon";
@@ -20,10 +20,6 @@ export default function TabNavigator() {
   const authCtx = useContext(AuthContext);
   const navigation = useNavigation();
 
-  function sellNowhandler() {
-    navigation.navigate("PostAd");
-  }
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
       <Tab.Navigator screenOptions={screenOptions}>
@@ -35,8 +31,8 @@ export default function TabNavigator() {
           }}
         />
         <Tab.Screen
-          name="Ads"
-          component={Ads}
+          name="MyAds"
+          component={MyAds}
           options={{
             tabBarIcon: ({ focused }) => <AdsIcon focused={focused} />,
           }}

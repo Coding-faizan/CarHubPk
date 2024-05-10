@@ -10,7 +10,7 @@ const AdsIcon = ({ focused }) => (
       size={24}
       color={focused ? Colors.primary500 : "#111"}
     />
-    <Text style={{ fontSize: 12, color: Colors.primary500 }}>Ads</Text>
+    <Text style={{ fontSize: 12, color: Colors.primary500 }}>MyAds</Text>
   </View>
 );
 
