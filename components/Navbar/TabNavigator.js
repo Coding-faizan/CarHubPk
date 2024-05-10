@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext,useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Pressable, SafeAreaView } from "react-native"; // Import SafeAreaView
 
@@ -19,6 +19,11 @@ const Tab = createBottomTabNavigator();
 export default function TabNavigator() {
   const authCtx = useContext(AuthContext);
   const navigation = useNavigation();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const toggleDrawer = () => {
+    setIsDrawerOpen(!isDrawerOpen);
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>

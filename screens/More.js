@@ -24,9 +24,9 @@ export default function More() {
 
   return (
     <View style={styles.all}>
-      <View style={styles.more}>
+      {/* <View style={styles.more}>
         <Text style={styles.moreText}>More</Text>
-      </View>
+      </View> */}
       <View style={styles.content}>
         <Pressable onPress={navigateToTax}>
           <LinearGradient
@@ -68,6 +68,10 @@ export default function More() {
 }
 
 const styles = StyleSheet.create({
+  all:{
+    backgroundColor:Colors.primary800,
+    height:"100%"
+  },
   more: {
     backgroundColor: "#ECECEC",
     // textAlign:"center",

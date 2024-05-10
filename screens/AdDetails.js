@@ -127,9 +127,9 @@ export default function AdDetails({ route }) {
         </View>
 
         <View style={styles.sellerInfo}>
-          <Text style={{ fontSize: 14 }}>Seller</Text>
-          <FontAwesome name="user-circle-o" size={25} color="black" />
-          <Text style={{ fontSize: 16 }}>{userDetails.Name}</Text>
+          {/* <Text style={{ fontSize: 14 }}>Seller</Text> */}
+          <FontAwesome name="user-circle-o" size={30} color="black" />
+          <Text style={{ fontSize: 18, fontWeight:"600" }}>{userDetails.Name}</Text>
         </View>
       </View>
 
