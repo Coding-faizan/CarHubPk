@@ -7,7 +7,7 @@ import TabNavigator from "./components/Navbar/TabNavigator";
 import AdDetails from "./screens/AdDetails";
 import Home from "./screens/Home";
 import AuthContextProvider, { AuthContext } from "./store/auth-context";
-import { PostAd } from "./screens";
+import { PostAd, Profile } from "./screens";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
 import Favourites from "./screens/Favourites";
