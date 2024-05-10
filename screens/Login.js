@@ -12,6 +12,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from "../store/auth-context";
 import LoadingCar from "../UI/LoadingCar";
+import { authenticate } from "../util/http";
 
 export default function Login() {
   const authCtx = useContext(AuthContext);
@@ -42,27 +43,20 @@ export default function Login() {
     setLoading(true);
 
     try {
-      // Simulate login verification delay for 2 seconds
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const userData = await authenticate(loginForm.uname, loginForm.password);
 
-      // In a real app, you would perform actual login verification here
-      // For demonstration, I'm just setting dummy user details
-      const dummyUserDetails = {
-        username: loginForm.uname,
-        // Other user details...
-      };
-
-      if (dummyUserDetails) {
-        authCtx.authenticate("1001");
+      if (userData.success === true) {
+        setLoading(false);
+        authCtx.authenticate(userData.userDetails.UserID);
         navigation.navigate("Tabs");
-      } else {
-        Alert.alert("Error", "Invalid email or password!", [{ text: "Okay" }]);
+      } else if (userData.success === false) {
+        setLoading(false);
+        Alert.alert("Invalid Email or Password", [{ text: "Okay" }]);
+        return;
       }
     } catch (error) {
       console.error("Error:", error);
-      Alert.alert("Error", "An error occurred. Please try again later.", [
-        { text: "Okay" },
-      ]);
+      Alert.alert("Invalid Email or Password", [{ text: "Okay" }]);
     } finally {
       setLoading(false);
     }
