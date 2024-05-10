@@ -45,7 +45,7 @@ export default function Profile() {
           style={styles.icon}
           name="user-circle"
           size={110}
-          color="black"
+          color="white"
         />
         <Text style={styles.txt}>{userDetails.Name}</Text>
         <Text style={styles.txt1}>{userDetails.Email}</Text>
@@ -108,7 +108,7 @@ export default function Profile() {
 const styles = StyleSheet.create({
   all: {
     flex: 1,
-    backgroundColor: "lightgray",
+    backgroundColor: Colors.primary400,
   },
   container: {
     marginTop: 35,
@@ -117,14 +117,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: "42%",
     alignItems: "center",
-    backgroundColor: "lightgray",
+    backgroundColor: Colors.primary400,
   },
   icon: {
     borderWidth: 3,
-    borderColor: Colors.primary400,
+    borderColor:"white",
     textAlign: "center",
     borderRadius: 65,
-    paddingTop: 5,
+    paddingTop: 6,
     paddingLeft: 3,
     paddingRight: 3,
     // padding:8,
@@ -135,8 +135,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 35,
     fontWeight: "500",
+    color:"white"
   },
   txt1: {
+    color:"white",
     fontSize: 18,
     fontWeight: "400",
   },
