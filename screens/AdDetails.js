@@ -21,6 +21,9 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 
 export default function AdDetails({ route }) {
+  const selectedAdId = route.params.carId;
+  const selectedUserId = route.params.userId;
+
   const formatPrice = (price) => {
     const significantDigits = 2;
     const priceInLacs = price / 100000;
@@ -56,9 +59,6 @@ export default function AdDetails({ route }) {
         alert("Could not initiate the phone call.");
       });
   };
-
-  const selectedAdId = route.params.carId;
-  const selectedUserId = route.params.userId;
 
   console.log(selectedUserId);
 
