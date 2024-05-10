@@ -33,6 +33,7 @@ const AdForm = () => {
   const [enteredPrice, setEnteredPrice] = useState("");
 
   const [isPosting, setIsPosting] = useState(false);
+  const authCtx = useContext(AuthContext);
 
   const resetForm = () => {
     setImagesUrl([]);
@@ -243,8 +244,6 @@ const AdForm = () => {
                   } else {
                     const apiEndpoint =
                       "https://motorpak.000webhostapp.com/car_api/post_car_api.php";
-
-                    const authCtx = useContext(AuthContext);
 
                     const data = {
                       makerName: brandName,
