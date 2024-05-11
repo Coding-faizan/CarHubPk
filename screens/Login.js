@@ -34,9 +34,8 @@ export default function Login() {
 
   const handleLogin = async () => {
     if (loginForm.uname === "" || loginForm.password === "") {
-      Alert.alert("Invalid Input", "All fields are required!", [
-        { text: "Okay" },
-      ]);
+      Alert.alert("Invalid Input", "All fields are required!");
+
       return;
     }
 
@@ -51,12 +50,13 @@ export default function Login() {
         navigation.navigate("Tabs");
       } else if (userData.success === false) {
         setLoading(false);
-        Alert.alert("Invalid Email or Password", [{ text: "Okay" }]);
+        Alert.alert("Invalid Email or Password", "Invalid Email or Password");
+
         return;
       }
     } catch (error) {
       console.error("Error:", error);
-      Alert.alert("Invalid Email or Password", [{ text: "Okay" }]);
+      Alert.alert("Invalid Email or Password", "Invalid Email or Password");
     } finally {
       setLoading(false);
     }

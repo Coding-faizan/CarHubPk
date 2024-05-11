@@ -7,7 +7,7 @@ import { fetchAdsWithSellerId } from "../util/http";
 import { useIsFocused } from "@react-navigation/native";
 import { useState } from "react";
 import { useEffect } from "react";
-import AdsList from "../components/Ads/AdsList";
+import MyAdList from "../components/Ads/MyAdList";
 
 export default function MyAds() {
   const authCtx = useContext(AuthContext);
@@ -50,13 +50,12 @@ export default function MyAds() {
   }
 
   return (
-    <>     
-     <View style={styles.two}></View>
-    <View style={styles.container1}>
-      <AdsList style={styles.list} Ads={fetchedAds} />
-    </View>
+    <>
+      <View style={styles.two}></View>
+      <View style={styles.container1}>
+        <MyAdList style={styles.list} Ads={fetchedAds} />
+      </View>
     </>
-
   );
 }
 
@@ -72,16 +71,16 @@ const styles = StyleSheet.create({
   list: {
     margin: 5,
   },
-  two:{
-    backgroundColor:Colors.primary200,
-    position:"absolute",
-    top:"0%",
-    left:0,
-    right:0,
-    bottom:"30%",
-    borderBottomLeftRadius:40,
-    borderBottomRightRadius:40,
-    zIndex:-1
+  two: {
+    backgroundColor: Colors.primary200,
+    position: "absolute",
+    top: "0%",
+    left: 0,
+    right: 0,
+    bottom: "30%",
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
+    zIndex: -1,
   },
   container1: {
     marginTop: 40,

@@ -178,3 +178,21 @@ export async function authenticate(email, password) {
     throw error;
   }
 }
+
+export async function deleteAd(id) {
+  try {
+    const response = await axios.post(
+      "https://motorpak.000webhostapp.com/car_api/delete_car_api.php",
+      {
+        carID: id,
+      }
+    );
+
+    if (response.status === 200) {
+      return "Ad Deleted!";
+    }
+  } catch (error) {
+    console.error("Failed To Login User:", error.message);
+    throw error;
+  }
+}
