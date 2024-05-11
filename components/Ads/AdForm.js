@@ -4,6 +4,8 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  ActivityIndicator,
+  Text,
 } from "react-native";
 import { Input, Button } from "react-native-elements";
 import BrandDropdown from "../AdFormInputs/BrandDropdown";
@@ -33,7 +35,17 @@ const AdForm = () => {
   const [enteredPrice, setEnteredPrice] = useState("");
 
   const [isPosting, setIsPosting] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const authCtx = useContext(AuthContext);
+
+  if (isLoading) {
+    return (
+      <View style={styles.fallback}>
+        <ActivityIndicator size="large" color="#007AFF" />
+        <Text style={{ fontSize: 20 }}>Posting Ad...</Text>
+      </View>
+    );
+  }
 
   const resetForm = () => {
     setImagesUrl([]);
@@ -196,19 +208,21 @@ const AdForm = () => {
     if (
       !enteredTitle ||
       !selectedLocation ||
-      !brandName ||
+      !selectedBrand ||
       !selectedModel ||
       !enteredMilage ||
       !enteredDescription ||
       !enteredPrice
     ) {
       Alert.alert("Please fill all fields.");
+      console.log("fill");
       return;
     }
 
     let brandName = null;
     let carID = null;
     setIsPosting(true);
+    setIsLoading(true);
     // Fetch brand name
     fetch(
       "https://motorpak.000webhostapp.com/carfilters_api/fetch_makers_with_id_api.php",
@@ -297,6 +311,7 @@ const AdForm = () => {
                           );
 
                           resetForm();
+                          setIsLoading(false);
                           setTimeout(() => {
                             // Reset isPosting to false after cooldown
                             setIsPosting(false);
@@ -308,6 +323,7 @@ const AdForm = () => {
                             "Failed to post ad. Please try again."
                           );
                           setIsPosting(false);
+                          setIsLoading(false);
                         }
                       })
                       .catch((error) => {
@@ -317,18 +333,21 @@ const AdForm = () => {
                           "Failed to post data to the server. Please try again later."
                         );
                         setIsPosting(false);
+                        setIsLoading(false);
                       });
                   }
                 });
               } else {
                 console.error("Error: Invalid API response format for car ID");
                 setIsPosting(false);
+                setIsLoading(false);
               }
             })
             .catch((error) => console.error("Error fetching car ID:", error));
         } else {
           console.error("Error: Invalid API response format for brand name");
           setIsPosting(false);
+          setIsLoading(false);
         }
       })
       .catch((error) => console.error("Error fetching brand name:", error));
@@ -422,6 +441,13 @@ export default AdForm;
 const styles = StyleSheet.create({
   form: {
     padding: 24,
+  },
+  fallback: {
+    flex: 1,
+    ...StyleSheet.absoluteFillObject, // Cover the entire screen
+    backgroundColor: "rgba(255, 255, 255, 0.7)", // Semi-transparent white background
+    alignItems: "center",
+    justifyContent: "center",
   },
   container: {
     marginTop: 6,
