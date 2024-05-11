@@ -193,9 +193,22 @@ const AdForm = () => {
   };
 
   const handleSubmit = () => {
+    if (
+      !enteredTitle ||
+      !selectedLocation ||
+      !brandName ||
+      !selectedModel ||
+      !enteredMilage ||
+      !enteredDescription ||
+      !enteredPrice
+    ) {
+      Alert.alert("Please fill all fields.");
+      return;
+    }
+
     let brandName = null;
     let carID = null;
-
+    setIsPosting(true);
     // Fetch brand name
     fetch(
       "https://motorpak.000webhostapp.com/carfilters_api/fetch_makers_with_id_api.php",
@@ -230,17 +243,9 @@ const AdForm = () => {
 
                 handleUploadImages(carID, imagesUrl, (uploadedUrls) => {
                   // This code block is executed after the upload operation completes
-                  if (
-                    !uploadedUrls ||
-                    !enteredTitle ||
-                    !selectedLocation ||
-                    !brandName ||
-                    !selectedModel ||
-                    !enteredMilage ||
-                    !enteredDescription ||
-                    !enteredPrice
-                  ) {
-                    Alert.alert("Please fill all fields.");
+                  if (!uploadedUrls) {
+                    Alert.alert("Please upload images.");
+                    return;
                   } else {
                     const apiEndpoint =
                       "https://motorpak.000webhostapp.com/car_api/post_car_api.php";
@@ -290,7 +295,7 @@ const AdForm = () => {
                               },
                             ]
                           );
-                          setIsPosting(true);
+
                           resetForm();
                           setTimeout(() => {
                             // Reset isPosting to false after cooldown
@@ -302,6 +307,7 @@ const AdForm = () => {
                             "Error",
                             "Failed to post ad. Please try again."
                           );
+                          setIsPosting(false);
                         }
                       })
                       .catch((error) => {
@@ -310,16 +316,19 @@ const AdForm = () => {
                           "Error",
                           "Failed to post data to the server. Please try again later."
                         );
+                        setIsPosting(false);
                       });
                   }
                 });
               } else {
                 console.error("Error: Invalid API response format for car ID");
+                setIsPosting(false);
               }
             })
             .catch((error) => console.error("Error fetching car ID:", error));
         } else {
           console.error("Error: Invalid API response format for brand name");
+          setIsPosting(false);
         }
       })
       .catch((error) => console.error("Error fetching brand name:", error));
