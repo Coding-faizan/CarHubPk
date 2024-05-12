@@ -6,8 +6,8 @@ import {
   Text,
   StyleSheet,
   Pressable,
-  ActivityIndicator, 
-  ScrollView
+  ActivityIndicator,
+  ScrollView,
 } from "react-native";
 import { Colors } from "../constants/colors";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
@@ -49,36 +49,53 @@ function HomePage() {
         <View style={styles.header}>
           {!authCtx.isAuthenticated && (
             <>
-            <Pressable
-              style={styles.loginBtn}
-              onPress={() => navigation.navigate("Login")}
-            >
-               <LinearGradient
-            style={styles.item}
-            colors={[Colors.primary500, Colors.primary700, Colors.primary500]}
-          >
-              <Text style={{ fontSize: 20, fontWeight: 500, color: "white" }}>
-                Login
-              </Text>
-              </LinearGradient>
-            </Pressable>
-          <View style={styles.searchContainer}>
-            <FontAwesome style={styles.icon} name="search" size={24} color="black" />
-            <Text style={styles.txt}>Search Car</Text>
-          </View>
-        </>
+              <Pressable
+                style={styles.loginBtn}
+                onPress={() => navigation.navigate("Login")}
+              >
+                <LinearGradient
+                  style={styles.item}
+                  colors={[
+                    Colors.primary500,
+                    Colors.primary700,
+                    Colors.primary500,
+                  ]}
+                >
+                  <Text
+                    style={{ fontSize: 20, fontWeight: 500, color: "white" }}
+                  >
+                    Login
+                  </Text>
+                </LinearGradient>
+              </Pressable>
+              <View style={styles.searchContainer}>
+                <FontAwesome
+                  style={styles.icon}
+                  name="search"
+                  size={24}
+                  color="black"
+                />
+                <Text style={styles.txt}>Search Car</Text>
+              </View>
+            </>
           )}
-          {authCtx.isAuthenticated&&
-          <View style={styles.searchContainer1}>
-            <FontAwesome  style={styles.icon} name="search" size={24} color="black" />
-            <Text style={styles.txt}>Search Car</Text>
-          </View>}
+          {authCtx.isAuthenticated && (
+            <View style={styles.searchContainer1}>
+              <FontAwesome
+                style={styles.icon}
+                name="search"
+                size={24}
+                color="black"
+              />
+              <Text style={styles.txt}>Search Car</Text>
+            </View>
+          )}
         </View>
       </Pressable>
       <View style={styles.two}></View>
       <View style={styles.row}>
-          <Text style={styles.data}>Recent Ads </Text>
-        </View>
+        <Text style={styles.data}>Recent Ads </Text>
+      </View>
       <View style={styles.container1}>
         <AdsList style={styles.list} Ads={fetchedAds} />
       </View>
@@ -109,16 +126,14 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
   },
-  loginBtn: {
-  },
-  item:{
+  loginBtn: {},
+  item: {
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 7,
     paddingHorizontal: 20,
     borderRadius: 10,
     color: "white",
-
   },
 
   searchContainer: {
@@ -137,36 +152,35 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: "center",
   },
-  icon:{
-    marginLeft:10
+  icon: {
+    marginLeft: 10,
   },
-  txt:{
-    marginLeft:10,
-    color:"#B0B0B0"
-
+  txt: {
+    marginLeft: 10,
+    color: "#B0B0B0",
   },
-  two:{
-    backgroundColor:Colors.primary200,
-    position:"absolute",
-    top:"11%",
-    left:0,
-    right:0,
-    bottom:"30%",
-    borderBottomLeftRadius:30,
-    borderBottomRightRadius:30,
-    zIndex:-1
+  two: {
+    backgroundColor: Colors.primary200,
+    position: "absolute",
+    top: "11%",
+    left: 0,
+    right: 0,
+    bottom: "30%",
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    zIndex: -1,
   },
   row: {
     marginTop: 5,
-    marginLeft:15,
+    marginLeft: 15,
   },
   data: {
     fontSize: 32,
     fontWeight: "bold",
     textAlign: "left",
     paddingLeft: 10,
-    color: 'white', 
-    textShadowColor: 'black', 
+    color: "white",
+    textShadowColor: "black",
     textShadowOffset: { width: 2, height: 1.2 },
     textShadowRadius: 4,
   },
@@ -174,6 +188,6 @@ const styles = StyleSheet.create({
     marginTop: 0,
     flexDirection: "column",
     alignItems: "center",
-    height:"81%"
+    height: "81%",
   },
 });

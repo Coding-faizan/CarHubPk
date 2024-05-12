@@ -1,12 +1,10 @@
 import { View } from "react-native";
-import AdItem from "./AdItem";
-import ProductCard from "./AdItem";
 import { StyleSheet, FlatList, ScrollView } from "react-native";
 import { Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import MyAdItem from "./MyAdItem";
 
-function AdsList({ Ads }) {
+function AdsList({ Ads, onDelete }) {
   const navigation = useNavigation();
 
   function selectAdHandler(id, sellerId) {
@@ -16,11 +14,18 @@ function AdsList({ Ads }) {
     });
   }
 
-  if (!Ads || Ads.length === 0) {
+  if (Ads.length === 0) {
     return (
-      <View style={styles.fallBackContainer}>
-        <Text style={styles.fallBackText}>No Ads Posted!</Text>
-      </View>
+      <>
+        <View style={styles.two}></View>
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <Text style={{ fontSize: 24, fontWeight: "350", color: "white" }}>
+            You have not posted any ad yet!
+          </Text>
+        </View>
+      </>
     );
   }
 
@@ -29,9 +34,7 @@ function AdsList({ Ads }) {
       style={styles.list}
       data={Ads}
       keyExtractor={(item) => item.carId}
-      renderItem={({ item }) => (
-        <MyAdItem ad={item} onSelect={selectAdHandler} />
-      )}
+      renderItem={({ item }) => <MyAdItem ad={item} onDel={onDelete} />}
       contentContainerStyle={styles.contentContainer}
     />
   );

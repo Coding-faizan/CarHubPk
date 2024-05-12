@@ -1,5 +1,4 @@
 import axios from "axios";
-import { func } from "prop-types";
 
 const BACKEND_URL = "https://motorpak.000webhostapp.com/car_api/";
 
@@ -188,11 +187,11 @@ export async function deleteAd(id) {
       }
     );
 
-    if (response.status === 200) {
+    if (response.status == 200) {
       return "Ad Deleted!";
     }
   } catch (error) {
-    console.error("Failed To Login User:", error.message);
+    console.error("Failed to Delete:", error.message);
     throw error;
   }
 }

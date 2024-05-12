@@ -13,7 +13,7 @@ import { AuthContext } from "../../store/auth-context";
 import { useNavigation } from "@react-navigation/native";
 import { deleteAd } from "../../util/http";
 
-export default MyAdItem = ({ ad, onSelect }) => {
+export default MyAdItem = ({ ad, onDel }) => {
   const [favoriteAds, setFavoriteAds] = useState([]);
   const authCtx = useContext(AuthContext);
   const navigation = useNavigation();
@@ -24,10 +24,11 @@ export default MyAdItem = ({ ad, onSelect }) => {
         text: "Yes",
         style: "destructive",
         onPress: async () => {
-          const message = await deleteAd(ad.carID);
+          const message = await deleteAd(ad.carId);
 
           if (message) {
             Alert.alert("Ad Deleted!");
+            onDelete();
           }
         },
       },
