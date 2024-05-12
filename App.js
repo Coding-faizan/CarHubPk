@@ -13,6 +13,7 @@ import Signup from "./screens/Signup";
 import Favourites from "./screens/Favourites";
 import About from "./screens/About";
 import FAQ from "./screens/FAQ";
+import { NumberOfAdsProvider } from "./store/noOfAdsContext";
 
 const Stack = createNativeStackNavigator();
 
@@ -92,7 +93,9 @@ const App = () => {
     <>
       <StatusBar style="light" />
       <AuthContextProvider>
-        <Root />
+        <NumberOfAdsProvider>
+          <Root />
+        </NumberOfAdsProvider>
       </AuthContextProvider>
     </>
   );

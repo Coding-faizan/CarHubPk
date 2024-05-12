@@ -4,14 +4,17 @@ import { Colors } from "../constants/colors";
 import { AuthContext } from "../store/auth-context";
 import LoginFallBack from "../components/LoginFallBack";
 import { fetchAdsWithSellerId, deleteAd } from "../util/http";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useRoute } from "@react-navigation/native";
+
 import MyAdList from "../components/Ads/MyAdList";
+import { NumberOfAdsContext } from "../store/noOfAdsContext";
 
 const MyAds = () => {
   const authCtx = useContext(AuthContext);
   const isFocused = useIsFocused();
   const [fetchedAds, setFetchedAds] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { setNumberOfAds } = useContext(NumberOfAdsContext);
 
   if (!authCtx.isAuthenticated) {
     return <LoginFallBack />;
@@ -28,6 +31,7 @@ const MyAds = () => {
       setLoading(true);
       const ads = await fetchAdsWithSellerId(authCtx.token);
       setFetchedAds(ads);
+      setNumberOfAds(ads.length);
     } catch (error) {
       console.error("Error fetching ads:", error);
     } finally {

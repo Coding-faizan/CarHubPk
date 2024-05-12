@@ -2,6 +2,8 @@ import { useContext, useState, useEffect } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { AuthContext } from "../store/auth-context";
 import LoginFallBack from "../components/LoginFallBack";
+import { NumberOfAdsContext } from "../store/noOfAdsContext";
+
 import { FontAwesome } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -21,6 +23,7 @@ export default function Profile() {
   const authCtx = useContext(AuthContext);
   const [userDetails, setUserDetails] = useState();
   const userId = authCtx.token;
+  const { numberOfAds } = useContext(NumberOfAdsContext);
 
   if (!authCtx.isAuthenticated) {
     return <LoginFallBack />;
@@ -84,7 +87,7 @@ export default function Profile() {
           </View>
           <Text style={styles.data}>Number of Ads </Text>
           <View style={styles.car}>
-            <Text style={styles.num}>{Demo.num}</Text>
+            <Text style={styles.num}>{numberOfAds}</Text>
           </View>
         </View>
         <View style={styles.log}>
@@ -121,7 +124,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     borderWidth: 3,
-    borderColor:"white",
+    borderColor: "white",
     textAlign: "center",
     borderRadius: 65,
     paddingTop: 6,
@@ -135,10 +138,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 35,
     fontWeight: "500",
-    color:"white"
+    color: "white",
   },
   txt1: {
-    color:"white",
+    color: "white",
     fontSize: 18,
     fontWeight: "400",
   },
