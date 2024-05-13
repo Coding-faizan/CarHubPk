@@ -13,7 +13,7 @@ import { AuthContext } from "../../store/auth-context";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage"; // Import AsyncStorage
 
-const ProductCard = ({ ad, onSelect, isFavorite, onToggleFavorite }) => {
+const ProductCard = ({ ad, onSelect }) => {
   const [favoriteAds, setFavoriteAds] = useState([]);
   const authCtx = useContext(AuthContext);
   const navigation = useNavigation();
@@ -70,11 +70,13 @@ const ProductCard = ({ ad, onSelect, isFavorite, onToggleFavorite }) => {
             <Text style={styles.price}>{"Rs. " + displayPrice}</Text>
             <Text style={styles.registrationYear}>{ad.registrationYear}</Text>
           </View>
-          <Pressable style={styles.favourite} onPress={onToggleFavorite}>
-            {isFavorite ? (
-              <AntDesign name="heart" size={24} color="red" />
-            ) : (
+
+          <Pressable style={styles.favourite} onPress={favouriteHandler}>
+            {!favoriteAds.includes(ad.carId) && (
               <AntDesign name="hearto" size={24} color="black" />
+            )}
+            {favoriteAds.includes(ad.carId) && (
+              <AntDesign name="heart" size={24} color="black" />
             )}
           </Pressable>
         </View>

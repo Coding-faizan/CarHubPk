@@ -7,14 +7,12 @@ import {
   StyleSheet,
   Pressable,
   ActivityIndicator,
-  ScrollView,
 } from "react-native";
 import { Colors } from "../constants/colors";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 import { AuthContext } from "../store/auth-context";
 import { LinearGradient } from "expo-linear-gradient";
-import { Entypo } from "@expo/vector-icons";
 
 function HomePage() {
   const authCtx = useContext(AuthContext);
