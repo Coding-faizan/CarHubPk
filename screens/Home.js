@@ -45,7 +45,7 @@ function HomePage() {
 
   return (
     <View>
-      <Pressable onPress={() => navigation.navigate("Search")}>
+      <Pressable>
         <View style={styles.header}>
           {!authCtx.isAuthenticated && (
             <>
@@ -68,7 +68,7 @@ function HomePage() {
                   </Text>
                 </LinearGradient>
               </Pressable>
-              <View style={styles.searchContainer}>
+              <Pressable style={styles.searchContainer} onPress={() => navigation.navigate("Search")}>
                 <FontAwesome
                   style={styles.icon}
                   name="search"
@@ -76,11 +76,31 @@ function HomePage() {
                   color="black"
                 />
                 <Text style={styles.txt}>Search Car</Text>
-              </View>
+              </Pressable>
             </>
           )}
           {authCtx.isAuthenticated && (
-            <View style={styles.searchContainer1}>
+            <>
+            <Pressable
+                style={styles.loginBtn}
+                onPress={() => navigation.navigate("FilterCarScreen")}
+              >
+                <LinearGradient
+                  style={styles.item}
+                  colors={[
+                    Colors.primary500,
+                    Colors.primary700,
+                    Colors.primary500,
+                  ]}
+                >
+                  <Text
+                    style={{ fontSize: 20, fontWeight: 500, color: "white" }}
+                  >
+                  Filter Search
+                  </Text>
+                </LinearGradient>
+              </Pressable>
+              <Pressable style={styles.searchContainer}  onPress={() => navigation.navigate("Search")}>
               <FontAwesome
                 style={styles.icon}
                 name="search"
@@ -88,7 +108,8 @@ function HomePage() {
                 color="black"
               />
               <Text style={styles.txt}>Search Car</Text>
-            </View>
+            </Pressable>
+            </>
           )}
         </View>
       </Pressable>
@@ -137,6 +158,7 @@ const styles = StyleSheet.create({
   },
 
   searchContainer: {
+    // flex:1,
     backgroundColor: "white",
     height: 40,
     width: "55%",

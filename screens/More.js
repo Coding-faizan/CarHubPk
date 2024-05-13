@@ -10,7 +10,7 @@ export default function More() {
   const authCtx = useContext(AuthContext);
 
   const navigateToTax = () => {
-    navigation.navigate("Favourites");
+    navigation.navigate("TaxCalculatorScreen");
   };
   const navigateToFavourites = () => {
     navigation.navigate("Favourites");

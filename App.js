@@ -13,6 +13,10 @@ import Signup from "./screens/Signup";
 import Favourites from "./screens/Favourites";
 import About from "./screens/About";
 import FAQ from "./screens/FAQ";
+import TaxCalculatorScreen from "./screens/TaxCalculatorScreen";
+import FilterCarScreen from "./screens/FilterCarScreen";
+import SearchedData from "./screens/SearchedData";
+import Search from "./screens/Search"
 import { NumberOfAdsProvider } from "./store/noOfAdsContext";
 
 const Stack = createNativeStackNavigator();
@@ -31,6 +35,10 @@ function AuthStack() {
       <Stack.Screen name="Favourites" component={Favourites} />
       <Stack.Screen name="About" component={About} />
       <Stack.Screen name="FAQ" component={FAQ} />
+      <Stack.Screen name="TaxCalculatorScreen" component={TaxCalculatorScreen} />
+      <Stack.Screen name="FilterCarScreen" component={FilterCarScreen} />
+      <Stack.Screen name="SearchedData" component={SearchedData} />
+      <Stack.Screen name="Search" component={Search} />
     </Stack.Navigator>
   );
 }
@@ -38,15 +46,19 @@ function AuthStack() {
 function AuthenticatedStack() {
   return (
     <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
+    screenOptions={{
+      headerShown: false,
+    }}
     >
       <Stack.Screen name="Tabs" component={TabNavigator} />
       <Stack.Screen name="AdDetails" component={AdDetails} />
       <Stack.Screen name="Favourites" component={Favourites} />
       <Stack.Screen name="About" component={About} />
       <Stack.Screen name="FAQ" component={FAQ} />
+      <Stack.Screen name="TaxCalculatorScreen" component={TaxCalculatorScreen} />
+      <Stack.Screen name="FilterCarScreen" component={FilterCarScreen} />
+      <Stack.Screen name="SearchedData" component={SearchedData} />
+      <Stack.Screen name="Search" component={Search} />
     </Stack.Navigator>
   );
 }

@@ -6,6 +6,7 @@ import LoginFallBack from "../components/LoginFallBack";
 import { fetchAdsWithSellerId, deleteAd } from "../util/http";
 import { useIsFocused, useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
+import { FontAwesome } from "@expo/vector-icons";
 
 import MyAdList from "../components/Ads/MyAdList";
 import { NumberOfAdsContext } from "../store/noOfAdsContext";
@@ -72,7 +73,7 @@ const MyAds = () => {
   return (
     <>
       <View style={styles.two}></View>
-      <View style={styles.container1}>
+      <View style={styles.container2}>
         {loading ? (
           <View style={styles.fallback}>
             <ActivityIndicator size="large" color="#007AFF" />
@@ -108,8 +109,8 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 40,
     zIndex: -1,
   },
-  container1: {
-    marginTop: 40,
+  container2: {
+    marginTop: 50,
     flexDirection: "column",
     alignItems: "center",
   },

@@ -16,22 +16,64 @@ import { AuthContext } from "../store/auth-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { Entypo } from "@expo/vector-icons";
 
-function SearchedData() {
+const SearchedData= async({filters})=> {
+    // $priceMin = $data['priceMin'] ?? null;
+    // $priceMax = $data['priceMax'] ?? null;
+    // $mileageMin = $data['mileageMin'] ?? null;
+    // $mileageMax = $data['mileageMax'] ?? null;
+    // $variant = $data['variant'] ?? null;
+    // $condition = $data['condition'] ?? null;
+    // $location = $data['location'] ?? null;
+
+
+
+
   const authCtx = useContext(AuthContext);
   const [fetchedAds, setFetchedAds] = useState([]);
   const isFocused = useIsFocused();
   const navigation = useNavigation();
 
-  useEffect(() => {
-    async function getAds() {
-      const ads = await fetchAds();
-      setFetchedAds(ads);
-    }
 
-    if (isFocused) {
-      getAds();
-    }
-  }, [isFocused]);
+  
+  
+  try {
+      const response = await fetch("https://motorpak.000webhostapp.com/carfilters_api/fetch_filter_cars_api.php", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({priceMin:filters.priceMin,
+                priceMax:filters.priceMax,
+                mileageMin:filters.mileageMin ,
+                mileageMax: filters.mileageMax,
+                variant: filters.variant,
+                condition:filters.condition ,
+                location: filters.location}),
+    });
+    const data = await response.json();
+    console.log(data);
+} catch (error) {
+    console.error("Error fetching models:", error);
+}
+
+
+
+
+
+
+
+
+
+//   useEffect(() => {
+//     async function getAds() {
+//       const ads = await fetchAds();
+//       setFetchedAds(ads);
+//     }
+
+//     if (isFocused) {
+//       getAds();
+//     }
+//   }, [isFocused]);
 
   if (fetchedAds.length === 0) {
     // Check the length of fetchedAds
@@ -97,7 +139,7 @@ function SearchedData() {
         <Text style={styles.data}>Filtered Data </Text>
       </View>
       <View style={styles.container1}>
-        <AdsList style={styles.list} Ads={fetchedAds} />
+        {/* <AdsList style={styles.list} Ads={fetchedAds} /> */}
       </View>
     </View>
   );
