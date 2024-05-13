@@ -5,11 +5,13 @@ import { AuthContext } from "../store/auth-context";
 import LoginFallBack from "../components/LoginFallBack";
 import { fetchAdsWithSellerId, deleteAd } from "../util/http";
 import { useIsFocused } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 import MyAdList from "../components/Ads/MyAdList";
 import { NumberOfAdsContext } from "../store/noOfAdsContext";
 
 const MyAds = () => {
+  const navigation = useNavigation();
   const authCtx = useContext(AuthContext);
   const isFocused = useIsFocused();
   const [fetchedAds, setFetchedAds] = useState([]);
@@ -44,7 +46,8 @@ const MyAds = () => {
       setLoading(true);
       await deleteAd(carId);
       // If deletion succeeds, refetch ads
-      getAds();
+      // navigation.navigate("Home");
+      await getAds();
     } catch (error) {
       console.error("Error deleting ad:", error);
     } finally {
