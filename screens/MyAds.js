@@ -4,7 +4,7 @@ import { Colors } from "../constants/colors";
 import { AuthContext } from "../store/auth-context";
 import LoginFallBack from "../components/LoginFallBack";
 import { fetchAdsWithSellerId, deleteAd } from "../util/http";
-import { useIsFocused, useRoute } from "@react-navigation/native";
+import { useIsFocused } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -70,10 +70,19 @@ const MyAds = () => {
       </>
     );
   }
+
+  if (loading) {
+    <>
+      <View style={styles.fallback}>
+        <ActivityIndicator size="large" color="#007AFF" />
+        <Text style={{ fontSize: 20 }}>Loading...</Text>
+      </View>
+    </>;
+  }
   return (
     <>
       <View style={styles.two}></View>
-      <View style={styles.container2}>
+      <View style={styles.container1}>
         {loading ? (
           <View style={styles.fallback}>
             <ActivityIndicator size="large" color="#007AFF" />

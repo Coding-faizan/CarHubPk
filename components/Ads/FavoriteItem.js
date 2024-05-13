@@ -72,11 +72,11 @@ const ProductCard = ({ ad, onSelect }) => {
           </View>
 
           <Pressable style={styles.favourite} onPress={favouriteHandler}>
-            {favoriteAds.includes(ad.carId) && (
-              <AntDesign name="heart" size={24} color="red" />
-            )}
             {!favoriteAds.includes(ad.carId) && (
               <AntDesign name="hearto" size={24} color="black" />
+            )}
+            {favoriteAds.includes(ad.carId) && (
+              <AntDesign name="heart" size={24} color="black" />
             )}
           </Pressable>
         </View>

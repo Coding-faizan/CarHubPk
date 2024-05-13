@@ -1,45 +1,56 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { fetchAdsWithIds } from "../util/http";
-import ProductCard from "../components/Ads/AdItem"; // Assuming ProductCard component is imported correctly
+import ProductCard from "../components/Ads/AdItem";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const FavouritesScreen = () => {
+const Favourites = () => {
+  const [favoriteAds, setFavoriteAds] = useState([]);
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    loadFavoriteAds();
+  }, []);
+
   function selectAdHandler(id, sellerId) {
     navigation.navigate("AdDetails", {
       carId: id,
       userId: sellerId,
     });
   }
-  const route = useRoute();
-  const favoriteIds = route.params?.favoriteAds || [];
-  const [favoriteAds, setFavoriteAds] = useState([]);
 
-  useEffect(() => {
-    const fetchFavoriteAds = async () => {
-      const ads = await fetchAdsWithIds(favoriteIds);
-      setFavoriteAds(ads);
-    };
+  const loadFavoriteAds = async () => {
+    try {
+      const storedFavoriteAds = await AsyncStorage.getItem("favoriteAds");
+      if (storedFavoriteAds !== null) {
+        const favoriteIds = JSON.parse(storedFavoriteAds);
+        const ads = await fetchAdsWithIds(favoriteIds);
+        // Set the initial state of favorite ads
+        setFavoriteAds(ads);
+      }
+    } catch (error) {
+      console.error("Error loading favorite ads:", error);
+    }
+  };
 
-    fetchFavoriteAds();
-  }, [favoriteIds]);
-
-  return (
-    <View style={styles.container}>
-      {favoriteAds.length === 0 ? (
+  if (favoriteAds.length === 0) {
+    return (
+      <View style={styles.container}>
         <Text style={styles.emptyText}>No favorite ads!</Text>
-      ) : (
-        <FlatList
-          style={styles.list}
-          data={favoriteAds}
-          keyExtractor={(item) => item.carId.toString()}
-          renderItem={({ item }) => (
-            <ProductCard ad={item} onSelect={selectAdHandler} />
-          )}
-          contentContainerStyle={styles.contentContainer}
-        />
+      </View>
+    );
+  }
+  return (
+    <FlatList
+      style={styles.list}
+      data={favoriteAds}
+      keyExtractor={(item) => item.carId.toString()}
+      renderItem={({ item }) => (
+        <ProductCard ad={item} onSelect={selectAdHandler} />
       )}
-    </View>
+      contentContainerStyle={styles.contentContainer}
+    />
   );
 };
 
@@ -59,8 +70,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contentContainer: {
-    paddingVertical: 10,
+    paddingTop: 20,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
-export default FavouritesScreen;
+export default Favourites;

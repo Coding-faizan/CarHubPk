@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import AdItem from "./AdItem";
 import ProductCard from "./AdItem";
-import { StyleSheet, FlatList , ScrollView} from "react-native";
+import { StyleSheet, FlatList, ScrollView } from "react-native";
 import { Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -24,7 +24,6 @@ function AdsList({ Ads }) {
   }
 
   return (
-
     <FlatList
       style={styles.list}
       data={Ads}
@@ -34,7 +33,6 @@ function AdsList({ Ads }) {
       )}
       contentContainerStyle={styles.contentContainer}
     />
-    
   );
 }
 
