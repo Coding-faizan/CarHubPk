@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Image, Text , StyleSheet, Button, Pressable} from 'react-native';
+import { View, TextInput, TouchableOpacity, Image, Text , StyleSheet, Button,Alert,  Pressable} from 'react-native';
 import { Colors } from '../constants/colors';
 import { LinearGradient } from "expo-linear-gradient";
 import { FontAwesome } from "@expo/vector-icons";
@@ -30,7 +30,7 @@ const searchCars = () => {
     <>
      <View style={styles.two}></View>
      <View style={styles.header}>
-     <Pressable style={styles.searchContainer} >
+     <Pressable style={styles.searchContainer} onPress={Alert.alert("Under Construction")}>
               <FontAwesome
                 style={styles.icon}
                 name="search"

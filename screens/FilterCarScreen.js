@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, TextInput,StyleSheet, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
+import { View, Text, ScrollView, TextInput,StyleSheet,Alert, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import SearchedData from './SearchedData';
@@ -412,7 +412,8 @@ const FilterCarScreen = () => {
             <View style={styles.searchButtonContainer}>
             <TouchableOpacity
                 style={styles.searchButton}
-                onPress={handleSearch}
+                // onPress={handleSearch}
+                onPress={Alert.alert("Under Construction")}
             >
                 <Text style={styles.searchButtonText}>Search</Text>
             </TouchableOpacity>
