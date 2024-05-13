@@ -27,42 +27,30 @@ const Favourites = () => {
         const favoriteIds = JSON.parse(storedFavoriteAds);
         const ads = await fetchAdsWithIds(favoriteIds);
         // Set the initial state of favorite ads
-        setFavoriteAds(ads.map((ad) => ({ ...ad, isFavorite: true })));
+        setFavoriteAds(ads);
       }
     } catch (error) {
       console.error("Error loading favorite ads:", error);
     }
   };
 
-  const toggleFavorite = (id) => {
-    setFavoriteAds((prevAds) =>
-      prevAds.map((ad) =>
-        ad.carId === id ? { ...ad, isFavorite: !ad.isFavorite } : ad
-      )
-    );
-  };
-
-  return (
-    <View style={styles.container}>
-      {favoriteAds.length === 0 ? (
+  if (favoriteAds.length === 0) {
+    return (
+      <View style={styles.container}>
         <Text style={styles.emptyText}>No favorite ads!</Text>
-      ) : (
-        <FlatList
-          style={styles.list}
-          data={favoriteAds}
-          keyExtractor={(item) => item.carId.toString()}
-          renderItem={({ item }) => (
-            <ProductCard
-              ad={item}
-              onSelect={selectAdHandler}
-              isFavorite={item.isFavorite}
-              onToggleFavorite={() => toggleFavorite(item.carId)}
-            />
-          )}
-          contentContainerStyle={styles.contentContainer}
-        />
+      </View>
+    );
+  }
+  return (
+    <FlatList
+      style={styles.list}
+      data={favoriteAds}
+      keyExtractor={(item) => item.carId.toString()}
+      renderItem={({ item }) => (
+        <ProductCard ad={item} onSelect={selectAdHandler} />
       )}
-    </View>
+      contentContainerStyle={styles.contentContainer}
+    />
   );
 };
 
@@ -70,6 +58,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
   emptyText: {
     fontSize: 18,
@@ -78,10 +68,11 @@ const styles = StyleSheet.create({
   },
   list: {
     flex: 1,
-    width: "100%",
   },
   contentContainer: {
-    paddingBottom: 20,
+    paddingTop: 20,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
