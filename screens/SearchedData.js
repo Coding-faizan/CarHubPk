@@ -33,7 +33,16 @@ const searchCars = () => {
 
 
     setFilteredCars(
-      fetchedAds.filter(car => car.makerName.toLowerCase().includes(filters.makerName.toLowerCase()) && car.modelName.toLowerCase().includes(filters.modelName.toLowerCase()))
+      fetchedAds.filter(car => car.makerName.toLowerCase().includes(filters.makerName.toLowerCase()) &&
+      car.location.toLowerCase().includes(filters.location.toLowerCase()) &&
+      car.mileage.toLowerCase().includes(filters.mileage.toLowerCase()) &&
+      car.price.toLowerCase().includes(filters.price.toLowerCase()) &&
+      car.transmission.toLowerCase().includes(filters.transmission.toLowerCase()) &&
+      car.variant.toLowerCase().includes(filters.variant.toLowerCase()) &&
+      car.carCondition.toLowerCase().includes(filters.carCondition.toLowerCase()) &&
+      car.fuelType.toLowerCase().includes(filters.fuelType.toLowerCase()) &&
+      car.makerName.toLowerCase().includes(filters.makerName.toLowerCase()) &&
+       car.modelName.toLowerCase().includes(filters.modelName.toLowerCase()))
     );
     // if(filteredCars.length === 0){
     //     Alert.alert("Invalid Entry", "No such entry")
