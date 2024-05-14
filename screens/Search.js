@@ -15,33 +15,86 @@ const Search = () => {
   const [fetchedAds, setFetchedAds] = useState([]);
  
 
-  //api to search all cars
- // searchTerm consists the brand/model of the car , compare it with data on backend.
- // storein cars
- useEffect(() => {
-  async function getAds() {
-    const ads = await fetchAds();
-    setFetchedAds(ads);
-  }
 
+//  useEffect(() => {
+//   async function getAds() {
+//     const ads = await fetchAds();
+//     setFetchedAds(ads);
+//   }
+
+//   if (isFocused) {
+//     getAds();
+//   }
+// }, [isFocused]);
+
+// const searchCars = () => {
+ 
+
+//   if(searchTerm === "")
+//   {Alert.alert("Add Data", "Listed below are all recent Ads")}
+
+
+//     setFilteredCars(
+//       fetchedAds.filter(car => car.makerName.toLowerCase().includes(searchTerm.toLowerCase()) || car.modelName.toLowerCase().includes(searchTerm.toLowerCase()))
+//     );
+//     // if(filteredCars.length === 0){
+//     //     Alert.alert("Invalid Entry", "No such entry")
+//     // }
+//   };
+
+
+
+// useEffect(() => {
+//     async function getAds() {
+//       try {
+//         const response = await fetch("https://motorpak.000webhostapp.com/carfilters_api/fetch_car_with_keyword_api.php", {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json",
+//               },
+//               body: JSON.stringify({keywords:searchTerm.toString()}),
+//       });
+//       const data = await response.json();
+//       setFilteredCars(data);
+//       // console.log(data);
+//   } catch (error) {
+//       console.error("Error fetching models:", error);
+//   }  
+//     }
+  
+//     if (isFocused) {
+//       getAds();
+//     }
+//   }, [isFocused]);
+  
+  const searchCars = () => 
+  {
+    if(searchTerm === "")
+    {Alert.alert("Add Data", "Listed below are all recent Ads")}
+    async function getAds() {
+    try {
+      const response = await fetch("https://motorpak.000webhostapp.com/carfilters_api/fetch_car_with_keyword_api.php", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({keywords:searchTerm.toString()}),
+    });
+    const data = await response.json();
+    setFilteredCars(data);
+    // console.log(data);
+  } 
+  catch (error) 
+    {
+    console.error("Error fetching models:", error);
+    }  
+  }
+  
   if (isFocused) {
     getAds();
   }
-}, [isFocused]);
-
-const searchCars = () => {
- 
-
-  if(searchTerm === "")
-  {Alert.alert("Add Data", "Listed below are all recent Ads")}
-
-
-    setFilteredCars(
-      fetchedAds.filter(car => car.makerName.toLowerCase().includes(searchTerm.toLowerCase()) || car.modelName.toLowerCase().includes(searchTerm.toLowerCase()))
-    );
-    // if(filteredCars.length === 0){
-    //     Alert.alert("Invalid Entry", "No such entry")
-    // }
+    
+   
   };
 
  
