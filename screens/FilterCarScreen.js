@@ -1,119 +1,133 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, TextInput,StyleSheet,Alert,Pressable, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
+import { View, Text, ScrollView, TextInput,StyleSheet,Alert, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
-// import SearchedData from './SearchedData';
+import SearchedData from './SearchedData';
 import { useNavigation } from "@react-navigation/native";
-import { LinearGradient } from "expo-linear-gradient";
-import { Colors } from '../constants/colors';
 
 
 const FilterCarScreen = () => {
-    const navigation = useNavigation();
-    const [searchQuery, setSearchQuery] = useState("");
-    const [filters, setFilters] = useState({
-        priceMin: 100000,
-        priceMax: 100000000,
-        mileageMin: 0,
-        mileageMax: 1000000,
-        condition: "",
-        location: "",
-        maker: "",
-        model: "",
-        registeredIn: "",
-        color: "",
-        transmission: "",
-        fuelType: "",
-        engineCapacityMin: 400,
-        engineCapacityMax: 2000,
-        variant: "",
-    });
+  const navigation = useNavigation();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filters, setFilters] = useState({
+    priceMin: 100000,
+    priceMax: 100000000,
+    mileageMin: 0,
+    mileageMax: 1000000,
+    condition: "",
+    location: "",
+    maker: "",
+    model: "",
+    registeredIn: "",
+    color: "",
+    transmission: "",
+    fuelType: "",
+    engineCapacityMin: 400,
+    engineCapacityMax: 2000,
+    variant: "",
+  });
 
-    const [userInputs, setUserInputs] = useState([]);
-    const [makers, setMakers] = useState([]);
-    const [selectedMaker, setSelectedMaker] = useState("");
-    const [models, setModels] = useState([]);
-    const [selectedModel, setSelectedModel] = useState("");
-    const [selectedLocation, setSelectedLocation] = useState("");
+  const [userInputs, setUserInputs] = useState([]);
+  const [makers, setMakers] = useState([]);
+  const [selectedMaker, setSelectedMaker] = useState("");
+  const [models, setModels] = useState([]);
+  const [selectedModel, setSelectedModel] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState("");
 
-    useEffect(() => {
-        fetchMakers();
-    }, []);
+  useEffect(() => {
+    fetchMakers();
+  }, []);
 
-    const fetchMakers = async () => {
-        try {
-            const response = await fetch("https://motorpak.000webhostapp.com/carfilters_api/fetch_makers_api.php");
-            const data = await response.json();
-            setMakers(data);
-        } catch (error) {
-            console.error("Error fetching makers:", error);
+  const fetchMakers = async () => {
+    try {
+      const response = await fetch(
+        "https://motorpak.000webhostapp.com/carfilters_api/fetch_makers_api.php"
+      );
+      const data = await response.json();
+      setMakers(data);
+    } catch (error) {
+      console.error("Error fetching makers:", error);
+    }
+  };
+
+  const fetchModels = async (makerId) => {
+    try {
+      const response = await fetch(
+        "https://motorpak.000webhostapp.com/carfilters_api/fetch_models_api.php",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ m_id: makerId }),
         }
-    };
+      );
+      const data = await response.json();
+      setModels(data);
+    } catch (error) {
+      console.error("Error fetching models:", error);
+    }
+  };
 
-    const fetchModels = async (makerId) => {
-        try {
-            const response = await fetch("https://motorpak.000webhostapp.com/carfilters_api/fetch_models_api.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ m_id: makerId }),
-            });
-            const data = await response.json();
-            setModels(data);
-        } catch (error) {
-            console.error("Error fetching models:", error);
-        }
-    };
+  const handlePriceChange = (values) => {
+    setFilters((prevState) => ({
+      ...prevState,
+      priceMin: values[0],
+      priceMax: values[1],
+    }));
+    setUserInputs((prevInputs) => [
+      ...prevInputs,
+      { field: "priceMin", value: values[0] },
+      { field: "priceMax", value: values[1] },
+    ]);
+  };
 
-    const handlePriceChange = (values) => {
-        setFilters(prevState => ({
-            ...prevState,
-            priceMin: values[0],
-            priceMax: values[1],
-        }));
-        setUserInputs(prevInputs => [...prevInputs, { field: 'priceMin', value: values[0] }, { field: 'priceMax', value: values[1] }]);
-    };
+  const handleMileageChange = (values) => {
+    setFilters((prevState) => ({
+      ...prevState,
+      mileageMin: values[0],
+      mileageMax: values[1],
+    }));
+    setUserInputs((prevInputs) => [
+      ...prevInputs,
+      { field: "mileageMin", value: values[0] },
+      { field: "mileageMax", value: values[1] },
+    ]);
+  };
 
-    const handleMileageChange = (values) => {
-        setFilters(prevState => ({
-            ...prevState,
-            mileageMin: values[0],
-            mileageMax: values[1],
-        }));
-        setUserInputs(prevInputs => [...prevInputs, { field: 'mileageMin', value: values[0] }, { field: 'mileageMax', value: values[1] }]);
-    };
+  const handleInputChange = (fieldName, value) => {
+    setFilters((prevState) => ({
+      ...prevState,
+      [fieldName]: value,
+    }));
+    setUserInputs((prevInputs) => [...prevInputs, { field: fieldName, value }]);
+  };
 
-    const handleInputChange = (fieldName, value) => {
-        setFilters(prevState => ({
-            ...prevState,
-            [fieldName]: value,
-        }));
-        setUserInputs(prevInputs => [...prevInputs, { field: fieldName, value }]);
-    };
+  const handleConditionChange = (condition) => {
+    setFilters((prevState) => ({
+      ...prevState,
+      condition: condition,
+    }));
+    setUserInputs((prevInputs) => [
+      ...prevInputs,
+      { field: "condition", value: condition },
+    ]);
+  };
 
-    const handleConditionChange = (condition) => {
-        setFilters(prevState => ({
-            ...prevState,
-            condition: condition,
-        }));
-        setUserInputs(prevInputs => [...prevInputs, { field: 'condition', value: condition }]);
-    };
+  const formatPrice = (value) => {
+    if (value >= 10000000) {
+      return `${value / 10000000} Crore`;
+    } else if (value >= 100000) {
+      return `${value / 100000} Lac`;
+    } else {
+      return `${value / 1000} Thousand`;
+    }
+  };
 
-    const formatPrice = (value) => {
-        if (value >= 10000000) {
-            return `${value / 10000000} Crore`;
-        } else if (value >= 100000) {
-            return `${value / 100000} Lac`;
-        } else {
-            return `${value / 1000} Thousand`;
-        }
-    };
-
-    const handleSearch = () => {
-        navigation.navigate("SearchedData", {filters});
-    };
-    return (
+  const handleSearch = () => {
+    navigation.navigate("SearchedData", { filters });
+  };
+  return (
     <SafeAreaView style={{ flex: 1 }}>
         <StatusBar backgroundColor="#b2d8ff" />
         <ScrollView>
@@ -411,26 +425,7 @@ const FilterCarScreen = () => {
                     </View>
                 </View>
             </ScrollView>
-            <Pressable
-                style={styles.loginBtn}
-                onPress={handleSearch}
-              >
-                <LinearGradient
-                  style={styles.item}
-                  colors={[
-                    Colors.primary500,
-                    Colors.primary700,
-                    Colors.primary500,
-                  ]}
-                >
-                  <Text
-                    style={{ fontSize: 20, fontWeight: 500, color: "white" }}
-                  >
-                  Filter Search
-                  </Text>
-                </LinearGradient>
-              </Pressable>
-            {/* <View style={styles.searchButtonContainer}>
+            <View style={styles.searchButtonContainer}>
             <TouchableOpacity
                 style={styles.searchButton}
                 // onPress={handleSearch}
@@ -438,7 +433,7 @@ const FilterCarScreen = () => {
             >
                 <Text style={styles.searchButtonText}>Search</Text>
             </TouchableOpacity>
-        </View> */}
+        </View>
         </SafeAreaView>
     );
 };
@@ -530,15 +525,6 @@ const styles = StyleSheet.create({
     colorTabText: {
         color: 'black',
     },
-    item: {
-        justifyContent: "center",
-        alignItems: "center",
-        paddingVertical: 7,
-        // paddingHorizontal: 30,
-        height:50,
-        borderRadius: 10,
-        color: "white",
-      },
 });
 
 export default FilterCarScreen;
