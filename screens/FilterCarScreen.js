@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, TextInput,StyleSheet,Alert, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
+import { View, Text, ScrollView, TextInput,StyleSheet,Alert,Pressable, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
-import SearchedData from './SearchedData';
+// import SearchedData from './SearchedData';
 import { useNavigation } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
+import { Colors } from '../constants/colors';
 
 
 const FilterCarScreen = () => {
@@ -409,7 +411,26 @@ const FilterCarScreen = () => {
                     </View>
                 </View>
             </ScrollView>
-            <View style={styles.searchButtonContainer}>
+            <Pressable
+                style={styles.loginBtn}
+                onPress={handleSearch}
+              >
+                <LinearGradient
+                  style={styles.item}
+                  colors={[
+                    Colors.primary500,
+                    Colors.primary700,
+                    Colors.primary500,
+                  ]}
+                >
+                  <Text
+                    style={{ fontSize: 20, fontWeight: 500, color: "white" }}
+                  >
+                  Filter Search
+                  </Text>
+                </LinearGradient>
+              </Pressable>
+            {/* <View style={styles.searchButtonContainer}>
             <TouchableOpacity
                 style={styles.searchButton}
                 // onPress={handleSearch}
@@ -417,7 +438,7 @@ const FilterCarScreen = () => {
             >
                 <Text style={styles.searchButtonText}>Search</Text>
             </TouchableOpacity>
-        </View>
+        </View> */}
         </SafeAreaView>
     );
 };
@@ -509,6 +530,15 @@ const styles = StyleSheet.create({
     colorTabText: {
         color: 'black',
     },
+    item: {
+        justifyContent: "center",
+        alignItems: "center",
+        paddingVertical: 7,
+        // paddingHorizontal: 30,
+        height:50,
+        borderRadius: 10,
+        color: "white",
+      },
 });
 
 export default FilterCarScreen;

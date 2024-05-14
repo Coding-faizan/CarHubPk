@@ -18,7 +18,7 @@ function AdsList({ Ads }) {
   if (!Ads || Ads.length === 0) {
     return (
       <View style={styles.fallBackContainer}>
-        <Text style={styles.fallBackText}>No Ads Posted!</Text>
+        <Text style={styles.fallBackText}>No Ads!</Text>
       </View>
     );
   }
@@ -53,6 +53,11 @@ const styles = StyleSheet.create({
   },
 
   fallBackText: {
-    fontSize: 16,
+    fontSize: 24,
+    color:"white",
+    fontWeight:"bold",
+    textShadowColor: "black",
+    textShadowOffset: { width: 2, height: 1.2 },
+    textShadowRadius: 4,
   },
 });

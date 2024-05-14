@@ -1,27 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, TextInput, TouchableOpacity, Image, Text , StyleSheet, Button,Alert,  Pressable} from 'react-native';
 import { Colors } from '../constants/colors';
 import { LinearGradient } from "expo-linear-gradient";
 import { FontAwesome } from "@expo/vector-icons";
+import { useIsFocused } from "@react-navigation/native";
+import AdsList from "../components/Ads/AdsList";
+import fetchAds from "../util/http";
 
 const Search = () => {
   const [cars, setCars] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredCars, setFilteredCars] = useState([]);
-
+  const isFocused = useIsFocused();
+  const [fetchedAds, setFetchedAds] = useState([]);
  
 
   //api to search all cars
+ // searchTerm consists the brand/model of the car , compare it with data on backend.
+ // storein cars
+ useEffect(() => {
+  async function getAds() {
+    const ads = await fetchAds();
+    setFetchedAds(ads);
+  }
 
+  if (isFocused) {
+    getAds();
+  }
+}, [isFocused]);
 
 const searchCars = () => {
+ 
+
+  if(searchTerm === "")
+  {Alert.alert("Add Data", "Listed below are all recent Ads")}
+
+
     setFilteredCars(
-      cars.filter(car => car.make.toLowerCase().includes(searchTerm.toLowerCase()) || car.model.toLowerCase().includes(searchTerm.toLowerCase()))
+      fetchedAds.filter(car => car.makerName.toLowerCase().includes(searchTerm.toLowerCase()) || car.modelName.toLowerCase().includes(searchTerm.toLowerCase()))
     );
-    if(!filteredCars){
-        Alert.alert("Invalid Entry", "No such entry")
-    }
-    // console.log(filteredCars)
+    // if(filteredCars.length === 0){
+    //     Alert.alert("Invalid Entry", "No such entry")
+    // }
   };
 
  
@@ -30,7 +50,9 @@ const searchCars = () => {
     <>
      <View style={styles.two}></View>
      <View style={styles.header}>
-     <Pressable style={styles.searchContainer} onPress={Alert.alert("Under Construction")}>
+     <Pressable style={styles.searchContainer}
+      // onPress={Alert.alert("Under Construction")}
+      >
               <FontAwesome
                 style={styles.icon}
                 name="search"
@@ -39,7 +61,7 @@ const searchCars = () => {
               />
               <TextInput
         style={styles.searchBar}
-        placeholder="Search cars..."
+        placeholder="Enter Brand or Model"
         onChangeText={text => setSearchTerm(text)}
       />
             </Pressable>
@@ -63,6 +85,9 @@ const searchCars = () => {
                 </LinearGradient>
               </Pressable>
             </View>
+            <View style={styles.container1}>
+        <AdsList style={styles.list} Ads={filteredCars} />
+      </View>
 
       {/* <View style={styles.carGrid}>
         {filteredCars?.map(car => (
@@ -129,6 +154,12 @@ txt: {
 searchBar: {
   paddingLeft:10
 
+  },
+  container1: {
+    marginTop: 0,
+    flexDirection: "column",
+    alignItems: "center",
+    height: "81%",
   },
  
 });
