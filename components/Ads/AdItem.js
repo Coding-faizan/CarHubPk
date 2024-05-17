@@ -14,6 +14,11 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage"; // Import AsyncStorage
 
 const ProductCard = ({ ad, onSelect }) => {
+  console.log("AD>>>>", ad);
+  if (!!ad.ImageUrls && ad.ImageUrls.length > 0)
+    console.log("AD URL>>>>", ad?.ImageUrls[0].ImageUrl);
+
+
   const [favoriteAds, setFavoriteAds] = useState([]);
   const authCtx = useContext(AuthContext);
   const navigation = useNavigation();
@@ -63,7 +68,7 @@ const ProductCard = ({ ad, onSelect }) => {
       onPress={onSelect.bind(this, ad.carId, ad.sellerId)}
     >
       <View style={styles.card}>
-        <Image source={{ uri: ad.imageUrls[0] }} style={styles.image} />
+        <Image source={{ uri: (!!ad.ImageUrls && ad.ImageUrls.length > 0) ? ad.ImageUrls[0].ImageUrl : ad.imageUrls[0] }} style={styles.image} />
         <View style={styles.content}>
           <View>
             <Text style={styles.title}>{ad.title}</Text>

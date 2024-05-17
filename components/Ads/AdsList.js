@@ -6,6 +6,8 @@ import { Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 function AdsList({ Ads }) {
+
+  console.log("ADS>>>>", Ads);
   const navigation = useNavigation();
 
   function selectAdHandler(id, sellerId) {
@@ -24,15 +26,17 @@ function AdsList({ Ads }) {
   }
 
   return (
-    <FlatList
-      style={styles.list}
-      data={Ads}
-      keyExtractor={(item) => item.carId}
-      renderItem={({ item }) => (
-        <ProductCard ad={item} onSelect={selectAdHandler} />
-      )}
-      contentContainerStyle={styles.contentContainer}
-    />
+    <>
+      {Ads.length > 0 && <FlatList
+        style={styles.list}
+        data={Ads}
+        keyExtractor={(item) => item.carId}
+        renderItem={({ item, index }) => (
+          <ProductCard key={index} ad={item} onSelect={selectAdHandler} />
+        )}
+        contentContainerStyle={styles.contentContainer}
+      />}
+    </>
   );
 }
 
@@ -54,8 +58,8 @@ const styles = StyleSheet.create({
 
   fallBackText: {
     fontSize: 24,
-    color:"white",
-    fontWeight:"bold",
+    color: "white",
+    fontWeight: "bold",
     textShadowColor: "black",
     textShadowOffset: { width: 2, height: 1.2 },
     textShadowRadius: 4,

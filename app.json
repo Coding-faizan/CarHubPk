@@ -21,7 +21,11 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.fahadzahidd24.carHub"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -31,7 +35,7 @@
         "expo-image-picker",
         {
           "photosPermission": "Give permission to upload!",
-          "cameraPermission" : "Give permission to upload!"
+          "cameraPermission": "Give permission to upload!"
         }
       ]
     ]
