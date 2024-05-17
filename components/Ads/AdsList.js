@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 
 function AdsList({ Ads }) {
 
-  console.log("ADS>>>>", Ads);
+//  console.log("ADS>>>>", Ads);
   const navigation = useNavigation();
 
   function selectAdHandler(id, sellerId) {

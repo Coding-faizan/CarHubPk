@@ -51,7 +51,7 @@ const SearchedDataOrg= async({filters})=> {
                 location: filters.location}),
     });
     const data = await response.json();
-    console.log(data);
+    //console.log(data);
 } catch (error) {
     console.error("Error fetching models:", error);
 }

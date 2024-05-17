@@ -70,18 +70,40 @@ const Search = () => {
     if (searchTerm === "") { Alert.alert("Add Data", "Listed below are all recent Ads") }
     console.log({searchTerm});
     async function getAds() {
-      try {
-        const response = await fetch("https://motorpak.000webhostapp.com/carfilters_api/fetch_car_with_keyword_api.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ keywords: searchTerm.toString() }),
-        });
-        const data = await response.json();
-        console.log(data);
-        setFilteredCars(data);
-      }
+  try {
+  const response = await fetch("https://motorpak.000webhostapp.com/carfilters_api/fetch_car_with_keyword_api.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ keywords: searchTerm.toString() }),
+  });
+  const data = await response.json();
+
+  // Map over the data and rename the keys for each car object
+  const modifiedData = data.map(car => ({
+    carId: car.CarID,
+    makerName: car.MakerName,
+    modelName: car.ModelName,
+    variant: car.Variant,
+    registrationYear: car.RegistrationYear,
+    price: car.Price,
+    mileage: car.Mileage,
+    fuelType: car.FuelType,
+    transmission: car.Transmission,
+    carCondition: car.carCondition,
+    description: car.Description,
+    sellerId: car.SellerID,
+    location: car.Location,
+    carStatus: car.carStatus,
+    date: car.Date, // Assuming Date is a property in the car object
+    title: car.title,
+    imageUrls: car.ImageUrls.map(image => image.ImageUrl), // Extracting ImageUrls from the array of objects
+  }));
+
+  //console.log(modifiedData);
+  setFilteredCars(modifiedData);
+}
       catch (error) {
         console.error("Error fetching models:", error);
       }

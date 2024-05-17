@@ -2,6 +2,9 @@ import axios from "axios";
 
 const BACKEND_URL = "https://motorpak.000webhostapp.com/car_api/";
 
+
+
+
 export default async function fetchAds() {
   try {
     const response = await axios.get(BACKEND_URL + "fetch_cars_api.php");
@@ -60,6 +63,139 @@ export default async function fetchAds() {
   }
 }
 
+
+
+export async function fetchFilteredAds(filters) {
+  try {
+    const response = await fetch('https://motorpak.000webhostapp.com/carfilters_api/fetch_filter_cars_api.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(filters),
+    });
+
+    const data = await response.json();
+
+    const Ads = [];
+    data.forEach((adData) => {
+      const {
+        CarID,
+        MakerName,
+        ModelName,
+        Variant,
+        RegistrationYear,
+        Price,
+        Mileage,
+        FuelType,
+        Transmission,
+        carCondition,
+        Description,
+        SellerID,
+        Location,
+        carStatus,
+        Date,
+        title,
+        ImageUrls,
+      } = adData;
+
+      const imageUrls = ImageUrls.map((item) => item.ImageUrl);
+
+      const adObj = {
+        carId: CarID,
+        makerName: MakerName,
+        modelName: ModelName,
+        variant: Variant,
+        registrationYear: RegistrationYear,
+        price: Price,
+        mileage: Mileage,
+        fuelType: FuelType,
+        transmission: Transmission,
+        carCondition: carCondition,
+        description: Description,
+        sellerId: SellerID,
+        location: Location,
+        carStatus: carStatus,
+        date: new Date(Date),
+        title: title,
+        imageUrls: imageUrls,
+      };
+
+      Ads.push(adObj);
+    });
+
+    return Ads;
+  } catch (error) {
+    console.error("Error fetching filtered ads:", error);
+    throw error;
+  }
+}
+
+export async function fetchdAdsbyKeywords(keywords) {
+  try {
+    const response = await fetch("https://motorpak.000webhostapp.com/carfilters_api/fetch_car_with_keyword_api.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ keywords: keywords}),
+        });
+
+    const data = await response.json();
+
+    const Ads = [];
+    data.forEach((adData) => {
+      const {
+        CarID,
+        MakerName,
+        ModelName,
+        Variant,
+        RegistrationYear,
+        Price,
+        Mileage,
+        FuelType,
+        Transmission,
+        carCondition,
+        Description,
+        SellerID,
+        Location,
+        carStatus,
+        Date,
+        title,
+        ImageUrls,
+      } = adData;
+
+      const imageUrls = ImageUrls.map((item) => item.ImageUrl);
+
+      const adObj = {
+        carId: CarID,
+        makerName: MakerName,
+        modelName: ModelName,
+        variant: Variant,
+        registrationYear: RegistrationYear,
+        price: Price,
+        mileage: Mileage,
+        fuelType: FuelType,
+        transmission: Transmission,
+        carCondition: carCondition,
+        description: Description,
+        sellerId: SellerID,
+        location: Location,
+        carStatus: carStatus,
+        date: new Date(Date),
+        title: title,
+        imageUrls: imageUrls,
+      };
+
+      Ads.push(adObj);
+    });
+
+    return Ads;
+  } catch (error) {
+    console.error("Error fetching filtered ads:", error);
+    throw error;
+  }
+}
 export async function fetchAdWithId(index) {
   const Ads = await fetchAds();
   return Ads.find((ad) => ad.carId === index);

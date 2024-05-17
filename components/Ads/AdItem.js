@@ -14,7 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage"; // Import AsyncStorage
 
 const ProductCard = ({ ad, onSelect }) => {
-  console.log("AD>>>>", ad);
+  //console.log("AD>>>>", ad);
   if (!!ad.ImageUrls && ad.ImageUrls.length > 0)
     console.log("AD URL>>>>", ad?.ImageUrls[0].ImageUrl);
 

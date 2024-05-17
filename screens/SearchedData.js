@@ -1,55 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, TouchableOpacity, Image, Text , StyleSheet, Button,Alert,  Pressable} from 'react-native';
-import { Colors } from '../constants/colors';
-import { useIsFocused } from "@react-navigation/native";
+import { View, Alert, StyleSheet } from 'react-native';
+import { useIsFocused, useRoute } from "@react-navigation/native";
 import AdsList from "../components/Ads/AdsList";
-import fetchAds from "../util/http";
-
-const SearchedData = ({filters}) => {
+import { Colors } from '../constants/colors';
+import fetchFilteredAds from "../util/http";
+const SearchedData = () => {
   const [filteredCars, setFilteredCars] = useState([]);
   const isFocused = useIsFocused();
-  const [fetchedAds, setFetchedAds] = useState([]);
- 
+  const route = useRoute();
+  const filters = route.params?.filters || {};
 
-  //api to search all cars
- // searchTerm consists the brand/model of the car , compare it with data on backend.
- // storein cars
- useEffect(() => {
-  async function getAds() {
-    const ads = await fetchAds();
-    setFetchedAds(ads);
-  }
+  useEffect(() => {
+    if (isFocused) {
+      async function getAds() {
+        try {
+          const ads = await fetchFilteredAds(filters);
+          setFilteredCars(ads);
+          console.log(ads);
+        } catch (error) {
+          console.error('Error:', error);
+          Alert.alert("Error", "An error occurred while fetching data");
+        }
+      }
 
-  if (isFocused) {
-    getAds();
-  }
-}, [isFocused]);
-
-const searchCars = () => {
- 
-
-  if(searchTerm === "")
-  {Alert.alert("Add Data", "Listed below are all recent Ads")}
+      getAds();
+    }
+  }, [isFocused, filters]);
 
 
-    setFilteredCars(
-      fetchedAds.filter(car => car.makerName.toLowerCase().includes(filters.makerName.toLowerCase()) &&
-      car.location.toLowerCase().includes(filters.location.toLowerCase()) &&
-      car.mileage.toLowerCase().includes(filters.mileage.toLowerCase()) &&
-      car.price.toLowerCase().includes(filters.price.toLowerCase()) &&
-      car.transmission.toLowerCase().includes(filters.transmission.toLowerCase()) &&
-      car.variant.toLowerCase().includes(filters.variant.toLowerCase()) &&
-      car.carCondition.toLowerCase().includes(filters.carCondition.toLowerCase()) &&
-      car.fuelType.toLowerCase().includes(filters.fuelType.toLowerCase()) &&
-      car.makerName.toLowerCase().includes(filters.makerName.toLowerCase()) &&
-       car.modelName.toLowerCase().includes(filters.modelName.toLowerCase()))
-    );
-    // if(filteredCars.length === 0){
-    //     Alert.alert("Invalid Entry", "No such entry")
-    // }
-  };
-
- 
 
   return (
     <>
