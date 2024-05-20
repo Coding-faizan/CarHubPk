@@ -1,24 +1,30 @@
 import React from 'react';
-import { View, StyleSheet, KeyboardAvoidingView, ScrollView, Platform, Text } from 'react-native';
+import { View, StyleSheet, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons'; // Make sure you have installed @expo/vector-icons
 import CalculateTax from '../components/CalculateTax/CalculateTax';
-import { StatusBar } from 'expo-status-bar';
 import { Colors } from '../constants/colors';
 
 const TaxCalculatorScreen = () => {
+  const navigation = useNavigation();
+
   return (
     <>
-     <View style={styles.two}></View>
+      <View style={styles.two}></View>
       <View style={styles.container}>
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={24} color="white" />
+        </TouchableOpacity>
         <View style={styles.row}>
           <Text style={styles.data}>Calculate Tax</Text>
         </View>
         <View style={styles.con}>
-        <ScrollView style={styles.content}>
-          <CalculateTax />
-        </ScrollView>
+          <ScrollView style={styles.content} contentContainerStyle={styles.scrollContent}>
+            <CalculateTax />
+          </ScrollView>
         </View>
       </View>
-      </>
+    </>
   );
 };
 
@@ -35,15 +41,20 @@ const styles = StyleSheet.create({
     zIndex: -1,
   },
   container: {
-    // flex: 1,
-    // justifyContent: 'center',
-    // alignItems: "center",
-    // marginTop:50
+    flex: 1,
+    marginTop: 30,
+   
+  },
+  backButton: {
+    position: 'absolute',
+    top: 35,
+    left: 15,
+    zIndex: 1,
   },
   row: {
     marginTop: 65,
-    marginLeft: 15,
-    marginBottom:20,
+    "justifyContent":"center",
+    "alignItems":"center",
   },
   data: {
     fontSize: 34,
@@ -55,14 +66,21 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 2, height: 1.2 },
     textShadowRadius: 4,
   },
-  con:{
-    // flex: 1,
+  con: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: "center",
-
+    paddingHorizontal: 20,
+    "marginBottom":40,
   },
   content: {
-    
+    width: '100%',
+  },
+  scrollContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    "marginBottom":30,
   },
 });
 

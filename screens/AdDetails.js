@@ -129,7 +129,7 @@ export default function AdDetails({ route }) {
         <View style={styles.sellerInfo}>
           {/* <Text style={{ fontSize: 14 }}>Seller</Text> */}
           <FontAwesome name="user-circle-o" size={30} color="black" />
-          <Text style={{ fontSize: 18, fontWeight: "600" }}>
+          <Text style={{ fontSize: 18, fontWeight: "600",right:10, }}>
             {userDetails.Name}
           </Text>
         </View>
@@ -138,11 +138,11 @@ export default function AdDetails({ route }) {
       <View style={styles.iconsContainer}>
         <View style={styles.iconContainer}>
           <Ionicons name="speedometer-outline" size={24} color="black" />
-          <Text style={styles.textStyle}>{"20,000 km"}</Text>
+          <Text style={styles.textStyle}>{fetchedAd.mileage}</Text>
         </View>
         <View style={styles.iconContainer}>
           <FontAwesome name="calendar" size={24} color="black" />
-          <Text style={styles.textStyle}>{"2020"}</Text>
+          <Text style={styles.textStyle}>{fetchedAd.registrationYear}</Text>
         </View>
 
         <View style={styles.iconContainer}>
@@ -214,11 +214,14 @@ const styles = StyleSheet.create({
   sellerInfo: {
     alignItems: "center",
     justifyContent: "center",
+    flexShrink: 1, 
+    
+    
   },
 
   image: {
     height: "35%",
-    minHeight: 300,
+    minHeight: 500,
     width: "100%",
   },
   locationContainer: {
