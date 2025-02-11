@@ -21,13 +21,13 @@ export default function More() {
   const navigateToAbout = () => {
     navigation.navigate("About");
   };
+  const navigateToWorkshop = () => {
+    navigation.navigate("Welcome");
+  };
 
   return (
     <View style={styles.all}>
       <View style={styles.two}></View>
-      {/* <View style={styles.more}>
-        <Text style={styles.moreText}>More</Text>
-      </View> */}
       <View style={styles.content}>
         <Pressable onPress={navigateToTax}>
           <LinearGradient
@@ -63,29 +63,37 @@ export default function More() {
             <Text style={styles.text}>About Us</Text>
           </LinearGradient>
         </Pressable>
+        <Pressable onPress={navigateToWorkshop}>
+          <LinearGradient
+            style={styles.item}
+            colors={[Colors.primary400, Colors.primary700, Colors.primary400]}
+          >
+            <Text style={styles.text}>Workshop</Text>
+          </LinearGradient>
+        </Pressable>
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  all:{
-    height:"100%",
+  all: {
+    height: "100%",
   },
-  two:{
-   backgroundColor:Colors.primary500,
-   position:"absolute",
-   top:"10%",
-   left:0,
-   right:0,
-   bottom:"10%",
-   opacity:0.4,
-   borderBottomLeftRadius:1000,
-   borderBottomRightRadius:0,
-   borderTopRightRadius:1000,
- },
+  two: {
+    backgroundColor: Colors.primary500,
+    position: "absolute",
+    top: "10%",
+    left: 0,
+    right: 0,
+    bottom: "10%",
+    opacity: 0.4,
+    borderBottomLeftRadius: 1000,
+    borderBottomRightRadius: 0,
+    borderTopRightRadius: 1000,
+  },
   content: {
-    flex:1,
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
     margin: 10,

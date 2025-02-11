@@ -17,7 +17,21 @@ import TaxCalculatorScreen from "./screens/TaxCalculatorScreen";
 import FilterCarScreen from "./screens/FilterCarScreen";
 import SearchedData from "./screens/SearchedData";
 import Search from "./screens/Search"
+
 import { NumberOfAdsProvider } from "./store/noOfAdsContext";
+
+
+
+
+import CustomerDashboard from "./screens/CustomerDashboard";
+import SignUpScreen from "./screens/SignUpScreen";
+import LoginScreen from "./screens/LoginScreen";
+import FirstScreen from "./screens/FirstScreen";
+import ServiceProvider from "./screens/ServiceProvider";
+import WorkshopDetailsScreen from "./screens/WorkshopDashboard";
+import BookingScreen from "./screens/BookAppointment";
+import SelectionScreen from "./screens/SelectionPage";
+import MapScreen from "./screens/MapPage";
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +53,17 @@ function AuthStack() {
       <Stack.Screen name="FilterCarScreen" component={FilterCarScreen} />
       <Stack.Screen name="SearchedData" component={SearchedData} />
       <Stack.Screen name="Search" component={Search} />
+      
+      <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ title: "Login" }} />
+
+        <Stack.Screen name="Welcrome" component={FirstScreen} options={{ title: "Workshop Hub" }} />
+          <Stack.Screen name="Select" component={SelectionScreen} options={{ title:"Workshop Hub" }} />
+        <Stack.Screen name="SeriviceProvider" component={ServiceProvider} options={{ title: "Service Provider" }} />
+        <Stack.Screen name="WorkshopDetailsScreen" component={WorkshopDetailsScreen} options={{ title: "Workshop Details" }} />
+        <Stack.Screen name="BookingScreen" component={BookingScreen} options={{ title: "Book Appointment" }} />
+        <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{ title: "Sign Up" }} />
+        <Stack.Screen name="Customer Dashboard" component={CustomerDashboard} options={{ title: "Dashboard" }} />
+        <Stack.Screen name="MapScreen" component={MapScreen} />
     </Stack.Navigator>
   );
 }

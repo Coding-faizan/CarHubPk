@@ -45,7 +45,9 @@
     "react-native-reanimated": "~3.6.2",
     "react-native-select-dropdown": "^3.4.0",
     "react-redux": "^9.1.2",
-    "redux": "^5.0.1"
+    "redux": "^5.0.1",
+    "expo-location": "~16.5.5",
+    "react-native-maps": "1.10.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
