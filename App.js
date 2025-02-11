@@ -84,6 +84,16 @@ function AuthenticatedStack() {
       <Stack.Screen name="FilterCarScreen" component={FilterCarScreen} />
       <Stack.Screen name="SearchedData" component={SearchedData} />
       <Stack.Screen name="Search" component={Search} />
+       <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ title: "Login" }} />
+
+        <Stack.Screen name="Welcrome" component={FirstScreen} options={{ title: "Workshop Hub" }} />
+          <Stack.Screen name="Select" component={SelectionScreen} options={{ title:"Workshop Hub" }} />
+        <Stack.Screen name="SeriviceProvider" component={ServiceProvider} options={{ title: "Service Provider" }} />
+        <Stack.Screen name="WorkshopDetailsScreen" component={WorkshopDetailsScreen} options={{ title: "Workshop Details" }} />
+        <Stack.Screen name="BookingScreen" component={BookingScreen} options={{ title: "Book Appointment" }} />
+        <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{ title: "Sign Up" }} />
+        <Stack.Screen name="Customer Dashboard" component={CustomerDashboard} options={{ title: "Dashboard" }} />
+        <Stack.Screen name="MapScreen" component={MapScreen} />
     </Stack.Navigator>
   );
 }
