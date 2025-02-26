@@ -56,7 +56,7 @@ function AuthStack() {
       
       <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ title: "Login" }} />
 
-        <Stack.Screen name="Welcrome" component={FirstScreen} options={{ title: "Workshop Hub" }} />
+        <Stack.Screen name="Welcome" component={FirstScreen} options={{ title: "Workshop Hub" }} />
           <Stack.Screen name="Select" component={SelectionScreen} options={{ title:"Workshop Hub" }} />
         <Stack.Screen name="SeriviceProvider" component={ServiceProvider} options={{ title: "Service Provider" }} />
         <Stack.Screen name="WorkshopDetailsScreen" component={WorkshopDetailsScreen} options={{ title: "Workshop Details" }} />
@@ -86,7 +86,7 @@ function AuthenticatedStack() {
       <Stack.Screen name="Search" component={Search} />
        <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ title: "Login" }} />
 
-        <Stack.Screen name="Welcrome" component={FirstScreen} options={{ title: "Workshop Hub" }} />
+        <Stack.Screen name="Welcome" component={FirstScreen} options={{ title: "Workshop Hub" }} />
           <Stack.Screen name="Select" component={SelectionScreen} options={{ title:"Workshop Hub" }} />
         <Stack.Screen name="SeriviceProvider" component={ServiceProvider} options={{ title: "Service Provider" }} />
         <Stack.Screen name="WorkshopDetailsScreen" component={WorkshopDetailsScreen} options={{ title: "Workshop Details" }} />
